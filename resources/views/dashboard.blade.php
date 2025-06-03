@@ -6,6 +6,7 @@
   <title>Sikerma Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="flex text-black font-sans">
   <div class="flex min-h-screen bg-gray-300">
@@ -13,6 +14,20 @@
   <x-sidebar />
 
     <main class="flex-1 p-6 bg-gray-100">
+    @if(session('success'))
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Berhasil',
+            text: {!! json_encode(session('success')) !!},
+            showConfirmButton: false,
+            timer: 2000, // otomatis hilang dalam 2 detik
+            timerProgressBar: false
+          });
+        });
+      </script>
+    @endif
         @yield('content')
     </main>
   </div>
