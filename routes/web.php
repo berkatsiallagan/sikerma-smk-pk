@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\PengajuanController;
 
-
+Route::view('/', 'welcome')->name('home');
 Route::view('/dashboard', 'dashboard')->name('dashboard');
 Route::view('/arsip', 'arsip')->name('arsip');
 Route::view('/arsipPengajuan', 'arsipPengajuan')->name('arsipPengajuan');
@@ -17,6 +17,9 @@ Route::view('/namamitra', 'namamitra')->name('namamitra');
 Route::view('/namajurusan', 'namajurusan')->name('namajurusan');
 Route::view('/progressAjuan', 'progressAjuan')->name('progressAjuan');
 Route::view('/login', 'login')->name('login');
+Route::view('/kerjasama', 'kerjasama')->name('kerjasama');
+Route::view('/contact', 'contact')->name('contact');
+
 
 use App\Http\Controllers\StatusController;
 
