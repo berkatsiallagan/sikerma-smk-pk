@@ -1,0 +1,162 @@
+   * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #fff;
+    color: #000;
+  }
+  .container {
+    display: flex;
+    min-height: 100vh;
+  }
+  aside {
+    width: 240px;
+    background-color: #d6861a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .top-aside {
+    flex-grow: 1;
+  }
+  .header {
+    background-color: #4a1f00;
+    color: #fff;
+    font-weight: 700;
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header img {
+    width: 32px;
+    height: 32px;
+  }
+  .user-info {
+    background-color: #c98f2a;
+    padding: 20px 20px 24px 20px;
+    color: #000;
+  }
+  .user-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+  .user-name {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .user-role {
+    font-size: 12px;
+    font-family: 'Roboto Slab', serif;
+  }
+  nav {
+    margin-top: 8px;
+  }
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-family: 'Roboto Slab', serif;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+    padding: 12px 20px;
+    background-color: #d6861a;
+    transition: background-color 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #c98f2a;
+  }
+  nav a.active {
+    background-color: #c98f2a;
+  }
+  .nav-icon {
+    font-size: 18px;
+  }
+  .bottom-aside {
+    padding: 16px 20px;
+    font-weight: 700;
+    font-family: 'Roboto Slab', serif;
+    font-size: 14px;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .bottom-aside .fa-arrow-left {
+    font-size: 16px;
+  }
+  main {
+    flex-grow: 1;
+    padding: 40px 30px;
+    overflow-x: auto;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 900px;
+  }
+  thead tr {
+    background-color: #ccc;
+  }
+  thead th {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid #999;
+    text-align: left;
+  }
+  tbody td {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    padding: 10px 12px;
+    border: 1px solid #999;
+  }
+  @media (max-width: 600px) {
+    aside {
+      width: 100%;
+      flex-direction: row;
+      padding: 8px 0;
+      overflow-x: auto;
+    }
+    .header {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+    .user-info {
+      display: none;
+    }
+    nav {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-top: 0;
+    }
+    nav a {
+      padding: 8px 12px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .bottom-aside {
+      display: none;
+    }
+    main {
+      padding: 20px 15px;
+    }
+    table {
+      font-size: 11px;
+      max-width: 100%;
+    }
+    thead th, tbody td {
+      padding: 6px 8px;
+    }
+  }
