@@ -17,6 +17,7 @@
         }
         .login-container {
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            position: relative; /* Added for close button positioning */
         }
         .btn-login {
             letter-spacing: 0.5px;
@@ -28,11 +29,34 @@
         .input-field:focus {
             box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
         }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .close-btn:hover {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="login-container bg-white rounded-xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- Close Button -->
+        <a href="/" class="close-btn">
+            <i class="fas fa-times"></i>
+        </a>
         
         <!-- Left Panel -->
         <div class="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-yellow-400 to-yellow-500 text-white w-1/2 p-8 lg:p-12">

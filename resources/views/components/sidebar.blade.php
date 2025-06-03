@@ -16,22 +16,22 @@
       </div>
     </div>
     <nav class="mt-2">
-      <a href="/dashboard" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition">
+      <a href="/dashboard" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('dashboard') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-tachometer-alt w-5 text-center"></i> Dashboard
       </a>
-      <a href="/datapengajuan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition">
+      <a href="/datapengajuan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('datapengajuan') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-check-square w-5 text-center"></i> Data Pengajuan
       </a>
-      <a href="/inputajuan1" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition">
+      <a href="/inputajuan1" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('inputajuan1') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-check-square w-5 text-center"></i> Tambah Pengajuan
       </a>
-      <a href="/status" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition">
+      <a href="/status" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('status') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-chart-bar w-5 text-center"></i> Status Kerjasama
       </a>
-        <a href="#" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition">
+        <a href="/kelola-jurusan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('kelola-jurusan') ? 'bg-yellow-500' : '' }}">
             <i class="fas fa-chart-bar w-5 text-center"></i> Kelola Jurusan
         </a>
-      <a href="/arsipPengajuan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition">
+      <a href="/arsipPengajuan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('arsipPengajuan') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-archive w-5 text-center"></i> Arsip Dokumen
       </a>
 
