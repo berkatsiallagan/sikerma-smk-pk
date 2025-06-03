@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,45 +9,49 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body class="flex text-black font-sans">
   <div class="flex min-h-screen bg-gray-300">
 
-  <x-sidebar />
+    <x-sidebar />
 
     <main class="flex-1 p-6 bg-gray-100">
-    @if(session('success'))
+      @if(session('success'))
+      <div id="success-message" data-message="{{ session('success') }}" style="display:none;"></div>
       <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
+          var successMessage = document.getElementById('success-message').dataset.message;
           Swal.fire({
             icon: 'success',
             title: 'Login Berhasil',
-            text: {!! json_encode(session('success')) !!},
+            text: successMessage,
             showConfirmButton: false,
             timer: 2000, // otomatis hilang dalam 2 detik
             timerProgressBar: false
           });
         });
       </script>
-    @endif
-        @yield('content')
+      @endif
+      @yield('content')
     </main>
   </div>
 
-<div class="flex flex-col flex-grow p-8 items-start text-left bg-gray-100">
-  <h1 class="text-5xl font-extrabold text-gray-800 mb-6">
-    DASHBOARD
-  </h1>
+  <div class="flex flex-col flex-grow p-8 items-start text-left bg-gray-100">
+    <h1 class="text-5xl font-extrabold text-gray-800 mb-6">
+      DASHBOARD
+    </h1>
 
-  <main class="bg-white p-6 rounded-3xl w-full">
-<form class="space-y-4">
-
-
+    <main class="bg-white p-6 rounded-3xl w-full">
+      <form class="space-y-4">
 
 
-    <hr class="border-t-4 border-black mt-6" />
-  </main>
-</div>
+
+
+        <hr class="border-t-4 border-black mt-6" />
+    </main>
+  </div>
 
 
 </body>
+
 </html>
