@@ -1,9 +1,11 @@
 <div class="w-60 bg-amber-600 flex flex-col justify-between">
   <div>
-    <div class="bg-[#4a1a05] text-white font-bold text-sm px-6 py-4 select-none flex items-center justify-center gap-2">
-      <img src="Sekaju.png" alt="Logo Sikerma" class="w-8 h-8" />
-      SIKERMA
-    </div>
+<div class="bg-[#4a1a05] text-white font-bold text-sm px-6 py-4 select-none flex items-center gap-3">
+  <img src="{{ asset('assets/img/logo-skaju.png') }}" alt="Logo Sikerma" class="w-8 h-10" />
+  <div class="flex flex-col text-xs leading-tight">
+    <strong class="text-lg font-bold">SIKERMA</strong>
+  </div>
+</div>
     <div class="bg-yellow-500 px-6 py-4 flex items-center gap-3">
       <div class="w-8 h-8 border-2 border-black rounded-full flex items-center justify-center text-black bg-white text-lg shrink-0">
         <i class="fas fa-user"></i>
