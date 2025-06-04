@@ -33,3 +33,12 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/status', [StatusController::class, 'index'])->name('status');
+
+use App\Http\Controllers\JurusanController;
+
+Route::get('/kelolajurusan', [JurusanController::class, 'index']);
+Route::get('/kelolajurusan/create', [JurusanController::class, 'create']);
+Route::post('/kelolajurusan', [JurusanController::class, 'store']);
+Route::get('/kelolajurusan/{id_jurusan}/edit', [JurusanController::class, 'edit']);
+Route::put('/kelolajurusan/{id_jurusan}', [JurusanController::class, 'update']);
+Route::delete('/kelolajurusan/{id_jurusan}', [JurusanController::class, 'destroy']);
