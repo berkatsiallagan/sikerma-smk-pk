@@ -31,7 +31,7 @@
         <a href="/kelola-jurusan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('kelola-jurusan') ? 'bg-yellow-500' : '' }}">
             <i class="fas fa-chart-bar w-5 text-center"></i> Kelola Jurusan
         </a>
-      <a href="/arsipPengajuan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('arsipPengajuan') ? 'bg-yellow-500' : '' }}">
+      <a href="/arsip-dokumen" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('arsipPengajuan') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-archive w-5 text-center"></i> Arsip Dokumen
       </a>
 
