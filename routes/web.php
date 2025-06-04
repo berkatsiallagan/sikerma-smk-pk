@@ -36,9 +36,9 @@ Route::get('/status', [StatusController::class, 'index'])->name('status');
 
 use App\Http\Controllers\JurusanController;
 
-Route::get('/kelolajurusan', [JurusanController::class, 'index']);
-Route::get('/kelolajurusan/create', [JurusanController::class, 'create']);
-Route::post('/kelolajurusan', [JurusanController::class, 'store']);
-Route::get('/kelolajurusan/{id_jurusan}/edit', [JurusanController::class, 'edit']);
-Route::put('/kelolajurusan/{id_jurusan}', [JurusanController::class, 'update']);
-Route::delete('/kelolajurusan/{id_jurusan}', [JurusanController::class, 'destroy']);
+Route::get('/kelola-jurusan', [JurusanController::class, 'index']);
+Route::get('/kelola-jurusan/create', [JurusanController::class, 'create']);
+Route::post('/kelola-jurusan', [JurusanController::class, 'store']);
+Route::get('/kelola-jurusan/{id_jurusan}/edit', [JurusanController::class, 'edit']);
+Route::put('/kelola-jurusan/{id_jurusan}', [JurusanController::class, 'update']);
+Route::delete('/kelola-jurusan/{id_jurusan}', [JurusanController::class, 'destroy']);
