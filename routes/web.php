@@ -19,7 +19,7 @@ Route::middleware([\App\Http\Middleware\AdminAuthMiddleware::class])->group(func
     Route::view('/namamitra', 'namamitra')->name('namamitra');
     Route::view('/namajurusan', 'namajurusan')->name('namajurusan');
     Route::view('/progressAjuan', 'progressAjuan')->name('progressAjuan');
-    Route::view('/kelola-jurusan', 'kelolajurusan')->name('kelolajurusan');
+    Route::view('/kelola-jurusan', 'kelola-jurusan')->name('kelola-jurusan');
 });
 Route::view('/login', 'login')->name('login');
 Route::view('/kerjasama', 'kerjasama')->name('kerjasama');

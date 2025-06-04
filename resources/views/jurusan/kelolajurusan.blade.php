@@ -25,7 +25,7 @@
     </h1>
 
     <main class="bg-white p-6 rounded-3xl w-full">
-      <a href="{{ url('/kelolajurusan/create') }}" class="bg-yellow-500 hover:bg-yellow-300 text-black font-semibold px-5 py-3 rounded-md transition">Tambah Jurusan</a>
+      <a href="{{ url('/kelola-jurusan/create') }}" class="bg-yellow-500 hover:bg-yellow-300 text-black font-semibold px-5 py-3 rounded-md transition">Tambah Jurusan</a>
 
       <table class="mt-4 w-full border-separate border-spacing-0 rounded-lg overflow-hidden shadow-md" aria-label="Daftar Jurusan">
         <thead>
@@ -42,8 +42,8 @@
             <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $jrsn->nama_jurusan }}</td>
             <td class="px-6 py-4 text-sm border-b border-gray-200">
               <div class="flex flex-wrap gap-2">
-                <a href="/kelolajurusan/{{ $jrsn->id_jurusan }}/edit" class="bg-yellow-400 hover:bg-yellow-500 text-grey font-semibold px-4 py-1 rounded-md transition">Edit</a>
-                <form action="/kelolajurusan/{{ $jrsn->id_jurusan }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus?')">
+                <a href="/kelola-jurusan/{{ $jrsn->id_jurusan }}/edit" class="bg-yellow-400 hover:bg-yellow-500 text-grey font-semibold px-4 py-1 rounded-md transition">Edit</a>
+                <form action="/kelola-jurusan/{{ $jrsn->id_jurusan }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus?')">
                   @csrf
                   @method('DELETE')
                   <button class="bg-red-800 hover:bg-red-800 text-white font-semibold px-4 py-1 rounded-md transition">Hapus</button>

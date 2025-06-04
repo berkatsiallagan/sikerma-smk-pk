@@ -30,7 +30,7 @@ public function store(Request $request)
         'nama_jurusan' => $request->nama_jurusan,
     ]);
 
-    return redirect('/kelolajurusan')->with('success', 'Data berhasil ditambahkan.');
+    return redirect('/kelola-jurusan')->with('success', 'Data berhasil ditambahkan.');
 }
 
 
@@ -52,14 +52,14 @@ public function store(Request $request)
 
         $jurusan->update($request->only('id_jurusan', 'nama_jurusan'));
 
-        return redirect('/kelolajurusan')->with('success', 'Data berhasil diupdate.');
+        return redirect('/kelola-jurusan')->with('success', 'Data berhasil diupdate.');
     }
 
     public function destroy($id_jurusan)
 {
     $jurusan = Jurusan::findOrFail($id_jurusan);
     $jurusan->delete();
-    return redirect('/kelolajurusan')->with('success', 'Data berhasil dihapus.');
+    return redirect('/kelola-jurusan')->with('success', 'Data berhasil dihapus.');
 }
 
 }
