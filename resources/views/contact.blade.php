@@ -64,7 +64,7 @@
     <main class="main">
 
         <!-- Page Title -->
-        <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.jpeg);">
+        <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/skaju-bg.jpg);">
             <div class="container position-relative">
                 <h1>Kontak Kami</h1>
                 <p>Bagian Kerjasama SMK Negeri 7 Batam</p>

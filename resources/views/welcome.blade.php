@@ -67,7 +67,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section dark-background">
 
-            <img src="assets/img/smkn7batam.jpeg" alt="" class="hero-bg" data-aos="fade-in" style="filter: brightness(35%);">
+            <img src="assets/img/skaju-bg.jpg" alt="" class="hero-bg" data-aos="fade-in" style="filter: opacity(35%);">
 
             <div class="container">
                 <div class="row gy-4 d-flex justify-content-between">

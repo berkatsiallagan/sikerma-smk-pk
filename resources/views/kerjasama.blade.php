@@ -82,7 +82,7 @@
 
     <main class="main">
 
-        <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.jpeg);">
+        <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/skaju-bg.jpg);">
             <div class="container position-relative">
                 <h1>Info Kerjasama</h1>
                 <p>Data Kerjasama antara SMK Negeri 7 Batam dan Dunia Industri</p>
