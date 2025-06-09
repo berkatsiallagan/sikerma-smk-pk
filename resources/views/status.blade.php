@@ -23,20 +23,22 @@
     <table class="w-full border-separate border-spacing-0 rounded-lg overflow-hidden shadow-md" aria-label="Daftar Ajuan">
   <thead>
     <tr class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black">
-      <th class="text-left px-6 py-3 font-semibold text-sm">No. Dokumen</th>
+      <th class="text-left px-6 py-3 font-semibold text-sm">No</th>
       <th class="text-left px-6 py-3 font-semibold text-sm">Nama Mitra</th>
+      <th class="text-left px-6 py-3 font-semibold text-sm">Jurusan</th>
       <th class="text-left px-6 py-3 font-semibold text-sm">Tahun</th>
-      <th class="text-left px-6 py-3 font-semibold text-sm">Tanggal Mulai</th>
-      <th class="text-left px-6 py-3 font-semibold text-sm">Tanggal Selesai</th>
+      <th class="text-left px-6 py-3 font-semibold text-sm">Jenis</th>
       <th class="text-left px-6 py-3 font-semibold text-sm">Sisa Hari</th>
       <th class="text-left px-6 py-3 font-semibold text-sm">Status</th>
+        <th class="text-left px-6 py-3 font-semibold text-sm">Aksi</th>
     </tr>
   </thead>
   <tbody>
     @foreach($kerjasamas as $kerjasama)
     <tr class="bg-white hover:bg-yellow-50 transition-colors duration-300 cursor-pointer">
-      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->dokumen->no_dokumen ?? '-' }}</td>
+      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->id_kerjasama ?? '-' }}</td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->mitra->nama_mitra ?? '-' }}</td>
+      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->pemohon->jurusan->nama_jurusan ?? '-' }}</td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">
         @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_mulai)
           {{ \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_mulai)->format('Y') }}
@@ -44,17 +46,22 @@
           -
         @endif
       </td>
-      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->dokumen->tanggal_mulai ?? '-' }}</td>
-      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->dokumen->tanggal_selesai ?? '-' }}</td>
+      @php
+      $singkatan = [
+        'Memorandum of Understanding (MoU)' => 'MoU',
+        'Memorandum of Agreement (MoA)' => 'MoA',
+      ];
+      @endphp
+      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $singkatan[$kerjasama->jenis_kerjasama] ?? $kerjasama->jenis_kerjasama ?? '-' }}</t>
       <td class="px-6 py-4 text-sm border-b border-gray-200">
-        @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_selesai)
-          @php
-            $sisaHari = \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai)->diffInDays(now());
-            echo $sisaHari . ' hari';
-          @endphp
-        @else
-          -
-        @endif
+       @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_selesai)
+        @php
+          $sisaHari = intval(\Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai)->diffInDays(now()));
+        @endphp
+        {{ $sisaHari }} hari
+       @else
+         -
+       @endif
       </td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">
         <div class="flex flex-wrap gap-2">

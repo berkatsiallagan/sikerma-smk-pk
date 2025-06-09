@@ -30,10 +30,10 @@ class Kerjasama extends Model
         return $this->belongsTo(Ajuan::class, 'id_ajuan');
     }
 
-    public function pemohon()
-    {
-        return $this->belongsTo(Admin::class, 'id_pemohon');
-    }
+   public function pemohon()
+   {
+        return $this->belongsTo(Pemohon::class, 'id_pemohon');
+   }
 
     public function mitra()
     {
@@ -48,5 +48,10 @@ class Kerjasama extends Model
     public function dokumen()
     {
         return $this->belongsTo(Dokumen::class, 'id_dokumen');
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'id_jurusan');
     }
 }
