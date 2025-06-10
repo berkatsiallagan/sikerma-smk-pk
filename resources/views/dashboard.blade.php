@@ -52,8 +52,8 @@
         </div>
         <div>
           <p class="text-gray-500 text-sm">Total Dokumen</p>
-          <h3 class="text-2xl font-bold">124</h3>
-          <p class="text-green-500 text-xs mt-1"><i class="fas fa-arrow-up"></i> 12% dari bulan lalu</p>
+          <h3 class="text-2xl font-bold">{{ $totalDocuments }}</h3>
+          <p class="text-gray-500 text-xs mt-1">Total dokumen kerjasama</p>
         </div>
       </div>
       
@@ -64,21 +64,21 @@
         </div>
         <div>
           <p class="text-gray-500 text-sm">Total Perusahaan</p>
-          <h3 class="text-2xl font-bold">87</h3>
-          <p class="text-green-500 text-xs mt-1"><i class="fas fa-arrow-up"></i> 5% dari bulan lalu</p>
+          <h3 class="text-2xl font-bold">{{ $totalMitra }}</h3>
+          <p class="text-gray-500 text-xs mt-1">Mitra kerjasama</p>
         </div>
       </div>
       
       <!-- Dokumen Akan Habis Card -->
       <div class="bg-white p-6 rounded-2xl shadow-md flex items-center">
-        <div class="bg-red-100 p-4 rounded-full mr-4">
-          <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
-        </div>
-        <div>
-          <p class="text-gray-500 text-sm">Dokumen Akan Habis</p>
-          <h3 class="text-2xl font-bold">8</h3>
-          <p class="text-red-500 text-xs mt-1"><i class="fas fa-arrow-up"></i> 2 dokumen bulan ini</p>
-        </div>
+          <div class="bg-red-100 p-4 rounded-full mr-4">
+              <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+          </div>
+          <div>
+              <p class="text-gray-500 text-sm">Dokumen Akan Habis</p>
+              <h3 class="text-2xl font-bold">{{ $expiringSoon ?? 0 }}</h3>
+              <p class="text-red-500 text-xs mt-1">Akan kadaluarsa dalam 30 hari</p>
+          </div>
       </div>
     </div>
 
@@ -109,112 +109,84 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
+            @foreach($recentAgreements as $index => $agreement)
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">PT. Teknologi Maju</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MoU</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15 Jan 2023</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15 Jan 2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $index + 1 }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $agreement->mitra->nama_mitra }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $agreement->jenis_kerjasama }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ date('d M Y', strtotime($agreement->dokumen->tanggal_mulai)) }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ date('d M Y', strtotime($agreement->dokumen->tanggal_selesai)) }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
+                @if($agreement->dokumen->status == 'aktif')
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
+                @elseif($agreement->dokumen->status == 'kadaluarsa')
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Kadaluarsa</span>
+                @elseif($agreement->dokumen->status == 'tidak aktif')
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Tidak Aktif</span>
+                @endif
               </td>
             </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">CV. Solusi Digital</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MoA</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1 Mar 2023</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1 Mar 2024</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Akan Habis</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">PT. Bangun Nusantara</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MoU</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 Sep 2022</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 Sep 2023</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Kadaluarsa</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">4</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">PT. Data Analytics</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MoA</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 Mei 2023</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 Mei 2026</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">PT. Inovasi Teknologi</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MoU</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">20 Jun 2023</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">20 Jun 2025</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-              </td>
-            </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <script>
-    // Initialize the chart
+<script>
     document.addEventListener('DOMContentLoaded', function() {
-      const ctx = document.getElementById('agreementChart').getContext('2d');
-      
-      const agreementChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['MoU', 'MoA'],
-          datasets: [{
-            label: 'Jumlah Kerjasama',
-            data: [78, 46],
-            backgroundColor: [
-              'rgba(75, 192, 192, 0.7)',
-              'rgba(255, 99, 132, 0.7)'
-            ],
-            borderColor: [
-              'rgba(75, 192, 192, 1)',
-              'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                stepSize: 10
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                    return `${context.dataset.label}: ${context.raw}`;
+        const ctx = document.getElementById('agreementChart');
+        
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['MoU', 'MoA'],
+                    datasets: [{
+                        label: 'Jumlah Kerjasama',
+                        data: [
+                            {{ $mouCount ?? 0 }}, 
+                            {{ $moaCount ?? 0 }}
+                        ],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(255, 99, 132, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw;
+                                }
+                            }
+                        }
+                    }
                 }
-              }
-            }
-          }
+            });
         }
-      });
     });
-  </script>
+</script>
 </body>
 
 </html>

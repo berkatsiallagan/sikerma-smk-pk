@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::view('/', 'welcome')->name('home');
 Route::middleware([\App\Http\Middleware\AdminAuthMiddleware::class])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');   
     Route::view('/arsip', 'arsip')->name('arsip');
     Route::view('/arsip-dokumen', 'arsipPengajuan')->name('arsipPengajuan');
     Route::get('/inputajuan1', [PengajuanController::class, 'showStep1'])->name('show.step1');
