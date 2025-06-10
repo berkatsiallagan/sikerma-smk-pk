@@ -71,7 +71,7 @@
           </button>
         </div>
       </td>
-      <td class="p-2 text-center">
+      <td class="p-2 text-left">
         <div x-data="{ open: false }" class="flex flex-col space-y-1">
           <button @click="open = true" class="bg-gray-400 text-white px-1 py-0.5 rounded text-xs">
             Detail
@@ -88,7 +88,13 @@
           <!-- Popup Detail -->
           <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div @click.away="open = false" class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
-              <h2 class="text-2xl font-bold mb-4">Detail Kerjasama</h2>
+              <h2 class="text-center font-bold mb-4">Detail Kerjasama</h2>
+
+              <!-- Pemohon -->
+              <p><strong>No Pengajuan:</strong> {{ $kerjasama->pemohon->no_permohonan }}</p>
+              <p><strong>Tanggal Pengajuan:</strong> {{ $kerjasama->ajuan->tanggal_ajuan }}</p>
+              <p><strong>Nama Pengaju:</strong> {{ $kerjasama->pemohon->nama_pemohon }}</p>
+              <p><strong>Nomor Telepon:</strong> {{ $kerjasama->pemohon->nomor_telp }}</p>
 
               <!-- Mitra -->
               <p><strong>Nama Mitra:</strong> {{ $kerjasama->mitra->nama_mitra }}</p>
@@ -96,8 +102,14 @@
               <p><strong>Email Mitra:</strong> {{ $kerjasama->mitra->email }}</p>
               <p><strong>Website:</strong> {{ $kerjasama->mitra->website }}</p>
 
+              <!-- Kerjasama -->
+              <p><strong>Jenis Dokumen:</strong> {{ $kerjasama->jenis_kerjasama }}</p>
+
+              <!-- Dokumen -->
+              <p><strong>Tanggal Mulai:</strong> {{ $kerjasama->dokumen->tanggal_mulai }}</p>
+              <p><strong>Tanggal Selesai:</strong> {{ $kerjasama->dokumen->tanggal_selesai }}</p>
+
               <div class="text-right mt-4">
-                <button @click="open = false" class="bg-red-500 text-white px-4 py-2 rounded">Hapus</button>
                 <button @click="open = false" class="bg-red-500 text-white px-4 py-2 rounded">Tutup</button>
               </div>
             </div>
