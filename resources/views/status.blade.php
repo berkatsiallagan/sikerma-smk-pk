@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sikerma Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body style="background-color : #212121"
@@ -68,6 +69,31 @@
           <button class="bg-{{ ($kerjasama->dokumen->status ?? '') == 'AKTIF' ? 'green' : 'red' }}-400 hover:bg-yellow-500 text-black font-semibold px-4 py-1 rounded-md transition">
             {{ $kerjasama->dokumen->status ?? '-' }}
           </button>
+        </div>
+      </td>
+      <td class="p-2 border text-center">
+        <div x-data="{ open: false }">
+          <button @click="open = true" class="bg-gray-400 text-white px-3 py-1 rounded text-sm">
+            Detail
+          </button>
+
+          <!-- Popup Detail -->
+          <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div @click.away="open = false" class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+              <h2 class="text-2xl font-bold mb-4">Detail Kerjasama</h2>
+
+              <!-- Mitra -->
+              <p><strong>Nama Mitra:</strong> {{ $kerjasama->mitra->nama_mitra }}</p>
+              <p><strong>Lingkup:</strong> {{ $kerjasama->mitra->lingkup }}</p>
+              <p><strong>Email Mitra:</strong> {{ $kerjasama->mitra->email }}</p>
+              <p><strong>Website:</strong> {{ $kerjasama->mitra->website }}</p>
+
+              <div class="text-right mt-4">
+                <button @click="open = false" class="bg-red-500 text-white px-4 py-2 rounded">Hapus</button>
+                <button @click="open = false" class="bg-red-500 text-white px-4 py-2 rounded">Tutup</button>
+              </div>
+            </div>
+          </div>
         </div>
       </td>
     </tr>
