@@ -44,3 +44,7 @@ Route::post('/kelola-jurusan', [JurusanController::class, 'store']);
 Route::get('/kelola-jurusan/{id_jurusan}/edit', [JurusanController::class, 'edit']);
 Route::put('/kelola-jurusan/{id_jurusan}', [JurusanController::class, 'update']);
 Route::delete('/kelola-jurusan/{id_jurusan}', [JurusanController::class, 'destroy']);
+
+use App\Http\Controllers\KerjasamaController;
+
+Route::delete('/kerjasama/{kerjasama}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy');

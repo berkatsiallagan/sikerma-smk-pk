@@ -71,11 +71,19 @@
           </button>
         </div>
       </td>
-      <td class="p-2 border text-center">
-        <div x-data="{ open: false }">
-          <button @click="open = true" class="bg-gray-400 text-white px-3 py-1 rounded text-sm">
+      <td class="p-2 text-center">
+        <div x-data="{ open: false }" class="flex flex-col space-y-1">
+          <button @click="open = true" class="bg-gray-400 text-white px-1 py-0.5 rounded text-xs">
             Detail
           </button>
+
+          <form action="{{ route('kerjasama.destroy', $kerjasama->id_kerjasama) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="flex flex-col space-y-1">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="bg-red-400 text-white px-1 py-0.5 rounded text-xs">
+            Hapus
+          </button>
+          </form>
 
           <!-- Popup Detail -->
           <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
