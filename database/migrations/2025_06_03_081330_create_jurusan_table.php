@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('jurusan', function (Blueprint $table) {
             $table->unsignedInteger('id_jurusan')->autoIncrement();
             $table->string('nama_jurusan', 255);
-            $table->timestamps();
         });
     }
 

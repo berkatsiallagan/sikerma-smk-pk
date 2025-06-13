@@ -14,7 +14,6 @@ return new class extends Migration
             $table->string('nama_pemohon', 30);
             $table->unsignedInteger('id_jurusan')->nullable();
             $table->integer('nomor_telp');
-            $table->timestamps();
             
             $table->foreign('id_jurusan')->references('id_jurusan')->on('jurusan');
         });

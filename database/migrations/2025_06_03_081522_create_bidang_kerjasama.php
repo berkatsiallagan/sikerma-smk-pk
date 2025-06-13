@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('bidang_kerjasama', function (Blueprint $table) {
             $table->unsignedInteger('id_bidang')->autoIncrement();
             $table->string('nama_bidang', 255);
-            $table->timestamps();
         });
     }
 

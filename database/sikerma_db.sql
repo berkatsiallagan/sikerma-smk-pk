@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 03, 2025 at 10:04 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Waktu pembuatan: 03 Jun 2025 pada 10.54
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
@@ -34,7 +34,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data untuk tabel `admin`
 --
 
 INSERT INTO `admin` (`id_admin`, `email`, `kata_sandi`) VALUES
@@ -43,7 +43,7 @@ INSERT INTO `admin` (`id_admin`, `email`, `kata_sandi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ajuan`
+-- Struktur dari tabel `ajuan`
 --
 
 CREATE TABLE `ajuan` (
@@ -53,19 +53,19 @@ CREATE TABLE `ajuan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ajuan`
+-- Dumping data untuk tabel `ajuan`
 --
 
 INSERT INTO `ajuan` (`id_ajuan`, `tanggal_ajuan`, `id_admin`) VALUES
-(1, '2025-03-10', NULL),
-(2, '2025-03-10', NULL),
-(3, '2025-04-19', NULL),
-(4, '2025-04-20', NULL);
+(1, '2025-03-10', 1),
+(2, '2025-03-10', 1),
+(3, '2025-04-19', 1),
+(4, '2025-04-20', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bidang_kerjasama`
+-- Struktur dari tabel `bidang_kerjasama`
 --
 
 CREATE TABLE `bidang_kerjasama` (
@@ -74,7 +74,7 @@ CREATE TABLE `bidang_kerjasama` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `bidang_kerjasama`
+-- Dumping data untuk tabel `bidang_kerjasama`
 --
 
 INSERT INTO `bidang_kerjasama` (`id_bidang`, `nama_bidang`) VALUES
@@ -86,7 +86,7 @@ INSERT INTO `bidang_kerjasama` (`id_bidang`, `nama_bidang`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cache`
+-- Struktur dari tabel `cache`
 --
 
 CREATE TABLE `cache` (
@@ -98,7 +98,7 @@ CREATE TABLE `cache` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cache_locks`
+-- Struktur dari tabel `cache_locks`
 --
 
 CREATE TABLE `cache_locks` (
@@ -110,7 +110,7 @@ CREATE TABLE `cache_locks` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dokumen`
+-- Struktur dari tabel `dokumen`
 --
 
 CREATE TABLE `dokumen` (
@@ -123,7 +123,7 @@ CREATE TABLE `dokumen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dokumen`
+-- Dumping data untuk tabel `dokumen`
 --
 
 INSERT INTO `dokumen` (`id_dokumen`, `catatan`, `dokumen`, `status`, `tanggal_mulai`, `tanggal_selesai`) VALUES
@@ -132,7 +132,7 @@ INSERT INTO `dokumen` (`id_dokumen`, `catatan`, `dokumen`, `status`, `tanggal_mu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Struktur dari tabel `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -148,7 +148,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobs`
+-- Struktur dari tabel `jobs`
 --
 
 CREATE TABLE `jobs` (
@@ -164,7 +164,7 @@ CREATE TABLE `jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_batches`
+-- Struktur dari tabel `job_batches`
 --
 
 CREATE TABLE `job_batches` (
@@ -183,7 +183,7 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jurusan`
+-- Struktur dari tabel `jurusan`
 --
 
 CREATE TABLE `jurusan` (
@@ -192,7 +192,7 @@ CREATE TABLE `jurusan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `jurusan`
+-- Dumping data untuk tabel `jurusan`
 --
 
 INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
@@ -205,12 +205,11 @@ INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kerjasama`
+-- Struktur dari tabel `kerjasama`
 --
 
 CREATE TABLE `kerjasama` (
   `id_kerjasama` int(11) NOT NULL,
-  `no_kerjasama` varchar(255) NOT NULL,
   `id_ajuan` int(11) NOT NULL,
   `id_pemohon` int(11) NOT NULL,
   `id_mitra` int(11) NOT NULL,
@@ -220,16 +219,16 @@ CREATE TABLE `kerjasama` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `kerjasama`
+-- Dumping data untuk tabel `kerjasama`
 --
 
-INSERT INTO `kerjasama` (`id_kerjasama`, `no_kerjasama`, `id_ajuan`, `id_pemohon`, `id_mitra`, `id_bidang`, `id_dokumen`, `jenis_kerjasama`) VALUES
-(1, '1', 1, 1, 1, 1, 1, 'Memorandum of Understanding (MoU)');
+INSERT INTO `kerjasama` (`id_kerjasama`, `id_ajuan`, `id_pemohon`, `id_mitra`, `id_bidang`, `id_dokumen`, `jenis_kerjasama`) VALUES
+(1, 1, 2, 1, 1, 1, 'Memorandum of Understanding (MoU)');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -239,7 +238,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -250,28 +249,28 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mitra`
+-- Struktur dari tabel `mitra`
 --
 
 CREATE TABLE `mitra` (
   `id_mitra` int(11) NOT NULL,
   `nama_mitra` varchar(255) NOT NULL,
-  `negara` varchar(30) NOT NULL,
+  `lingkup` enum('Nasional','Internasional') NOT NULL,
   `website` varchar(100) DEFAULT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `mitra`
+-- Dumping data untuk tabel `mitra`
 --
 
-INSERT INTO `mitra` (`id_mitra`, `nama_mitra`, `negara`, `website`, `email`) VALUES
-(1, 'Budi Susanto', '', NULL, '');
+INSERT INTO `mitra` (`id_mitra`, `nama_mitra`, `lingkup`, `website`, `email`) VALUES
+(1, 'PT. Infineon', 'Nasional', 'https://www.infineon.com', 'infineon@gmail.com');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_reset_tokens`
+-- Struktur dari tabel `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
@@ -283,7 +282,7 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pemohon`
+-- Struktur dari tabel `pemohon`
 --
 
 CREATE TABLE `pemohon` (
@@ -295,17 +294,17 @@ CREATE TABLE `pemohon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pemohon`
+-- Dumping data untuk tabel `pemohon`
 --
 
 INSERT INTO `pemohon` (`id_pemohon`, `no_permohonan`, `nama_pemohon`, `id_jurusan`, `nomor_telp`) VALUES
-(1, 'PMH01', '0', 3, 0),
-(2, 'PMH02', '0', 5, 0);
+(1, 'PMH01', 'Budi Susanto', 3, 828220848),
+(2, 'PMH02', 'Rijal', 5, 825608390);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sessions`
+-- Struktur dari tabel `sessions`
 --
 
 CREATE TABLE `sessions` (
@@ -320,7 +319,7 @@ CREATE TABLE `sessions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -339,71 +338,71 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `admin`
+-- Indeks untuk tabel `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- Indexes for table `ajuan`
+-- Indeks untuk tabel `ajuan`
 --
 ALTER TABLE `ajuan`
   ADD PRIMARY KEY (`id_ajuan`),
   ADD KEY `fk1_id_admin` (`id_admin`);
 
 --
--- Indexes for table `bidang_kerjasama`
+-- Indeks untuk tabel `bidang_kerjasama`
 --
 ALTER TABLE `bidang_kerjasama`
   ADD PRIMARY KEY (`id_bidang`);
 
 --
--- Indexes for table `cache`
+-- Indeks untuk tabel `cache`
 --
 ALTER TABLE `cache`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indexes for table `cache_locks`
+-- Indeks untuk tabel `cache_locks`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indexes for table `dokumen`
+-- Indeks untuk tabel `dokumen`
 --
 ALTER TABLE `dokumen`
   ADD PRIMARY KEY (`id_dokumen`);
 
 --
--- Indexes for table `failed_jobs`
+-- Indeks untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `jobs`
+-- Indeks untuk tabel `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
 
 --
--- Indexes for table `job_batches`
+-- Indeks untuk tabel `job_batches`
 --
 ALTER TABLE `job_batches`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jurusan`
+-- Indeks untuk tabel `jurusan`
 --
 ALTER TABLE `jurusan`
   ADD PRIMARY KEY (`id_jurusan`);
 
 --
--- Indexes for table `kerjasama`
+-- Indeks untuk tabel `kerjasama`
 --
 ALTER TABLE `kerjasama`
   ADD PRIMARY KEY (`id_kerjasama`),
@@ -414,25 +413,25 @@ ALTER TABLE `kerjasama`
   ADD KEY `fk1_id_mitra` (`id_mitra`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mitra`
+-- Indeks untuk tabel `mitra`
 --
 ALTER TABLE `mitra`
   ADD PRIMARY KEY (`id_mitra`);
 
 --
--- Indexes for table `password_reset_tokens`
+-- Indeks untuk tabel `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `pemohon`
+-- Indeks untuk tabel `pemohon`
 --
 ALTER TABLE `pemohon`
   ADD PRIMARY KEY (`id_pemohon`),
@@ -440,7 +439,7 @@ ALTER TABLE `pemohon`
   ADD KEY `fk1_id_jurusan` (`id_jurusan`);
 
 --
--- Indexes for table `sessions`
+-- Indeks untuk tabel `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`),
@@ -448,100 +447,52 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id_admin` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `ajuan`
---
-ALTER TABLE `ajuan`
-  MODIFY `id_ajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `bidang_kerjasama`
---
-ALTER TABLE `bidang_kerjasama`
-  MODIFY `id_bidang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `dokumen`
---
-ALTER TABLE `dokumen`
-  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jobs`
+-- AUTO_INCREMENT untuk tabel `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jurusan`
---
-ALTER TABLE `jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `kerjasama`
---
-ALTER TABLE `kerjasama`
-  MODIFY `id_kerjasama` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `mitra`
---
-ALTER TABLE `mitra`
-  MODIFY `id_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `pemohon`
---
-ALTER TABLE `pemohon`
-  MODIFY `id_pemohon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `ajuan`
+-- Ketidakleluasaan untuk tabel `ajuan`
 --
 ALTER TABLE `ajuan`
   ADD CONSTRAINT `fk1_id_admin` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `kerjasama`
+-- Ketidakleluasaan untuk tabel `kerjasama`
 --
 ALTER TABLE `kerjasama`
   ADD CONSTRAINT `fk1_id_dokumen` FOREIGN KEY (`id_dokumen`) REFERENCES `dokumen` (`id_dokumen`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -551,7 +502,7 @@ ALTER TABLE `kerjasama`
   ADD CONSTRAINT `kerjasama_ibfk_3` FOREIGN KEY (`id_bidang`) REFERENCES `bidang_kerjasama` (`id_bidang`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pemohon`
+-- Ketidakleluasaan untuk tabel `pemohon`
 --
 ALTER TABLE `pemohon`
   ADD CONSTRAINT `fk1_id_jurusan` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE;

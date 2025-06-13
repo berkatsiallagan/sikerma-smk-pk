@@ -11,10 +11,9 @@ return new class extends Migration
         Schema::create('mitra', function (Blueprint $table) {
             $table->unsignedInteger('id_mitra')->autoIncrement();
             $table->string('nama_mitra', 255);
-            $table->string('negara', 30);
+            $table->enum('lingkup', ['Nasional', 'Internasional']);
             $table->string('website', 100)->nullable();
             $table->string('email', 100);
-            $table->timestamps();
         });
     }
 
