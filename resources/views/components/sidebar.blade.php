@@ -12,7 +12,7 @@
       </div>
       <div class="flex flex-col text-xs leading-tight">
         <strong class="text-sm font-bold">Admin</strong>
-        <span class="text-[#3a2a0a]">email</span>
+        <span class="text-[#3a2a0a]">{{ session('admin_email') }}</span>
       </div>
     </div>
     <nav class="mt-2">
