@@ -11,8 +11,8 @@
         <i class="fas fa-user"></i>
       </div>
       <div class="flex flex-col text-xs leading-tight">
-        <strong class="text-sm font-bold">Nama Pengguna</strong>
-        <span class="text-[#3a2a0a]">Jurusan Informatika</span>
+        <strong class="text-sm font-bold">Admin</strong>
+        <span class="text-[#3a2a0a]">{{ session('admin_email') }}</span>
       </div>
     </div>
     <nav class="mt-2">
