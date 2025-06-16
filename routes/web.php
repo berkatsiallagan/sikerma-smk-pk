@@ -15,7 +15,7 @@ Route::middleware([\App\Http\Middleware\AdminAuthMiddleware::class])->group(func
     Route::post('/save-step2', [PengajuanController::class, 'saveStep2'])->name('save.step2');
     Route::get('/inputajuan3', [PengajuanController::class, 'showStep3'])->name('show.step3');
     Route::post('/save-step3', [PengajuanController::class, 'saveStep3'])->name('save.step3');
-    Route::view('/datapengajuan', 'datapengajuan')->name('datapengajuan');
+    Route::view('/data-kerjasama', 'data-kerjasama')->name('data-kerjasama');
     Route::view('/namamitra', 'namamitra')->name('namamitra');
     Route::view('/namajurusan', 'namajurusan')->name('namajurusan');
     Route::view('/progressAjuan', 'progressAjuan')->name('progressAjuan');
@@ -54,3 +54,7 @@ Route::get('/arsip-dokumen', [ArsipController::class, 'index'])->name('arsipPeng
 use App\Http\Controllers\DokumenController;
 
 Route::get('/dokumen/download/{id}', [DokumenController::class, 'download'])->name('dokumen.download');
+
+use App\Http\Controllers\DataController;
+
+Route::get('/data-kerjasama', [DataController::class, 'index'])->name('data-kerjasama');

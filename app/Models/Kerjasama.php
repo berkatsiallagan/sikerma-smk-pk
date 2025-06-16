@@ -40,7 +40,7 @@ class Kerjasama extends Model
         return $this->belongsTo(Mitra::class, 'id_mitra');
     }
 
-    public function bidang()
+    public function bidang_kerjasama()
     {
         return $this->belongsTo(BidangKerjasama::class, 'id_bidang');
     }

@@ -11,16 +11,16 @@
         <i class="fas fa-user"></i>
       </div>
       <div class="flex flex-col text-xs leading-tight">
-        <strong class="text-sm font-bold">Nama Pengguna</strong>
-        <span class="text-[#3a2a0a]">Jurusan Informatika</span>
+        <strong class="text-sm font-bold">Admin</strong>
+        <span class="text-[#3a2a0a]">{{ session('admin_email') }}</span>
       </div>
     </div>
     <nav class="mt-2">
       <a href="/dashboard" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('dashboard') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-tachometer-alt w-5 text-center"></i> Dashboard
       </a>
-      <a href="/datapengajuan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('datapengajuan') ? 'bg-yellow-500' : '' }}">
-        <i class="fas fa-check-square w-5 text-center"></i> Data Pengajuan
+      <a href="/data-kerjasama" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('data-kerjasama') ? 'bg-yellow-500' : '' }}">
+        <i class="fas fa-check-square w-5 text-center"></i> Data Kerjasama
       </a>
       <a href="/inputajuan1" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('inputajuan1') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-check-square w-5 text-center"></i> Tambah Pengajuan

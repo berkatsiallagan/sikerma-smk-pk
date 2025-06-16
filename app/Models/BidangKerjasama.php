@@ -13,4 +13,10 @@ class BidangKerjasama extends Model
     protected $fillable = [
         'nama_bidang',
     ];
+
+    public function kerjasamas()
+    {
+        return $this->hasMany(Kerjasama::class, 'id_bidang'); // sesuaikan
+    }
+
 }
