@@ -71,19 +71,11 @@
           </button>
         </div>
       </td>
-      <td class="p-2 text-left">
+      <td class="px-6 py-4 text-sm border-b border-gray-200">
         <div x-data="{ open: false }" class="flex flex-col space-y-1">
-          <button @click="open = true" class="bg-gray-400 text-white px-1 py-0.5 rounded text-xs">
+          <button @click="open = true" class="bg-gray-400 hover:bg-yellow-500 text-white font-semibold px-4 py-1 rounded-md transition">
             Detail
           </button>
-
-          <form action="{{ route('kerjasama.destroy', $kerjasama->id_kerjasama) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="flex flex-col space-y-1">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="bg-red-400 text-white px-1 py-0.5 rounded text-xs">
-            Hapus
-          </button>
-          </form>
 
           <!-- Popup Detail -->
           <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -109,9 +101,20 @@
               <p><strong>Tanggal Mulai:</strong> {{ $kerjasama->dokumen->tanggal_mulai }}</p>
               <p><strong>Tanggal Selesai:</strong> {{ $kerjasama->dokumen->tanggal_selesai }}</p>
 
-              <div class="text-right mt-4">
-                <button @click="open = false" class="bg-red-500 text-white px-4 py-2 rounded">Tutup</button>
-              </div>
+              <div class="flex justify-end space-x-2 mt-4">
+  <form action="{{ route('kerjasama.destroy', $kerjasama->id_kerjasama) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="bg-red-400 text-white px-3 py-1 rounded text-sm">
+      Hapus
+    </button>
+  </form>
+
+  <button @click="open = false" class="bg-gray-400 text-white px-3 py-1 rounded text-sm">
+    Tutup
+  </button>
+</div>
+
             </div>
           </div>
         </div>
