@@ -13,9 +13,9 @@ class Kerjasama extends Model
     protected $primaryKey = 'id_kerjasama';
     public $incrementing = true;
     protected $keyType = 'int';
+    public $timestamps = false;
 
     protected $fillable = [
-        'no_kerjasama',
         'id_ajuan',
         'id_pemohon',
         'id_mitra',
@@ -24,34 +24,32 @@ class Kerjasama extends Model
         'jenis_kerjasama',
     ];
 
-    // Contoh relasi ke model lain (jika ada)
-    public function ajuan()
+    // One-to-many relationship with Pemohon
+    public function pemohon()
     {
-        return $this->belongsTo(Ajuan::class, 'id_ajuan');
+        return $this->belongsTo(Pemohon::class, 'id_pemohon', 'id_pemohon');
     }
 
-   public function pemohon()
-   {
-        return $this->belongsTo(Pemohon::class, 'id_pemohon');
-   }
-
+    // One-to-many relationship with Mitra
     public function mitra()
     {
-        return $this->belongsTo(Mitra::class, 'id_mitra');
+        return $this->belongsTo(Mitra::class, 'id_mitra', 'id_mitra');
     }
 
-    public function bidang_kerjasama()
-    {
-        return $this->belongsTo(BidangKerjasama::class, 'id_bidang');
-    }
-
+    // One-to-many relationship with Dokumen
     public function dokumen()
     {
-        return $this->belongsTo(Dokumen::class, 'id_dokumen');
+        return $this->belongsTo(Dokumen::class, 'id_dokumen', 'id_dokumen');
     }
 
-    public function jurusan()
+    // Many-to-many relationship with BidangKerjasama
+    public function bidangs()
     {
-        return $this->belongsTo(Jurusan::class, 'id_jurusan');
+        return $this->belongsToMany(
+            BidangKerjasama::class,
+            'kerjasama_bidang', // pivot table
+            'id_kerjasama',     // foreign key on pivot table for this model
+            'id_bidang'         // foreign key on pivot table for related model
+        );
     }
 }

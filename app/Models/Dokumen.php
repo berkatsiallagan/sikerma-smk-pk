@@ -32,5 +32,5 @@ class Dokumen extends Model
     ];
 
     // Jika Anda ingin menggunakan timestamps
-    public $timestamps = true;
+    public $timestamps = false;
 }

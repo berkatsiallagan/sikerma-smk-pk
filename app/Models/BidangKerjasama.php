@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pemohon;
 
 class BidangKerjasama extends Model
 {
@@ -16,7 +17,21 @@ class BidangKerjasama extends Model
 
     public function kerjasamas()
     {
-        return $this->hasMany(Kerjasama::class, 'id_bidang'); // sesuaikan
+        return $this->belongsToMany(
+            Kerjasama::class,
+            'kerjasama_bidang',
+            'id_bidang',
+            'id_kerjasama'
+        );
     }
 
+    public function pemohons()
+    {
+        return $this->belongsToMany(
+            Pemohon::class,
+            'pemohon_bidang',
+            'id_bidang',
+            'id_pemohon'
+        );
+    }
 }

@@ -14,11 +14,11 @@ class Mitra extends Model
     
     protected $fillable = [
         'nama_mitra',
-        'negara',
+        'lingkup',
         'website',
         'email'
     ];
 
     // Jika Anda ingin menggunakan timestamps
-    public $timestamps = true;
+    public $timestamps = false;
 }
