@@ -35,6 +35,8 @@
 <body style="background-color: #212121" class="text-black font-sans">
   <div class="flex min-h-screen">
 
+    <x-sidebar />
+
     <div class="flex flex-col flex-grow p-4 md:p-8 items-start text-left bg-gray-100">
       <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 mb-6">
         Pengajuan Kerjasama
