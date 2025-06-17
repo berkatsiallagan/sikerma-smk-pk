@@ -22,7 +22,7 @@
       <a href="/data-kerjasama" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('data-kerjasama') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-check-square w-5 text-center"></i> Data Kerjasama
       </a>
-      <a href="/inputajuan1" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('inputajuan1') ? 'bg-yellow-500' : '' }}">
+      <a href="/pengajuan-kerjasama" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('inputajuan1') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-check-square w-5 text-center"></i> Tambah Pengajuan
       </a>
       <a href="/status" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('status') ? 'bg-yellow-500' : '' }}">
