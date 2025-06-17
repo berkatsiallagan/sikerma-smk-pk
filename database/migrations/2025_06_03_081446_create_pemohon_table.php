@@ -11,7 +11,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pemohon', function (Blueprint $table) {
-            $table->id('id_pemohon');
+            $table->id('id_pemohon'); // Creates BIGINT UNSIGNED
             $table->string('no_permohonan', 15)->unique();
             $table->string('nama_pemohon', 30);
             $table->string('nomor_telp', 20);

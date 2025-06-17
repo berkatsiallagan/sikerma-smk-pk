@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
             PemohonSeeder::class,
             AjuanSeeder::class,
             DokumenSeeder::class,
-            KerjasamaSeeder::class,
-            PemohonBidangSeeder::class,
+            PemohonBidangSeeder::class, // Moved before KerjasamaSeeder
             PemohonJurusanSeeder::class,
+            KerjasamaSeeder::class,
         ]);
     }
 }

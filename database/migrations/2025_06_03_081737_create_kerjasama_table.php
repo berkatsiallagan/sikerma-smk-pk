@@ -1,5 +1,3 @@
-// database/migrations/2025_06_17_000007_create_kerjasama_table.php
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -8,25 +6,54 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up()
     {
         Schema::create('kerjasama', function (Blueprint $table) {
             $table->id('id_kerjasama');
-            $table->unsignedInteger('id_ajuan');
-            $table->unsignedInteger('id_pemohon');
-            $table->unsignedInteger('id_mitra');
-            $table->unsignedInteger('id_bidang')->nullable();
-            $table->unsignedInteger('id_dokumen');
-            $table->enum('jenis_kerjasama', ['Memorandum of Understanding (MoU)', 'Memorandum of Agreement (MoA)']);
+            $table->unsignedBigInteger('id_ajuan'); // Must match ajuan's id type
+            $table->unsignedBigInteger('id_pemohon'); // Changed to unsignedBigInteger
+            $table->unsignedBigInteger('id_mitra'); // Changed to unsignedBigInteger
+            $table->unsignedBigInteger('id_bidang')->nullable(); // Changed to unsignedBigInteger
+            $table->unsignedBigInteger('id_dokumen'); // Changed to unsignedBigInteger
+            $table->enum('jenis_kerjasama', [
+                'Memorandum of Understanding (MoU)', 
+                'Memorandum of Agreement (MoA)'
+            ]);
             
-            $table->foreign('id_ajuan')->references('id_ajuan')->on('ajuan')->onDelete('cascade');
-            $table->foreign('id_pemohon')->references('id_pemohon')->on('pemohon')->onDelete('cascade');
-            $table->foreign('id_mitra')->references('id_mitra')->on('mitra')->onDelete('cascade');
-            $table->foreign('id_bidang')->references('id_bidang')->on('bidang_kerjasama')->onDelete('cascade');
-            $table->foreign('id_dokumen')->references('id_dokumen')->on('dokumen')->onDelete('cascade');
+            // Foreign key constraints
+            $table->foreign('id_ajuan')
+                  ->references('id_ajuan')
+                  ->on('ajuan')
+                  ->onDelete('cascade');
+                  
+            $table->foreign('id_pemohon')
+                  ->references('id_pemohon')
+                  ->on('pemohon')
+                  ->onDelete('cascade');
+                  
+            $table->foreign('id_mitra')
+                  ->references('id_mitra')
+                  ->on('mitra')
+                  ->onDelete('cascade');
+                  
+            $table->foreign('id_bidang')
+                  ->references('id_bidang')
+                  ->on('bidang_kerjasama')
+                  ->onDelete('cascade');
+                  
+            $table->foreign('id_dokumen')
+                  ->references('id_dokumen')
+                  ->on('dokumen')
+                  ->onDelete('cascade');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
         Schema::dropIfExists('kerjasama');

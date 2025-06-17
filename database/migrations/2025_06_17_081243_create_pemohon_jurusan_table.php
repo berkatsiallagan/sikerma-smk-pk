@@ -10,14 +10,14 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('pemohon_jurusan', function (Blueprint $table) {
-            $table->unsignedInteger('id_jurusan');
-            $table->unsignedInteger('id_pemohon');
-            
-            $table->primary(['id_jurusan', 'id_pemohon']);
-            $table->foreign('id_jurusan')->references('id_jurusan')->on('jurusan')->onDelete('cascade');
-            $table->foreign('id_pemohon')->references('id_pemohon')->on('pemohon')->onDelete('cascade');
-        });
+Schema::create('pemohon_jurusan', function (Blueprint $table) {
+    $table->unsignedBigInteger('id_jurusan');
+    $table->unsignedBigInteger('id_pemohon');
+    
+    $table->primary(['id_jurusan', 'id_pemohon']);
+    $table->foreign('id_jurusan')->references('id_jurusan')->on('jurusan')->onDelete('cascade');
+    $table->foreign('id_pemohon')->references('id_pemohon')->on('pemohon')->onDelete('cascade');
+});
     }
 
     public function down()
