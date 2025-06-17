@@ -1,3 +1,5 @@
+// database/migrations/2025_06_17_000000_create_admin_table.php
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -12,6 +14,7 @@ return new class extends Migration
             $table->unsignedInteger('id_admin')->autoIncrement();
             $table->string('email', 255)->unique();
             $table->string('kata_sandi', 255);
+            $table->timestamps();
         });
     }
 

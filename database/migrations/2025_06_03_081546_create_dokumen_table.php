@@ -1,3 +1,5 @@
+// database/migrations/2025_06_17_000003_create_dokumen_table.php
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -9,12 +11,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('dokumen', function (Blueprint $table) {
-            $table->unsignedInteger('id_dokumen')->autoIncrement();
-            $table->text('catatan')->nullable();
-            $table->string('dokumen', 255);
-            $table->enum('status', ['aktif', 'tidak aktif', 'kadaluarsa', '']);
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->id('id_dokumen');
+            $table->text('catatan');
+            $table->string('dokumen', 255)->nullable();
+            $table->enum('status', ['aktif', 'tidak aktif', 'kadaluarsa', ''])->nullable();
+            $table->date('tanggal_mulai')->nullable();
+            $table->date('tanggal_selesai')->nullable();
         });
     }
 
