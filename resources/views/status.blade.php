@@ -52,7 +52,7 @@
       </td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">
         <div class="flex flex-wrap gap-2">
-          <button class="bg-{{ ($kerjasama->dokumen->status ?? '') == 'AKTIF' ? 'red' : 'green' }}-400 hover:bg-yellow-500 text-black font-semibold px-4 py-1 rounded-md transition">
+          <button class="bg-{{ ($kerjasama->dokumen->status ?? '') == 'AKTIF' ? 'red' : 'green' }}-600 hover:bg-yellow-500 text-black font-semibold px-4 py-1 rounded-md transition">
             {{ $kerjasama->dokumen->status ?? '-' }}
           </button>
         </div>
