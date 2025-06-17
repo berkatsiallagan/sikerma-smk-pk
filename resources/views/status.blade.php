@@ -62,9 +62,14 @@
       <td class="px-6 py-4 text-sm border-b border-gray-200">
        @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_selesai)
         @php
-          $sisaHari = intval(\Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai)->diffInDays(now()));
+          $tanggalSelesai = \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai);
+          $sisaHariSigned = now()->diffInDays($tanggalSelesai, false);
         @endphp
-        {{ $sisaHari }} hari
+        @if($sisaHariSigned > 0)
+          {{ (int) $sisaHariSigned }} hari
+        @else
+          Selesai {{ $tanggalSelesai->format('Y-m-d') }}
+        @endif
        @else
          -
        @endif

@@ -26,6 +26,7 @@
     <tr class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black">
       <th class="text-left px-6 py-3 font-semibold text-sm">No</th>
       <th class="text-left px-6 py-3 font-semibold text-sm">Mitra</th>
+      <th class="text-left px-6 py-3 font-semibold text-sm">Jurusan</th>
       <th class="text-left px-6 py-3 font-semibold text-sm">Bidang Kerjasama</th>
       <th class="text-left px-6 py-3 font-semibold text-sm">Tanggal Mulai</th>
       <th class="text-left px-6 py-3 font-semibold text-sm">Tanggal Selesai</th>
@@ -37,6 +38,12 @@
     <tr class="bg-white hover:bg-yellow-50 transition-colors duration-300 cursor-pointer">
       <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->id_kerjasama ?? '-' }}</td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->mitra->nama_mitra ?? '-' }}</td>
+      @php
+        $jurusanList = $kerjasama->pemohon && $kerjasama->pemohon->jurusans
+            ? $kerjasama->pemohon->jurusans->pluck('nama_jurusan')->join(', ')
+            : '';
+      @endphp
+      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $jurusanList ?: '-' }}</td>
       @php
         $bidangList = $kerjasama->pemohon && $kerjasama->pemohon->bidangs
             ? $kerjasama->pemohon->bidangs->pluck('nama_bidang')->join(', ')
@@ -102,6 +109,16 @@
               <div class="flex">
                 <p class="w-1/3 font-semibold">Website</p>
                 <p>: {{ $kerjasama->mitra->website }}</p>
+              </div>
+              <div class="flex">
+                <p class="w-1/3 font-semibold">Jurusan</p>
+                <p>:
+                  @if($kerjasama->pemohon && $kerjasama->pemohon->jurusans->isNotEmpty())
+                    {{ $kerjasama->pemohon->jurusans->pluck('nama_jurusan')->join(', ') }}
+                  @else
+                    -
+                  @endif
+                </p>
               </div>
               <div class="flex">
                 <p class="w-1/3 font-semibold">Bidang Kerjasama</p>

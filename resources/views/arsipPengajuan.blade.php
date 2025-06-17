@@ -55,7 +55,11 @@
       </t>
       <td class="px-6 py-4 text-sm border-b border-gray-200">
        @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_selesai)
-        {{ \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai)->format('Y-m-d') }}
+        @php
+          $sisaHariSigned = now()->diffInDays(\Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai), false);
+          $sisaHari = max($sisaHariSigned, 0);
+        @endphp
+        {{ (int) $sisaHari }} hari
        @else
          -
        @endif
