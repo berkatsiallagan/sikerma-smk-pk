@@ -42,6 +42,30 @@ class Kerjasama extends Model
         return $this->belongsTo(Dokumen::class, 'id_dokumen', 'id_dokumen');
     }
 
+    /**
+     * Relasi Kerjasama ke BidangKerjasama (many-to-one)
+     */
+    public function bidang_kerjasama()
+    {
+        return $this->belongsTo(
+            BidangKerjasama::class,
+            'id_bidang',  // foreign key pada tabel kerjasama
+            'id_bidang'   // primary key pada tabel bidang_kerjasama
+        );
+    }
+
+    /**
+     * Relasi Kerjasama ke Ajuan (many-to-one)
+     */
+    public function ajuan()
+    {
+        return $this->belongsTo(
+            Ajuan::class,
+            'id_ajuan', // foreign key pada tabel kerjasama
+            'id_ajuan'  // primary key pada tabel ajuan
+        );
+    }
+
     // Many-to-many relationship with BidangKerjasama
     public function bidangs()
     {
