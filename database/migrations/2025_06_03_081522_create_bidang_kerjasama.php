@@ -1,3 +1,5 @@
+// database/migrations/2025_06_17_000002_create_bidang_kerjasama_table.php
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -9,7 +11,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bidang_kerjasama', function (Blueprint $table) {
-            $table->unsignedInteger('id_bidang')->autoIncrement();
+            $table->id('id_bidang');
             $table->string('nama_bidang', 255);
         });
     }

@@ -1,3 +1,5 @@
+// database/migrations/2025_06_17_000004_create_jurusan_table.php
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -9,7 +11,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('jurusan', function (Blueprint $table) {
-            $table->unsignedInteger('id_jurusan')->autoIncrement();
+            $table->id('id_jurusan');
             $table->string('nama_jurusan', 255);
         });
     }

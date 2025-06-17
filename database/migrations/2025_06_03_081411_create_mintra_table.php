@@ -1,3 +1,5 @@
+// database/migrations/2025_06_17_000005_create_mitra_table.php
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -9,10 +11,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('mitra', function (Blueprint $table) {
-            $table->unsignedInteger('id_mitra')->autoIncrement();
+            $table->id('id_mitra');
             $table->string('nama_mitra', 255);
-            $table->enum('lingkup', ['Nasional', 'Internasional']);
-            $table->string('website', 100)->nullable();
+            $table->enum('lingkup', ['Nasional', 'Internasional'])->nullable();
+            $table->string('website', 100);
             $table->string('email', 100);
         });
     }
