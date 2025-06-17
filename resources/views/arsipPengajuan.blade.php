@@ -63,7 +63,7 @@
       <td class="px-6 py-4 text-sm border-b border-gray-200">
       <div class="flex flex-wrap gap-2">
       @php
-        $status = $kerjasama->dokumen->status ?? '-';
+        $status = optional($kerjasama->dokumen)->status ?? '-';
         $warna = match($status) {
           'aktif' => 'green',
           'tidak aktif' => 'red',
@@ -76,10 +76,14 @@
     </div>
     </td>
     <td class="px-6 py-4 text-sm border-b border-gray-200">
+    @if($kerjasama->dokumen)
     <a href="{{ route('dokumen.download', $kerjasama->dokumen->id_dokumen) }}" 
-   class="bg-yellow-500 hover:bg-yellow-300 text-black font-semibold px-4 py-1 rounded-md transition">
-   Download
-</a>
+       class="bg-yellow-500 hover:bg-yellow-300 text-black font-semibold px-4 py-1 rounded-md transition">
+       Download
+    </a>
+    @else
+      -
+    @endif
       </td>
     </tr>
     @endforeach
