@@ -60,6 +60,9 @@ class PengajuanKerjasamaController extends Controller
 
             'bidangs'        => 'required|array|min:1',
             'bidangs.*'      => 'exists:bidang_kerjasama,id_bidang',
+
+            'tanggal_mulai'  => 'required|date',
+            'tanggal_selesai'=> 'required|date|after_or_equal:tanggal_mulai',
         ]);
 
         DB::beginTransaction();
@@ -101,8 +104,10 @@ class PengajuanKerjasamaController extends Controller
 
             // Dokumen
             $dokumen = Dokumen::create([
-                'catatan' => $validated['catatan'],
-                'dokumen' => $filePath,
+                'catatan'         => $validated['catatan'] ?? null,
+                'dokumen'         => $filePath,
+                'tanggal_mulai'   => $validated['tanggal_mulai'],
+                'tanggal_selesai' => $validated['tanggal_selesai'],
             ]);
 
             // Kerjasama
