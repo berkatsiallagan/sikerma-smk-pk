@@ -39,7 +39,12 @@
     <tr class="bg-white hover:bg-yellow-50 transition-colors duration-300 cursor-pointer">
       <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->id_kerjasama ?? '-' }}</td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->mitra->nama_mitra ?? '-' }}</td>
-      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->pemohon->jurusan->nama_jurusan ?? '-' }}</td>
+      @php
+        $jurusanList = $kerjasama->pemohon && $kerjasama->pemohon->jurusans
+            ? $kerjasama->pemohon->jurusans->pluck('nama_jurusan')->join(', ')
+            : '';
+      @endphp
+      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $jurusanList ?: '-' }}</td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">
         @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_mulai)
           {{ \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_mulai)->format('Y') }}
@@ -86,6 +91,13 @@
               <p><strong>No Pengajuan:</strong> {{ $kerjasama->pemohon->no_permohonan }}</p>
               <p><strong>Tanggal Pengajuan:</strong> {{ $kerjasama->ajuan->tanggal_ajuan }}</p>
               <p><strong>Nama Pengaju:</strong> {{ $kerjasama->pemohon->nama_pemohon }}</p>
+              <p><strong>Jurusan:</strong> 
+                @if($kerjasama->pemohon && $kerjasama->pemohon->jurusans->isNotEmpty())
+                  {{ $kerjasama->pemohon->jurusans->pluck('nama_jurusan')->join(', ') }}
+                @else
+                  -
+                @endif
+              </p>
               <p><strong>Nomor Telepon:</strong> {{ $kerjasama->pemohon->nomor_telp }}</p>
 
               <!-- Mitra -->

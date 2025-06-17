@@ -13,6 +13,7 @@ class DataController extends Controller
             'dokumen',
             'mitra',
             'pemohon.jurusan',
+            'pemohon.jurusans',
             'pemohon.bidangs',
             'ajuan',
             'bidang_kerjasama',
