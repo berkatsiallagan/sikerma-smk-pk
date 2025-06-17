@@ -200,6 +200,20 @@
             <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6">Upload Dokumen</h2>
             
             <div class="grid grid-cols-1 gap-4 md:gap-6">
+              <!-- Tanggal Mulai -->
+              <div class="col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Tanggal Mulai</label>
+                <input type="date" name="tanggal_mulai" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+              </div>
+
+              <!-- Tanggal Selesai -->
+              <div class="col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Tanggal Selesai</label>
+                <input type="date" name="tanggal_selesai" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+              </div>
+
               <!-- Catatan -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
