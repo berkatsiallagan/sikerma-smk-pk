@@ -37,7 +37,12 @@
     <tr class="bg-white hover:bg-yellow-50 transition-colors duration-300 cursor-pointer">
       <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->id_kerjasama ?? '-' }}</td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->mitra->nama_mitra ?? '-' }}</td>
-      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->bidang_kerjasama->nama_bidang ?? '-' }}</td>
+      @php
+        $bidangList = $kerjasama->pemohon && $kerjasama->pemohon->bidangs
+            ? $kerjasama->pemohon->bidangs->pluck('nama_bidang')->join(', ')
+            : '';
+      @endphp
+      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $bidangList ?: '-' }}</td>
       <td class="px-6 py-4 text-sm border-b border-gray-200">
       @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_mulai)
         {{ \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_mulai)->format('Y-m-d') }}
@@ -100,20 +105,26 @@
               </div>
               <div class="flex">
                 <p class="w-1/3 font-semibold">Bidang Kerjasama</p>
-                <p>: {{ $kerjasama->bidang_kerjasama->nama_bidang }}</p>
-            </div>
-            <div class="flex">
-              <p class="w-1/3 font-semibold">Jenis Dokumen</p>
-              <p>: {{ $kerjasama->jenis_kerjasama }}</p>
-            </div>
-            <div class="flex">
-              <p class="w-1/3 font-semibold">Tanggal Mulai</p>
-              <p>: {{ $kerjasama->dokumen->tanggal_mulai }}</p>
-            </div>
-            <div class="flex">
-              <p class="w-1/3 font-semibold">Tanggal Selesai</p>
-              <p>: {{ $kerjasama->dokumen->tanggal_selesai }}</p>
-            </div>
+                <p>:
+                  @if($kerjasama->pemohon && $kerjasama->pemohon->bidangs->isNotEmpty())
+                    {{ $kerjasama->pemohon->bidangs->pluck('nama_bidang')->join(', ') }}
+                  @else
+                    -
+                  @endif
+                </p>
+              </div>
+              <div class="flex">
+                <p class="w-1/3 font-semibold">Jenis Dokumen</p>
+                <p>: {{ $kerjasama->jenis_kerjasama }}</p>
+              </div>
+              <div class="flex">
+                <p class="w-1/3 font-semibold">Tanggal Mulai</p>
+                <p>: {{ $kerjasama->dokumen->tanggal_mulai }}</p>
+              </div>
+              <div class="flex">
+                <p class="w-1/3 font-semibold">Tanggal Selesai</p>
+                <p>: {{ $kerjasama->dokumen->tanggal_selesai }}</p>
+              </div>
           </div>
 
           <div class="flex justify-end space-x-2 mt-4">
