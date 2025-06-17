@@ -18,9 +18,22 @@ class Pemohon extends Model
     protected $fillable = [
         'no_permohonan',
         'nama_pemohon',
-        'nomor_telp'
-        // Hapus 'id_jurusan' karena menggunakan relasi many-to-many
+        'nomor_telp',
+        'id_jurusan'
     ];
+
+    /**
+     * Relasi Pemohon ke Jurusan (many-to-one)
+     * Setiap pemohon berasal dari satu jurusan.
+     */
+    public function jurusan()
+    {
+        return $this->belongsTo(
+            Jurusan::class,
+            'id_jurusan', // foreign key pada tabel pemohon
+            'id_jurusan'  // primary key pada tabel jurusan
+        );
+    }
 
     public function jurusans()
     {
