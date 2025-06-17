@@ -9,12 +9,7 @@ Route::view('/', 'welcome')->name('home');
 Route::middleware([\App\Http\Middleware\AdminAuthMiddleware::class])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');   
-    Route::get('/inputajuan1', [PengajuanController::class, 'showStep1'])->name('show.step1');
-    Route::post('/save-step1', [PengajuanController::class, 'saveStep1'])->name('save.step1');
-    Route::get('/inputajuan2', [PengajuanController::class, 'showStep2'])->name('show.step2');
-    Route::post('/save-step2', [PengajuanController::class, 'saveStep2'])->name('save.step2');
-    Route::get('/inputajuan3', [PengajuanController::class, 'showStep3'])->name('show.step3');
-    Route::post('/save-step3', [PengajuanController::class, 'saveStep3'])->name('save.step3');
+
     Route::view('/data-kerjasama', 'data-kerjasama')->name('data-kerjasama');
     Route::view('/namamitra', 'namamitra')->name('namamitra');
     Route::view('/namajurusan', 'namajurusan')->name('namajurusan');
@@ -56,5 +51,9 @@ use App\Http\Controllers\DokumenController;
 Route::get('/dokumen/download/{id}', [DokumenController::class, 'download'])->name('dokumen.download');
 
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\PengajuanKerjasamaController;
 
 Route::get('/data-kerjasama', [DataController::class, 'index'])->name('data-kerjasama');
+
+Route::get('/pengajuan-kerjasama', [PengajuanKerjasamaController::class, 'create'])->name('pengajuan-kerjasama.create');
+Route::post('/pengajuan-kerjasama', [PengajuanKerjasamaController::class, 'store'])->name('pengajuan-kerjasama.store');
