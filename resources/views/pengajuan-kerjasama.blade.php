@@ -199,16 +199,30 @@
           <div class="form-section" id="step3">
             <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6">Upload Dokumen</h2>
             
-            <div class="grid grid-cols-1 gap-4 md:gap-6">
-              <!-- Catatan -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <!-- Tanggal Mulai -->
               <div class="col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Tanggal Mulai</label>
+                <input type="date" required name="tanggal_mulai" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+              </div>
+              
+              <!-- Tanggal Selesai -->
+              <div class="col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Tanggal Selesai</label>
+                <input type="date" required name="tanggal_selesai" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+              </div>
+              
+              <!-- Catatan -->
+              <div class="col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
                 <textarea name="catatan" rows="3" 
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"></textarea>
               </div>
               
               <!-- Draft PKS -->
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Draft PKS</label>
                 <input type="file" required name="dokumen" 
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
