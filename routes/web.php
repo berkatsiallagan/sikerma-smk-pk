@@ -17,7 +17,7 @@ Route::middleware([\App\Http\Middleware\AdminAuthMiddleware::class])->group(func
     Route::view('/kelola-jurusan', 'kelola-jurusan')->name('kelola-jurusan');
 });
 Route::view('/login', 'login')->name('login');
-Route::view('/kerjasama', 'kerjasama')->name('kerjasama');
+Route::get('/kerjasama', [\App\Http\Controllers\KerjasamaController::class, 'index'])->name('kerjasama');
 Route::view('/contact', 'contact')->name('contact');
 
 
@@ -41,7 +41,6 @@ Route::delete('/kelola-jurusan/{id_jurusan}', [JurusanController::class, 'destro
 use App\Http\Controllers\KerjasamaController;
 
 Route::delete('/kerjasama/{kerjasama}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy');
-Route::get('/kerjasama', [KerjasamaController::class, 'index'])->name('kerjasama.index');
 
 use App\Http\Controllers\ArsipController;
 
