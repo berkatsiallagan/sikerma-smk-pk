@@ -17,7 +17,7 @@ Route::middleware([\App\Http\Middleware\AdminAuthMiddleware::class])->group(func
     Route::view('/kelola-jurusan', 'kelola-jurusan')->name('kelola-jurusan');
 });
 Route::view('/login', 'login')->name('login');
-Route::get('/kerjasama', [\App\Http\Controllers\KerjasamaController::class, 'index'])->name('kerjasama');
+Route::view('/kerjasama', 'kerjasama')->name('kerjasama');
 Route::view('/contact', 'contact')->name('contact');
 
 
