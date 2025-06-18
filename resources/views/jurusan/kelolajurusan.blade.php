@@ -30,33 +30,34 @@
         Tambah Jurusan
       </a>
 
-      <table class="mt-4 w-full border-separate border-spacing-0 rounded-lg overflow-hidden shadow-md" aria-label="Daftar Jurusan">
-        <thead>
-          <tr class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black">
-            <th class="text-left px-6 py-3 font-semibold text-sm">No.</th>
-            <th class="text-left px-6 py-3 font-semibold text-sm">Nama Jurusan</th>
-            <th class="text-left px-6 py-3 font-semibold text-sm">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-        @foreach ($jurusan as $jrsn)
-          <tr class="bg-white hover:bg-yellow-50 transition-colors duration-300 cursor-pointer">
-            <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $jrsn->id_jurusan }}</td>
-            <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $jrsn->nama_jurusan }}</td>
-            <td class="px-6 py-4 text-sm border-b border-gray-200">
-              <div class="flex flex-wrap gap-2">
-                <a href="/kelola-jurusan/{{ $jrsn->id_jurusan }}/edit" class="bg-yellow-600 hover:bg-yellow-400 text-white font-semibold px-4 py-1 rounded-md transition"><i class="fas fa-edit"></i></a>
-                <form action="/kelola-jurusan/{{ $jrsn->id_jurusan }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus?')">
-                  @csrf
-                  @method('DELETE')
-                  <button class="bg-red-600 hover:bg-red-400 text-white font-semibold px-4 py-1 rounded-md transition"><i class="fas fa-trash"></i></button>
-                </form>
-              </div>
-            </td>
-          </tr>
-        @endforeach
-        </tbody>
-      </table>
+      <table class="mt-4 w-full border-separate border-spacing-0 rounded-lg overflow-hidden shadow-md text-base" aria-label="Daftar Jurusan">
+  <thead>
+    <tr class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black">
+      <th class="text-left px-5 py-3 font-semibold text-nowrap">No.</th>
+      <th class="text-left px-5 py-3 font-semibold text-nowrap">Nama Jurusan</th>
+      <th class="text-left px-5 py-3 font-semibold text-nowrap w-[150px]">Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach ($jurusan as $jrsn)
+    <tr class="bg-white hover:bg-yellow-50 transition-colors duration-300">
+      <td class="px-5 py-3 border-b border-gray-200 text-nowrap">{{ $loop->iteration }}</td>
+      <td class="px-5 py-3 border-b border-gray-200 text-nowrap">{{ $jrsn->nama_jurusan }}</td>
+      <td class="px-5 py-3 border-b border-gray-200 text-nowrap">
+        <div class="flex gap-2">
+          <a href="/kelola-jurusan/{{ $jrsn->id_jurusan }}/edit" class="bg-yellow-600 hover:bg-yellow-400 text-white px-4 py-1 rounded-md text-base"><i class="fas fa-pencil-alt"></i></a>
+          <form action="/kelola-jurusan/{{ $jrsn->id_jurusan }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
+            @csrf
+            @method('DELETE')
+            <button class="bg-red-600 hover:bg-red-400 text-white px-4 py-1 rounded-md text-base"><i class="fas fa-trash"></i></button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+
 
       <hr class="border-t-4 border-black mt-6" />
     </main>
