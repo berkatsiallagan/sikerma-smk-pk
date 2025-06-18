@@ -50,12 +50,23 @@
          -
        @endif
       </td>
+      @php
+          $status = strtolower($kerjasama->dokumen->status ?? '-');
+          $tanggalSelesai = $kerjasama->dokumen->tanggal_selesai ?? null;
+          $isSelesai = $tanggalSelesai ? now()->greaterThanOrEqualTo(\Carbon\Carbon::parse($tanggalSelesai)) : false;
+
+          // kalo lewat tanggal selesai berarti tidak aktif
+          $finalStatus = $isSelesai ? 'tidak aktif' : $status;
+
+          // warna button ny
+          $warna = $finalStatus === 'aktif' ? 'green' : 'red';
+      @endphp
       <td class="px-6 py-4 text-sm border-b border-gray-200">
-        <div class="flex flex-wrap gap-2">
-          <button class="bg-{{ ($kerjasama->dokumen->status ?? '') == 'AKTIF' ? 'red' : 'green' }}-600 hover:bg-yellow-500 text-black font-semibold px-4 py-1 rounded-md transition">
-            {{ $kerjasama->dokumen->status ?? '-' }}
-          </button>
-        </div>
+          <div class="flex justify-center">
+              <button class="bg-{{ $warna }}-600 hover:bg-yellow-500 text-white font-semibold px-4 py-1 rounded-md transition">
+                  {{ $finalStatus }}
+              </button>
+          </div>
       </td>
       </td>
     </tr>
