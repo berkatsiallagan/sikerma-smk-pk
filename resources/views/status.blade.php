@@ -22,7 +22,7 @@
   <main class="bg-white p-6 rounded-3xl w-full">
 
   <div class="mb-4 flex justify-end">
-  <form method="GET" action="{{ route('kerjasama.index') }}" class="flex items-center gap-2">
+  <form method="GET" action="{{ route('kerjasama') }}" class="flex items-center gap-2">
     <input type="text" name="search" value="{{ request('search') }}"
       placeholder="Cari nama mitra..." class="px-4 py-2 border border-gray-300 rounded-md w-64 text-sm">
     <button type="submit"
