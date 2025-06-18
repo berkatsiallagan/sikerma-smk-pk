@@ -45,7 +45,7 @@ Route::get('/kerjasama', [KerjasamaController::class, 'index'])->name('kerjasama
 
 use App\Http\Controllers\ArsipController;
 
-Route::get('/arsip-dokumen', [ArsipController::class, 'index'])->name('arsipPengajuan');
+Route::get('/arsip-dokumen', [ArsipController::class, 'index'])->name('arsip-dokumen');
 
 use App\Http\Controllers\DokumenController;
 
