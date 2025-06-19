@@ -45,7 +45,7 @@
       <td class="px-5 py-3 border-b border-gray-200 text-nowrap">{{ $jrsn->nama_jurusan }}</td>
       <td class="px-5 py-3 border-b border-gray-200 text-nowrap">
         <div class="flex gap-2">
-          <a href="/kelola-jurusan/{{ $jrsn->id_jurusan }}/edit" class="bg-yellow-600 hover:bg-yellow-400 text-white px-4 py-1 rounded-md text-base"><i class="fas fa-pencil-alt"></i></a>
+          <a href="/kelola-jurusan/{{ $jrsn->id_jurusan }}/edit" class="bg-yellow-600 hover:bg-yellow-400 text-white px-4 py-1 rounded-md text-base"><i class="fas fa-edit"></i></a>
           <form action="/kelola-jurusan/{{ $jrsn->id_jurusan }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
             @csrf
             @method('DELETE')
@@ -69,7 +69,7 @@
     Swal.fire({
       icon: 'success',
       title: 'Berhasil!',
-      text: '{{ session('success') }}',
+      text: "{{ session('success') }}",
       confirmButtonColor: '#3085d6',
       confirmButtonText: 'OK'
     });

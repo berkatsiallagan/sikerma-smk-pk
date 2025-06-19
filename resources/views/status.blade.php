@@ -47,8 +47,9 @@
     <table class="w-full border-separate border-spacing-0 rounded-lg overflow-hidden shadow-md" aria-label="Daftar Ajuan">
   <thead>
     <tr class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black">
-      <th class="w-[40px] text-left px-6 py-3 font-semibold text-sm">No</th>
-      <th class="text-left px-6 py-3 font-semibold text-sm">Nama Mitra</th>
+      <th class="w-[50px] text-left px-6 py-3 font-semibold text-sm">No Dokumen</th>
+      <th class="w-[200px] text-left px-6 py-3 font-semibold text-sm">Nama Mitra</th>
+      <th class="w-[200px] text-left px-6 py-3 font-semibold text-sm">Catatan</th>
       <th class="w-[150px] text-left px-6 py-3 font-semibold text-sm">Sisa Hari</th>
       <th class="w-[150px] text-center px-6 py-3 font-semibold text-sm">Status</th>
     </tr>
@@ -56,16 +57,19 @@
   <tbody>
     @foreach($kerjasamas as $kerjasama)
     <tr class="bg-white hover:bg-yellow-50 transition-colors duration-300 pointer-events-none">
-      <td class="px-6 py-4 text-sm border border-gray-200">{{ $kerjasama->id_kerjasama ?? '-' }}</td>
-      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->mitra->nama_mitra ?? '-' }}</td>
-      <td class="px-6 py-4 text-sm border-b border-gray-200">
+      <td class="text-center mr-2 text-sm border-b border-gray-200">
+        {{ $kerjasama->pemohon->no_permohonan ?? '-' }}
+      </td>
+      <td class="px-6 py-4 text-sm">{{ $kerjasama->mitra->nama_mitra ?? '-' }}</td>
+      <td class="px-6 py-4 text-sm">{{ $kerjasama->dokumen->catatan ?? '-' }}</td>
+      <td class="px-6 py-4 text-sm">
        @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_selesai)
         @php
           $tanggalSelesai = \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai);
-          $sisaHariSigned = now()->diffInDays($tanggalSelesai, false);
+          $sisaHari = now()->diffInDays($tanggalSelesai, false);
         @endphp
-        @if($sisaHariSigned > 0)
-          {{ (int) $sisaHariSigned }} hari
+        @if($sisaHari > 0)
+          {{ (int) $sisaHari }} hari
         @else
           Selesai
         @endif
@@ -74,23 +78,29 @@
        @endif
       </td>
       @php
-          $status = strtolower($kerjasama->dokumen->status ?? '-');
           $tanggalSelesai = $kerjasama->dokumen->tanggal_selesai ?? null;
-          $isSelesai = $tanggalSelesai ? now()->greaterThanOrEqualTo(\Carbon\Carbon::parse($tanggalSelesai)) : false;
-
-          // kalo lewat tanggal selesai berarti tidak aktif
-          $finalStatus = $isSelesai ? 'tidak aktif' : $status;
-
-          // warna button ny
-          $warna = $finalStatus === 'aktif' ? 'green' : 'red';
+          $sisaHari = $tanggalSelesai ? now()->diffInDays(\Carbon\Carbon::parse($tanggalSelesai), false) : null;
+          
+          if ($sisaHari === null) {
+              $statusText = '-';
+              $color = 'gray';
+          } elseif ($sisaHari > 30) {
+              $statusText = 'Aktif';
+              $color = 'green';
+          } elseif ($sisaHari > 0) {
+              $statusText = 'Akan Berakhir';
+              $color = 'red';
+          } else {
+              $statusText = 'Kadaluarsa';
+              $color = 'red';
+          }
       @endphp
-      <td class="px-6 py-4 text-sm border-b border-gray-200">
+      <td class="px-6 py-4 text-sm bo">
           <div class="flex justify-center">
-              <button class="bg-{{ $warna }}-600 hover:bg-yellow-500 text-white font-semibold px-4 py-1 rounded-md transition">
-                  {{ $finalStatus }}
+              <button class="bg-{{ $color }}-600 hover:bg-{{ $color }}-500 text-white font-semibold px-4 py-1 rounded-md transition">
+                  {{ $statusText }}
               </button>
           </div>
-      </td>
       </td>
     </tr>
     @endforeach

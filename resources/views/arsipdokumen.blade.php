@@ -37,11 +37,10 @@
         <table class="w-full border-separate border-spacing-0 rounded-lg overflow-hidden shadow-md" aria-label="Daftar Ajuan">
           <thead>
             <tr class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black">
-              <th class="w-[40px] text-left px-6 py-3 font-semibold text-sm">No</th>
+              <th class="w-[5px] text-left px-6 py-3 font-semibold text-sm">No</th>
+              <th class="text-left px-6 py-3 font-semibold text-sm">Mitra</th>
 
               @foreach ([
-                'mitra' => 'Mitra',
-                'tahun' => 'Tahun',
                 'tanggal_mulai' => 'Tanggal Mulai',
                 'sisa_hari' => 'Sisa Hari'
               ] as $sortKey => $label)
@@ -67,16 +66,8 @@
                   {{ $loop->iteration }}
                 </td>
 
-                <td class="text-center px-6 py-4 text-sm border-b border-gray-200">
+                <td class="text-left px-6 py-4 text-sm border-b border-gray-200">
                   {{ $kerjasama->mitra->nama_mitra ?? '-' }}
-                </td>
-
-                <td class="text-center px-6 py-4 text-sm border-b border-gray-200">
-                  @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_mulai)
-                    {{ \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_mulai)->format('Y') }}
-                  @else
-                    -
-                  @endif
                 </td>
 
                 <td class="text-center px-6 py-4 text-sm border-b border-gray-200">
@@ -109,16 +100,16 @@
                 @endphp
                 <td class="px-6 py-4 text-sm border-b border-gray-200">
                   <div class="flex justify-center">
-                    <button class="bg-{{ $warna }}-600 hover:bg-yellow-500 text-white font-semibold px-4 py-1 rounded-md transition">
+                    <span class="bg-{{ $warna }}-600 text-white font-semibold px-4 py-1 rounded-md transition">
                       {{ $finalStatus }}
-                    </button>
+                    </span>
                   </div>
                 </td>
 
                 <td class="text-center px-6 py-4 text-sm border-b border-gray-200">
                   @if($kerjasama->dokumen)
                     <a href="{{ route('dokumen.download', $kerjasama->dokumen->id_dokumen) }}" 
-                       class="bg-blue-600 hover:bg-yellow-300 text-white font-semibold px-4 py-1 rounded-md transition inline-flex items-center justify-center"
+                       class="bg-blue-600 hover:bg-blue-400 text-white font-semibold px-4 py-1 rounded-md transition inline-flex items-center justify-center"
                        title="Download Dokumen">
                       <i class="fa-solid fa-download"></i>
                     </a>

@@ -40,6 +40,7 @@ Route::delete('/kelola-jurusan/{id_jurusan}', [JurusanController::class, 'destro
 
 use App\Http\Controllers\KerjasamaController;
 
+Route::put('/kerjasama/{kerjasama}', [KerjasamaController::class, 'update'])->name('kerjasama.update');
 Route::delete('/kerjasama/{kerjasama}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy');
 
 use App\Http\Controllers\ArsipController;

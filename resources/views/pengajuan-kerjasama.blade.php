@@ -79,7 +79,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <!-- Nomor Pemohonan -->
               <div class="col-span-1">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Permohonan</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Dokumen</label>
                 <input type="text" name="no_permohonan" value="{{ $newNumber }}" 
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readonly>
               </div>
@@ -87,8 +87,12 @@
               <!-- Tanggal Pengajuan -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Pengajuan</label>
-                <input type="date" name="tanggal_ajuan" value="{{ date('Y-m-d') }}" readonly 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed">
+                <!-- Tampilan format d-M-Y (hanya teks) -->
+                <div class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100">
+                  {{ now()->format('d-M-Y') }}
+                </div>
+                <!-- Input asli (tersembunyi, format Y-m-d) -->
+                <input type="hidden" name="tanggal_ajuan" value="{{ now()->format('Y-m-d') }}">
               </div>
               
               <!-- Nama Pemohon -->
