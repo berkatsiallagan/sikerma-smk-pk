@@ -86,11 +86,6 @@ class PengajuanController extends Controller
         return redirect()->route('show.step3');
     }
 
-    public function showStep3()
-    {
-        return view('inputajuan3');
-    }
-
     public function saveStep3(Request $request)
     {
         $validated = $request->validate([
@@ -98,26 +93,42 @@ class PengajuanController extends Controller
             'dokumen' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        // Upload file
-        $filePath = $request->file('dokumen')->store('dokumen_kerjasama');
+        // Ambil data dari session
+        $mitra = Mitra::find(Session::get('form_data.id_mitra'));
+        $kerjasama = Kerjasama::find(Session::get('form_data.id_kerjasama'));
 
-        // Create dokumen
+        // Format nama file
+        $originalName = pathinfo($request->file('dokumen')->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $request->file('dokumen')->getClientOriginalExtension();
+        $customName = str_replace(' ', '_', $mitra->nama_mitra) . '_' . 
+                    str_replace(' ', '_', $kerjasama->jenis_kerjasama) . '_' . 
+                    time() . '.' . $extension;
+
+        // Pastikan folder tujuan ada (create if not exists)
+        $destinationPath = public_path('assets/dokumen/');
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+
+        // Pindahkan file ke public/assets/dokumen/
+        $request->file('dokumen')->move($destinationPath, $customName);
+
+        // Simpan path relatif (tanpa public/) ke database
+        $relativePath = 'assets/dokumen/' . $customName;
+
+        // Simpan ke database
         $dokumen = Dokumen::create([
             'catatan' => $validated['catatan'],
-            'dokumen' => $filePath,
+            'dokumen' => $relativePath,  // Contoh: 'assets/dokumen/PTABC_MoU_1712345678.pdf'
             'status' => 'pending',
             'tanggal_mulai' => now(),
-            // Other fields as needed
         ]);
 
-        // Update kerjasama with dokumen ID
-        $kerjasama = Kerjasama::find(Session::get('form_data.id_kerjasama'));
+        // Update kerjasama
         $kerjasama->id_dokumen = $dokumen->id_dokumen;
         $kerjasama->save();
 
-        // Clear session
         Session::forget('form_data');
-
-        return redirect()->route('pengajuan.success')->with('success', 'Pengajuan kerjasama berhasil disimpan!');
+        return redirect()->route('pengajuan.success')->with('success', 'Pengajuan berhasil!');
     }
 }
