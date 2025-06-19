@@ -41,7 +41,7 @@
   <div class="p-6">
     <form id="logoutForm" action="{{ route('logout') }}" method="GET">
       <button type="button" onclick="confirmLogout()"
-        class="flex items-center gap-3 px-4 py-2 bg-[#4a1a05] text-white rounded hover:bg-red-800 transition text-sm font-bold justify-center w-full">
+        class="flex items-center gap-3 px-4 py-2 bg-[#4a1a05] text-white rounded hover:bg-red-600 transition text-sm font-bold justify-center w-full">
         <i class="fas fa-sign-out-alt"></i> Keluar
       </button>
     </form>
