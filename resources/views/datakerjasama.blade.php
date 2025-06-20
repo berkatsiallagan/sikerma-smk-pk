@@ -284,13 +284,23 @@
                               <div>
                                 <label class="text-sm font-medium text-gray-500">Jurusan Terkait</label>
                                 <select name="jurusans[]" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                  
+                                  @foreach($allJurusans as $jurusan)
+                                    <option value="{{ $jurusan->id_jurusan }}" 
+                                      {{ $kerjasama->pemohon && $kerjasama->pemohon->jurusans->contains($jurusan->id_jurusan) ? 'selected' : '' }}>
+                                      {{ $jurusan->nama_jurusan }}
+                                    </option>
+                                  @endforeach
                                 </select>
                               </div>
                               <div>
                                 <label class="text-sm font-medium text-gray-500">Bidang Kerjasama</label>
                                 <select name="bidangs[]" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                  
+                                  @foreach($allBidangs as $bidang)
+                                    <option value="{{ $bidang->id_bidang }}" 
+                                      {{ $kerjasama->pemohon && $kerjasama->pemohon->bidangs->contains($bidang->id_bidang) ? 'selected' : '' }}>
+                                      {{ $bidang->nama_bidang }}
+                                    </option>
+                                  @endforeach
                                 </select>
                               </div>
                             </div>
