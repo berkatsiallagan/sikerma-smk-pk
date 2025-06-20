@@ -8,6 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   
   <style>
     .form-section {
@@ -26,9 +27,18 @@
       background-color: #d97706;
       color: white;
     }
-    .required-field:after {
-      content: " *";
-      color: red;
+    .step-indicator.completed {
+      background-color: #10b981;
+      color: white;
+    }
+    .progress-line.completed {
+      background-color: #10b981;
+    }
+    /* custom transition utility */
+    @layer utilities {
+      .transition-all-linear {
+        transition: all 0.35s linear;
+      }
     }
   </style>
 </head>
@@ -45,7 +55,7 @@
       @if(session('success'))
         <div class="mb-6 w-full p-4 bg-green-100 text-green-800 rounded">{{ session('success') }}</div>
       @endif
-      @if($errors->any())
+      @if($errors->any()))
         <div class="mb-6 w-full p-4 bg-red-100 text-red-800 rounded">
           <ul class="list-disc list-inside">
             @foreach($errors->all() as $error)
@@ -55,22 +65,40 @@
         </div>
       @endif
 
-      <main class="bg-white p-4 md:p-6 rounded-3xl w-full shadow-md">
-        <!-- Step Indicators -->
-        <div class="flex justify-between mb-8">
-          <div class="step-indicator step0 text-center px-4 py-2 rounded-lg border border-gray-300 w-1/3 mx-1 active">
-            <i class="fas fa-user mr-2"></i>Data Pemohon
-          </div>
-          <div class="step-indicator step1 text-center px-4 py-2 rounded-lg border border-gray-300 w-1/3 mx-1">
-            <i class="fas fa-handshake mr-2"></i>Data Mitra
-          </div>
-          <div class="step-indicator step2 text-center px-4 py-2 rounded-lg border border-gray-300 w-1/3 mx-1">
-            <i class="fas fa-file-upload mr-2"></i>Upload Dokumen
-          </div>
-        </div>
 
+
+      <main class="bg-white p-4 md:p-6 rounded-3xl w-full shadow-md">
         <form id="kerjasamaForm" method="POST" action="{{ route('pengajuan-kerjasama.store') }}" enctype="multipart/form-data" class="space-y-6">
           @csrf
+
+      <!-- Progress Bar -->
+      <div class="relative flex items-center justify-between w-full mb-8 px-4">
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center z-10">
+          <div id="progress-step1" class="progress-step w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-gray-800">
+            1
+          </div>
+          <div class="mt-2 text-sm font-medium text-gray-800">Data Pemohon</div>
+        </div>
+        <div id="progress-line1" class="progress-line flex-1 h-1 bg-gray-300 mx-2"></div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center z-10">
+          <div id="progress-step2" class="progress-step w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-gray-800">
+            2
+          </div>
+          <div class="mt-2 text-sm font-medium text-gray-800">Data Mitra</div>
+        </div>
+        <div id="progress-line2" class="progress-line flex-1 h-1 bg-gray-300 mx-2"></div>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center z-10">
+          <div id="progress-step3" class="progress-step w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-gray-800">
+            3
+          </div>
+          <div class="mt-2 text-sm font-medium text-gray-800">Upload Dokumen</div>
+        </div>
+      </div>
 
           <!-- Step 1: Data Pemohon -->
           <div class="form-section current" id="step1">
@@ -79,7 +107,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <!-- Nomor Pemohonan -->
               <div class="col-span-1">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Dokumen</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Permohonan</label>
                 <input type="text" name="no_permohonan" value="{{ $newNumber }}" 
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readonly>
               </div>
@@ -87,42 +115,43 @@
               <!-- Tanggal Pengajuan -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Pengajuan</label>
-                <!-- Tampilan format d-M-Y (hanya teks) -->
-                <div class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100">
-                  {{ now()->format('d-M-Y') }}
-                </div>
-                <!-- Input asli (tersembunyi, format Y-m-d) -->
-                <input type="hidden" name="tanggal_ajuan" value="{{ now()->format('Y-m-d') }}">
+                <input type="date" name="tanggal_ajuan" value="{{ date('Y-m-d') }}" readonly 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed">
               </div>
               
               <!-- Nama Pemohon -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Nama Pemohon</label>
-                <input type="text" required name="nama_pemohon" 
+                <input type="text" required name="nama_pemohon"
+                       data-parsley-pattern="^[a-zA-Z\s]+$"
+                       data-parsley-pattern-message="Nama pemohon hanya boleh berisi huruf dan spasi"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
               </div>
               
               <!-- No. HP -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">No. HP</label>
-                <input type="tel" required name="nomor_telp" 
+                <input type="tel" required name="nomor_telp"
+                       minlength="12" data-parsley-minlength="12"
+                       data-parsley-minlength-message="Nomor HP minimal 10 digit"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
               </div>
               
               <!-- Jurusan Pemohon -->
               <div class="col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-2 required-field">Jurusan Pemohon</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="w-full flex items-center justify-start flex-wrap mb-2">
                   @foreach($jurusans as $jurusan)
-                    <label class="flex items-center">
-                      <input name="jurusans[]" type="checkbox" value="{{ $jurusan->id_jurusan }}" 
-                            {{ in_array($jurusan->id_jurusan, old('jurusans', [])) ? 'checked' : '' }}
-                            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                      <span class="ml-2">{{ $jurusan->nama_jurusan }}</span>
-                    </label>
+                    @php $jid = 'jurusan'.$jurusan->id_jurusan; @endphp
+                    <div class="m-1 inline-block">
+                      <input type="checkbox" name="jurusans[]" id="{{ $jid }}" value="{{ $jurusan->id_jurusan }}" class="hidden peer" {{ in_array($jurusan->id_jurusan, old('jurusans', [])) ? 'checked' : '' }} />
+                      <label for="{{ $jid }}" class="px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full cursor-pointer peer-checked:text-blue-600 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                        {{ $jurusan->nama_jurusan }}
+                      </label>
+                    </div>
                   @endforeach
                 </div>
-                @error('jurusans')
+                @error('jurusans'))
                   <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
                 <p id="jurusan-error" class="mt-1 text-sm text-red-600 hidden">Pilih minimal satu jurusan</p>
@@ -138,19 +167,26 @@
               <!-- Nama Mitra -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Nama Mitra</label>
-                <input type="text" required name="nama_mitra" 
+                <input type="text" required name="nama_mitra"
+                       data-parsley-pattern="^[a-zA-Z\s.,&-]+$"
+                       data-parsley-pattern-message="Nama mitra hanya boleh berisi huruf, spasi, titik (.), koma (,), ampersand (&) dan tanda hubung (-)"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
               </div>
               
               <!-- Negara -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Negara</label>
-                <select name="lingkup" required 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                  <option value="">Pilih Negara</option>
-                  <option value="Nasional">Nasional</option>
-                  <option value="Internasional">Internasional</option>
-                </select>
+                <div class="relative dropdown-container">
+                  <button type="button" id="dropdownButton" class="w-full flex justify-between items-center px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                    <span id="dropdownButtonText">Pilih Negara</span>
+                    <span class="material-icons text-lg transition-transform duration-300">arrow_drop_down</span>
+                  </button>
+                  <ul id="dropdownList" class="absolute hidden w-full mt-1 bg-white z-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.1)] text-sm">
+                    <li data-value="Nasional" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer rounded-t-lg">Nasional</li>
+                    <li data-value="Internasional" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer rounded-b-lg">Internasional</li>
+                  </ul>
+                </div>
+                <input type="hidden" name="lingkup" id="lingkupInput" required>
               </div>
               
               <!-- Website -->
@@ -170,28 +206,34 @@
               <!-- Jenis Kerjasama -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Jenis Kerjasama</label>
-                <select name="jenis_kerjasama" required 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                  <option value="">Pilih Jenis</option>
-                  <option value="Memorandum of Understanding (MoU)">MoU</option>
-                  <option value="Memorandum of Agreement (MoA)">MoA</option>
-                </select>
+                <div class="relative dropdown-container">
+                  <button type="button" id="jenisDropdownButton" class="w-full flex justify-between items-center px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                    <span id="jenisDropdownButtonText">Pilih Jenis</span>
+                    <span class="material-icons text-lg transition-transform duration-300">arrow_drop_down</span>
+                  </button>
+                  <ul id="jenisDropdownList" class="absolute hidden w-full mt-1 bg-white z-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.1)] text-sm">
+                    <li data-value="Memorandum of Understanding (MoU)" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer rounded-t-lg">Memorandum of Understanding (MoU)</li>
+                    <li data-value="Memorandum of Agreement (MoA)" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer rounded-b-lg">Memorandum of Agreement (MoA)</li>
+                  </ul>
+                </div>
+                <input type="hidden" name="jenis_kerjasama" id="jenisKerjasamaInput" required>
               </div>
               
               <!-- Bidang Pemohon -->
               <div class="col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-2 required-field">Bidang Pemohon</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="w-full flex items-center justify-start flex-wrap mb-2">
                   @foreach($bidangs as $bidang)
-                    <label class="flex items-center">
-                      <input name="bidangs[]" type="checkbox" value="{{ $bidang->id_bidang }}" 
-                            {{ in_array($bidang->id_bidang, old('bidangs', [])) ? 'checked' : '' }}
-                            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                      <span class="ml-2">{{ $bidang->nama_bidang }}</span>
-                    </label>
+                    @php $bid = 'bidang'.$bidang->id_bidang; @endphp
+                    <div class="m-1 inline-block">
+                      <input type="checkbox" name="bidangs[]" id="{{ $bid }}" value="{{ $bidang->id_bidang }}" class="hidden peer" {{ in_array($bidang->id_bidang, old('bidangs', [])) ? 'checked' : '' }} />
+                      <label for="{{ $bid }}" class="px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full cursor-pointer transition-colors peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600">
+                        {{ $bidang->nama_bidang }}
+                      </label>
+                    </div>
                   @endforeach
                 </div>
-                @error('bidangs')
+                @error('bidangs'))
                   <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
                 <p id="bidang-error" class="mt-1 text-sm text-red-600 hidden">Pilih minimal satu bidang</p>
@@ -222,33 +264,33 @@
               <div class="col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
                 <textarea name="catatan" rows="3" 
+                       maxlength="255"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"></textarea>
               </div>
               
               <!-- Draft PKS -->
               <div class="col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Draft PKS</label>
-                <input type="file" required name="dokumen" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                <input type="file" required name="dokumen" id="dokumenFile" class="hidden" accept=".pdf,.doc,.docx">
+                <label for="dokumenFile" id="dokumenLabel" class="inline-block text-center w-auto py-2 px-6 border-2 border-amber-400 rounded-full uppercase font-semibold text-sm text-amber-400 transition-all-linear hover:scale-105 cursor-pointer">Select file</label>
                 <p class="text-sm text-gray-600 mt-1">Format file: PDF, DOC, DOCX (max 2MB)</p>
+                <p id="dokumen-size-error" class="text-red-500 text-sm mt-1 hidden">Ukuran file maksimal 2 MB.</p>
               </div>
             </div>
           </div>
 
           <!-- Navigation Buttons -->
-          <div class="flex justify-between mt-8">
+          <div class="flex mt-8 items-center gap-4">
             <button type="button" class="previous px-6 py-2 bg-gray-300 text-black font-bold rounded-lg hover:bg-gray-400 transition">
               <i class="fas fa-arrow-left mr-2"></i> Kembali
             </button>
-            <button type="button" class="next px-6 py-2 bg-amber-600 text-white font-bold rounded-lg hover:bg-amber-700 transition">
+            <button type="button" class="next ml-auto px-6 py-2 bg-amber-600 text-white font-bold rounded-lg hover:bg-amber-700 transition">
               Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
             </button>
-            <button type="submit" class="submit px-6 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition hidden">
+            <button type="submit" class="submit ml-auto px-6 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition hidden">
               Selesai <i class="fas fa-check ml-2"></i>
             </button>
-            <button type="button" class="cancel px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition">
-              <i class="fas fa-times mr-2"></i>Batal
-            </button>
+
           </div>
         </form>
       </main>
@@ -260,6 +302,27 @@
       var $sections = $('.form-section');
       var currentStep = 0;
       var form = $('#kerjasamaForm').parsley();
+      
+      function updateProgressBar(step) {
+        // Reset all progress steps
+        $('.progress-step').removeClass('active completed');
+        $('.progress-line').removeClass('completed');
+        
+        // Update progress based on current step
+        if (step >= 0) {
+          $('#progress-step1').addClass('active');
+        }
+        if (step >= 1) {
+          $('#progress-step1').removeClass('active').addClass('completed');
+          $('#progress-line1').addClass('completed');
+          $('#progress-step2').addClass('active');
+        }
+        if (step >= 2) {
+          $('#progress-step2').removeClass('active').addClass('completed');
+          $('#progress-line2').addClass('completed');
+          $('#progress-step3').addClass('active');
+        }
+      }
       
       function navigateTo(index) {
         // Validate before proceeding to next step
@@ -278,9 +341,8 @@
         $('.next').toggle(index < $sections.length - 1);
         $('.submit').toggle(index === $sections.length - 1);
         
-        // Update step indicators
-        $('.step-indicator').removeClass('active');
-        $('.step-indicator.step' + index).addClass('active');
+        // Update progress bar
+        updateProgressBar(index);
       }
       
       // Phone number formatting
@@ -325,6 +387,43 @@
         }
       });
       
+      // Custom dropdown for Negara (lingkup)
+      $('#dropdownButton').on('click', function(e) {
+        e.stopPropagation();
+        $('#dropdownList').toggleClass('hidden');
+      });
+
+      $('#dropdownList li').on('click', function(e) {
+        const value = $(this).data('value');
+        const text = $(this).text();
+        $('#dropdownButtonText').text(text);
+        $('#lingkupInput').val(value);
+        $('#dropdownList').addClass('hidden');
+      });
+
+      // Custom dropdown for Jenis Kerjasama
+      $('#jenisDropdownButton').on('click', function(e) {
+        e.stopPropagation();
+        $('#jenisDropdownList').toggleClass('hidden');
+      });
+
+      $('#jenisDropdownList li').on('click', function(e) {
+        const value = $(this).data('value');
+        const text = $(this).text();
+        $('#jenisDropdownButtonText').text(text);
+        $('#jenisKerjasamaInput').val(value);
+        $('#jenisDropdownList').addClass('hidden');
+      });
+
+      // Hide dropdowns when mouse leaves their list
+      $('#dropdownList').on('mouseleave', function() { $(this).addClass('hidden'); });
+      $('#jenisDropdownList').on('mouseleave', function() { $(this).addClass('hidden'); });
+      
+      // Close dropdowns when clicking outside
+      $(document).on('click', function() {
+        $('#dropdownList, #jenisDropdownList').addClass('hidden');
+      });
+      
       // Initialize form validation
       $('#kerjasamaForm').parsley();
       
@@ -335,6 +434,28 @@
       
       // Start at first step
       navigateTo(0);
+
+      const dokumenInput = document.getElementById('dokumenFile');
+      const dokumenError = document.getElementById('dokumen-size-error');
+      const dokumenLabel = document.getElementById('dokumenLabel');
+
+      dokumenInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file && file.size > 2 * 1024 * 1024) { // 2 MB
+          dokumenError.classList.remove('hidden');
+          e.target.value = '';
+          dokumenLabel.textContent = 'Select file';
+          dokumenLabel.classList.remove('bg-amber-400', 'text-black');
+          dokumenLabel.classList.add('text-amber-400');
+        } else {
+          dokumenError.classList.add('hidden');
+          if (file) {
+            dokumenLabel.textContent = file.name;
+            dokumenLabel.classList.add('text-black');
+            dokumenLabel.classList.remove('text-amber-400', 'bg-amber-400');
+          }
+        }
+      });
     });
   </script>
 </body>

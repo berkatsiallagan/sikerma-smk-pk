@@ -11,6 +11,7 @@ use App\Models\Kerjasama;
 use App\Models\BidangKerjasama;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PengajuanKerjasamaController extends Controller
 {
@@ -39,24 +40,33 @@ class PengajuanKerjasamaController extends Controller
      */
     public function store(Request $request)
     {
+        // Normalize phone number: keep digits only for validation
+        $request->merge([
+            'nomor_telp' => preg_replace('/\D/', '', $request->nomor_telp),
+        ]);
+
         // Basic validation to ensure required fields exist
         $validated = $request->validate([
             'no_permohonan'  => 'required',
-            'nama_pemohon'   => 'required|string',
-            'nomor_telp'     => 'required|string',
+            'nama_pemohon'   => ['required','string','regex:/^[A-Za-z\s]+$/'],
+            'nomor_telp'     => 'required|string|min:10|max:12',
             'jurusans'       => 'required|array|min:1',
             'jurusans.*'     => 'exists:jurusan,id_jurusan',
 
             'tanggal_ajuan'  => 'required|date',
 
-            'nama_mitra'     => 'required|string',
+            'nama_mitra'     => [
+                'required',
+                'string',
+                'regex:/^[A-Za-z\\s.,&-]+$/'
+            ],
             'lingkup'        => 'required|string',
             'website'        => 'nullable|url',
             'email'          => 'required|email',
             'jenis_kerjasama'=> 'required|string',
 
             'dokumen'        => 'required|file|mimes:pdf,doc,docx|max:2048',
-            'catatan'        => 'nullable|string',
+            'catatan'        => 'nullable|string|max:255',
 
             'bidangs'        => 'required|array|min:1',
             'bidangs.*'      => 'exists:bidang_kerjasama,id_bidang',
@@ -99,8 +109,40 @@ class PengajuanKerjasamaController extends Controller
                 'email'      => $validated['email'],
             ]);
 
-            // Upload dokumen file
-            $filePath = $request->file('dokumen')->store('dokumen', 'public');
+            // Upload dokumen file ke folder /public/assets/dokumen/
+            $file = $request->file('dokumen');
+
+            // Tentukan singkatan dokumen (MOU / MOA) jika sesuai
+            $jenisRaw = strtolower($validated['jenis_kerjasama']);
+            if (str_contains($jenisRaw, 'understanding')) {
+                $jenisDokumen = 'MOU';
+            } elseif (str_contains($jenisRaw, 'agreement')) {
+                $jenisDokumen = 'MOA';
+            } else {
+                $jenisDokumen = Str::slug($validated['jenis_kerjasama'], '_');
+            }
+
+            // Format nama mitra (preserve kapital): ganti karakter non-alfanumerik dengan underscore
+            $namaMitraRaw = $validated['nama_mitra'];
+            $namaMitra    = preg_replace('/[^A-Za-z0-9]+/', '_', $namaMitraRaw);
+            $namaMitra    = trim($namaMitra, '_');
+
+            $tanggal      = \Carbon\Carbon::parse($validated['tanggal_mulai'])->format('Y-m-d');
+            $extension    = $file->getClientOriginalExtension();
+
+            $filename = $jenisDokumen . '_' . $namaMitra . '_' . $tanggal . '.' . $extension;
+
+            // Pastikan direktori tujuan ada
+            $destination = public_path('assets/dokumen');
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+
+            // Pindahkan file
+            $file->move($destination, $filename);
+
+            // Simpan hanya nama file (tanpa path) di database
+            $filePath = $filename;
 
             // Dokumen
             $dokumen = Dokumen::create([
