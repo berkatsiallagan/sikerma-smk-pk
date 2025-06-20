@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 20 Jun 2025 pada 08.50
+-- Waktu pembuatan: 20 Jun 2025 pada 10.20
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -417,7 +417,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `ajuan`
 --
 ALTER TABLE `ajuan`
-  MODIFY `id_ajuan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_ajuan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `bidang_kerjasama`
@@ -453,7 +453,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT untuk tabel `mitra`
 --
 ALTER TABLE `mitra`
-  MODIFY `id_mitra` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_mitra` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemohon`
