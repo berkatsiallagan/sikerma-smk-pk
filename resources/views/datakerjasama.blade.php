@@ -233,7 +233,8 @@
                       </div>
                       
                       <!-- Modal Content -->
-                      <form action="{{ route('kerjasama.update', $kerjasama->id_kerjasama) }}" method="POST" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <!-- <form action="{{ route('kerjasama.update', $kerjasama->id_kerjasama) }}" method="POST" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6"> -->
+                      <form action="" method="POST" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                         @csrf
                         @method('PUT')
                         
@@ -245,21 +246,20 @@
                               <div>
                                 <label class="text-sm font-medium text-gray-500">No Dokumen</label>
                                 <input type="text" name="no_permohonan" value="{{ $kerjasama->pemohon->no_permohonan ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-100 cursor-not-allowed" readonly>
                               </div>
                               <div>
                                 <label class="text-sm font-medium text-gray-500">Jenis Dokumen</label>
                                 <select name="jenis_kerjasama" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
                                   <option value="MOU" {{ $kerjasama->jenis_kerjasama == 'MOU' ? 'selected' : '' }}>MOU</option>
                                   <option value="MOA" {{ $kerjasama->jenis_kerjasama == 'MOA' ? 'selected' : '' }}>MOA</option>
-                                  <option value="IA" {{ $kerjasama->jenis_kerjasama == 'IA' ? 'selected' : '' }}>IA</option>
                                 </select>
                               </div>
                               <div>
                                 <label class="text-sm font-medium text-gray-500">Tanggal Pengajuan</label>
                                 <input type="date" name="tanggal_ajuan" 
                                   value="{{ $kerjasama->ajuan->tanggal_ajuan ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-100 cursor-not-allowed" readonly>
                               </div>
                               <div class="grid grid-cols-2 gap-2">
                                 <div>
@@ -284,23 +284,13 @@
                               <div>
                                 <label class="text-sm font-medium text-gray-500">Jurusan Terkait</label>
                                 <select name="jurusans[]" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                  @foreach($allJurusans as $jurusan)
-                                    <option value="{{ $jurusan->id_jurusan }}" 
-                                      {{ $kerjasama->pemohon && $kerjasama->pemohon->jurusans->contains($jurusan->id_jurusan) ? 'selected' : '' }}>
-                                      {{ $jurusan->nama_jurusan }}
-                                    </option>
-                                  @endforeach
+                                  
                                 </select>
                               </div>
                               <div>
                                 <label class="text-sm font-medium text-gray-500">Bidang Kerjasama</label>
                                 <select name="bidangs[]" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                  @foreach($allBidangs as $bidang)
-                                    <option value="{{ $bidang->id_bidang }}" 
-                                      {{ $kerjasama->pemohon && $kerjasama->pemohon->bidangs->contains($bidang->id_bidang) ? 'selected' : '' }}>
-                                      {{ $bidang->nama_bidang }}
-                                    </option>
-                                  @endforeach
+                                  
                                 </select>
                               </div>
                             </div>
