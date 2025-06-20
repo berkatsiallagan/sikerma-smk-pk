@@ -9,6 +9,7 @@
   <script src="https://unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>[x-cloak]{display:none!important;}</style>
 </head>
 
 <body style="background-color : #212121" class="text-black font-sans">
@@ -90,7 +91,7 @@
                   </div>
 
                   <!-- Popup Detail -->
-                  <div x-show="openDetail" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                  <div x-show="openDetail" x-cloak class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
                     <div @click.away="openDetail = false" class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
                       <!-- Modal Header -->
                       <div class="sticky top-0 bg-white border-b p-6 flex justify-between items-center">
