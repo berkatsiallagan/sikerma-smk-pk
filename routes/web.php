@@ -50,6 +50,7 @@ Route::get('/arsip-dokumen', [ArsipController::class, 'index'])->name('arsip-dok
 use App\Http\Controllers\DokumenController;
 
 Route::get('/dokumen/download/{id}', [DokumenController::class, 'download'])->name('dokumen.download');
+Route::put('/dokumen/{id}/nonaktifkan', [DokumenController::class, 'nonaktifkan'])->name('dokumen.nonaktifkan');
 
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\PengajuanKerjasamaController;

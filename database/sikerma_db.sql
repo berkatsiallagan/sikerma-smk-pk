@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 20 Jun 2025 pada 06.10
+-- Waktu pembuatan: 20 Jun 2025 pada 08.50
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -89,7 +89,10 @@ CREATE TABLE `ajuan` (
 --
 
 INSERT INTO `ajuan` (`id_ajuan`, `tanggal_ajuan`, `id_admin`, `created_at`, `updated_at`) VALUES
-(1, '2025-06-19', NULL, NULL, NULL);
+(1, '2025-06-19', NULL, NULL, NULL),
+(2, '2025-06-20', NULL, NULL, NULL),
+(3, '2025-06-20', NULL, NULL, NULL),
+(4, '2025-06-20', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -132,7 +135,10 @@ CREATE TABLE `dokumen` (
 --
 
 INSERT INTO `dokumen` (`id_dokumen`, `catatan`, `dokumen`, `status`, `tanggal_mulai`, `tanggal_selesai`) VALUES
-(24, 'Kerjasama aja', 'dokumen/sgC3b2QwtMwyeNSnTso0e18RaEeN4Iw2DW0pH0iN.pdf', 'Akan Berakhir', '2025-06-20', '2025-06-28');
+(24, 'Kerjasama aja', 'dokumen/sgC3b2QwtMwyeNSnTso0e18RaEeN4Iw2DW0pH0iN.pdf', 'Aktif', '2025-06-20', '2032-06-03'),
+(25, 'Kerjasama', 'dokumen/68mwBWyWPI7MkR9JlfZKbzAuFdMHJKgLyDYtWYh6.pdf', 'Akan Berakhir', '2025-06-20', '2025-07-04'),
+(26, 'Kerjasama', 'dokumen/hlalUpQLz89vP8f3h0kFP0rImw3605wi6uCCKldn.pdf', 'Tidak Aktif', '2025-06-20', '2025-11-28'),
+(27, 'Kerjasama', 'dokumen/DfFoYPDsOzsEeoGbVa1ntUuWulY0qlMR8epNnLmb.pdf', 'Kadaluarsa', '2025-06-01', '2025-06-17');
 
 --
 -- Trigger `dokumen`
@@ -199,7 +205,10 @@ CREATE TABLE `kerjasama` (
 --
 
 INSERT INTO `kerjasama` (`id_kerjasama`, `id_ajuan`, `id_pemohon`, `id_mitra`, `id_bidang`, `id_dokumen`, `jenis_kerjasama`) VALUES
-(1, 1, 1, 28, NULL, 24, 'Memorandum of Understanding (MoU)');
+(1, 1, 1, 28, NULL, 24, 'Memorandum of Understanding (MoU)'),
+(2, 2, 2, 29, NULL, 25, 'Memorandum of Understanding (MoU)'),
+(3, 3, 3, 30, NULL, 26, 'Memorandum of Agreement (MoA)'),
+(4, 4, 4, 31, NULL, 27, 'Memorandum of Agreement (MoA)');
 
 -- --------------------------------------------------------
 
@@ -242,7 +251,10 @@ INSERT INTO `mitra` (`id_mitra`, `nama_mitra`, `lingkup`, `website`, `email`) VA
 (25, 'PT. Bagus Raya', 'Internasional', 'https://fajar.com', 'harimuktibagus@gmail.com'),
 (26, 'PT. Berkat Jaya Perkasa', 'Nasional', 'https://berkat.my.id', 'berkatsiallagan201105@gmail.com'),
 (27, 'PT. Berkat Jaya Perkasa', 'Nasional', 'https://berkat.my.id', 'berkatsiallagan201105@gmail.com'),
-(28, 'PT. Sumitomo', 'Nasional', 'https://berkat.my.id', 'berkatsiallagan201105@gmail.com');
+(28, 'PT. Sumitomo', 'Nasional', 'https://berkat.my.id', 'berkatsiallagan201105@gmail.com'),
+(29, 'PT. Sumitomo', 'Nasional', 'https://berkat.my.id', 'berkatsiallagan201105@gmail.com'),
+(30, 'PT. Sumitomo', 'Nasional', 'https://berkat.my.id', 'berkatsiallagan201105@gmail.com'),
+(31, 'PT. Sumitomo', 'Internasional', 'https://berkat.my.id', 'berkatsiallagan201105@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -262,7 +274,10 @@ CREATE TABLE `pemohon` (
 --
 
 INSERT INTO `pemohon` (`id_pemohon`, `no_permohonan`, `nama_pemohon`, `nomor_telp`) VALUES
-(1, 'PMH01', 'Berkat', '0822-8471-0929');
+(1, 'PMH01', 'Berkat', '0822-8471-0929'),
+(2, 'PMH02', 'Berkat', '0822-8471-0929'),
+(3, 'PMH03', 'Berkat', '0822-8471-0929'),
+(4, 'PMH04', 'Berkat', '0822-8471-0929');
 
 -- --------------------------------------------------------
 
@@ -281,7 +296,10 @@ CREATE TABLE `pemohon_bidang` (
 
 INSERT INTO `pemohon_bidang` (`id_bidang`, `id_pemohon`) VALUES
 (1, 1),
-(2, 1);
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 4);
 
 -- --------------------------------------------------------
 
@@ -299,6 +317,9 @@ CREATE TABLE `pemohon_jurusan` (
 --
 
 INSERT INTO `pemohon_jurusan` (`id_jurusan`, `id_pemohon`) VALUES
+(1, 2),
+(1, 3),
+(1, 4),
 (3, 1),
 (5, 1);
 
@@ -396,7 +417,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `ajuan`
 --
 ALTER TABLE `ajuan`
-  MODIFY `id_ajuan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_ajuan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `bidang_kerjasama`
@@ -408,7 +429,7 @@ ALTER TABLE `bidang_kerjasama`
 -- AUTO_INCREMENT untuk tabel `dokumen`
 --
 ALTER TABLE `dokumen`
-  MODIFY `id_dokumen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_dokumen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusan`
@@ -420,7 +441,7 @@ ALTER TABLE `jurusan`
 -- AUTO_INCREMENT untuk tabel `kerjasama`
 --
 ALTER TABLE `kerjasama`
-  MODIFY `id_kerjasama` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kerjasama` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
@@ -432,7 +453,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT untuk tabel `mitra`
 --
 ALTER TABLE `mitra`
-  MODIFY `id_mitra` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_mitra` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemohon`

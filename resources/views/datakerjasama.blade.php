@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Data Kerjasana</title>
+  <title>Data Kerjasama</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body style="background-color : #212121" class="text-black font-sans">
@@ -67,12 +68,21 @@
               : '';
               @endphp
               <td class="px-4 py-4 text-sm border-b border-gray-200">{{ $bidangList ?: '-' }}</td>
-              <td class="px-4 py-4 text-sm border-b border-gray-200">{{ $kerjasama->ajuan->pengguna->nama_lengkap ?? '-' }}</td>
+              <td class="px-4 py-4 text-sm border-b border-gray-200">{{ $kerjasama->pemohon->nama_pemohon ?? '-' }}</td>
               <td class="px-4 py-4 text-sm border-b border-gray-200">
-                <div x-data="{ openDetail: false, openEdit: false }" class="flex justify-center">
+                <div x-data="{ openDetail: false }" class="flex justify-center">
                   <div class="flex flex-wrap gap-2">
-                    <button @click="openEdit = true" class="bg-yellow-600 hover:bg-yellow-400 text-white rounded-md p-2 transition-colors">
-                      <i class="fas fa-edit"></i>
+                    <button 
+                      @click="confirmStopDocument('{{ $kerjasama->dokumen->id_dokumen }}')" 
+                      class="rounded-md p-2 transition-colors text-white"
+                      :class="{
+                        'bg-red-600 hover:bg-red-400': '{{ $kerjasama->dokumen->status }}' !== 'Tidak Aktif',
+                        'bg-gray-400 cursor-not-allowed': '{{ $kerjasama->dokumen->status }}' === 'Tidak Aktif'
+                      }"
+                      :disabled="'{{ $kerjasama->dokumen->status }}' === 'Tidak Aktif'"
+                      title="Nonaktifkan Dokumen"
+                    >
+                      <i class="fas fa-ban"></i>
                     </button>  
                     <button @click="openDetail = true" class="bg-blue-600 hover:bg-blue-400 text-white rounded-md p-2 transition-colors">
                       <i class="fas fa-list"></i>
@@ -164,7 +174,7 @@
                             <div class="space-y-3">
                               <div>
                                 <p class="text-sm font-medium text-gray-500">Nama Pemohon</p>
-                                <p class="font-semibold">{{ $kerjasama->pemohon->nama_pemohon ?? $kerjasama->ajuan->pengguna->nama_lengkap ?? '-' }}</p>
+                                <p class="font-semibold">{{ $kerjasama->pemohon->nama_pemohon ?? '-' }}</p>
                               </div>
                               <div>
                                 <p class="text-sm font-medium text-gray-500">Nomor Telepon</p>
@@ -220,157 +230,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- Popup Edit -->
-                  <div x-show="openEdit" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div @click.away="openEdit = false" class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
-                      <!-- Modal Header -->
-                      <div class="sticky top-0 bg-white border-b p-6 flex justify-between items-center">
-                        <h2 class="text-2xl font-bold text-gray-800">Edit Kerjasama</h2>
-                        <button @click="openEdit = false" class="text-gray-500 hover:text-gray-700">
-                          <i class="fas fa-times text-xl"></i>
-                        </button>
-                      </div>
-                      
-                      <!-- Modal Content -->
-                      <!-- <form action="{{ route('kerjasama.update', $kerjasama->id_kerjasama) }}" method="POST" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6"> -->
-                      <form action="" method="POST" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        @csrf
-                        @method('PUT')
-                        
-                        <!-- Left Column -->
-                        <div class="space-y-4">
-                          <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg text-yellow-600 mb-3 border-b pb-2">Informasi Kerjasama</h3>
-                            <div class="space-y-3">
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">No Dokumen</label>
-                                <input type="text" name="no_permohonan" value="{{ $kerjasama->pemohon->no_permohonan ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-100 cursor-not-allowed" readonly>
-                              </div>
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Jenis Dokumen</label>
-                                <select name="jenis_kerjasama" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                  <option value="MOU" {{ $kerjasama->jenis_kerjasama == 'MOU' ? 'selected' : '' }}>MOU</option>
-                                  <option value="MOA" {{ $kerjasama->jenis_kerjasama == 'MOA' ? 'selected' : '' }}>MOA</option>
-                                </select>
-                              </div>
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Tanggal Pengajuan</label>
-                                <input type="date" name="tanggal_ajuan" 
-                                  value="{{ $kerjasama->ajuan->tanggal_ajuan ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-100 cursor-not-allowed" readonly>
-                              </div>
-                              <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                  <label class="text-sm font-medium text-gray-500">Tanggal Mulai</label>
-                                  <input type="date" name="tanggal_mulai" 
-                                    value="{{ $kerjasama->dokumen->tanggal_mulai ?? '' }}" 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                </div>
-                                <div>
-                                  <label class="text-sm font-medium text-gray-500">Tanggal Selesai</label>
-                                  <input type="date" name="tanggal_selesai" 
-                                    value="{{ $kerjasama->dokumen->tanggal_selesai ?? '' }}" 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg text-yellow-600 mb-3 border-b pb-2">Bidang Kerjasama</h3>
-                            <div class="space-y-3">
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Jurusan Terkait</label>
-                                <select name="jurusans[]" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                  @foreach($allJurusans as $jurusan)
-                                    <option value="{{ $jurusan->id_jurusan }}" 
-                                      {{ $kerjasama->pemohon && $kerjasama->pemohon->jurusans->contains($jurusan->id_jurusan) ? 'selected' : '' }}>
-                                      {{ $jurusan->nama_jurusan }}
-                                    </option>
-                                  @endforeach
-                                </select>
-                              </div>
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Bidang Kerjasama</label>
-                                <select name="bidangs[]" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                  @foreach($allBidangs as $bidang)
-                                    <option value="{{ $bidang->id_bidang }}" 
-                                      {{ $kerjasama->pemohon && $kerjasama->pemohon->bidangs->contains($bidang->id_bidang) ? 'selected' : '' }}>
-                                      {{ $bidang->nama_bidang }}
-                                    </option>
-                                  @endforeach
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Right Column -->
-                        <div class="space-y-4">
-                          <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg text-yellow-600 mb-3 border-b pb-2">Informasi Pemohon</h3>
-                            <div class="space-y-3">
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Nama Pemohon</label>
-                                <input type="text" name="nama_pemohon" 
-                                  value="{{ $kerjasama->pemohon->nama_pemohon ?? $kerjasama->ajuan->pengguna->nama_lengkap ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                              </div>
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Nomor Telepon</label>
-                                <input type="text" name="nomor_telp" 
-                                  value="{{ $kerjasama->pemohon->nomor_telp ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg text-yellow-600 mb-3 border-b pb-2">Informasi Mitra</h3>
-                            <div class="space-y-3">
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Nama Mitra</label>
-                                <input type="text" name="nama_mitra" 
-                                  value="{{ $kerjasama->mitra->nama_mitra ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                              </div>
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Lingkup</label>
-                                <select name="lingkup" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                                  <option value="Nasional" {{ ($kerjasama->mitra->lingkup ?? '') == 'Nasional' ? 'selected' : '' }}>Nasional</option>
-                                  <option value="Internasional" {{ ($kerjasama->mitra->lingkup ?? '') == 'Internasional' ? 'selected' : '' }}>Internasional</option>
-                                </select>
-                              </div>
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Email</label>
-                                <input type="email" name="email" 
-                                  value="{{ $kerjasama->mitra->email ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                              </div>
-                              <div>
-                                <label class="text-sm font-medium text-gray-500">Website</label>
-                                <input type="url" name="website" 
-                                  value="{{ $kerjasama->mitra->website ?? '' }}" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Modal Footer -->
-                        <div class="sticky bottom-0 bg-white border-t p-4 flex justify-end space-x-3 col-span-full">
-                          <button type="button" @click="openEdit = false" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition">
-                            <i class="fas fa-times mr-2"></i> Batal
-                          </button>
-                          <button type="submit" class="flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg transition">
-                            <i class="fas fa-save mr-2"></i> Simpan Perubahan
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
                 </div>
               </td>
             </tr>
@@ -382,6 +241,52 @@
       </main>
     </div>
 
+    <script>
+      function confirmStopDocument(id) {
+        Swal.fire({
+          title: 'Nonaktifkan Dokumen?',
+          text: "Apakah Anda yakin ingin menonaktifkan dokumen kerjasama ini?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Ya, Nonaktifkan!',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Send request to update status
+fetch(`/dokumen/${id}/nonaktifkan`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+              }
+            })
+            .then(response => {
+              if (!response.ok) throw new Error('Network response was not ok');
+              return response.json();
+            })
+            .then(data => {
+              Swal.fire(
+                'Dinonaktifkan!',
+                'Dokumen kerjasama telah dinonaktifkan.',
+                'success'
+              ).then(() => {
+                window.location.reload();
+              });
+            })
+            .catch(error => {
+              Swal.fire(
+                'Gagal!',
+                'Terjadi kesalahan saat menonaktifkan dokumen.',
+                'error'
+              );
+              console.error('Error:', error);
+            });
+          }
+        });
+      }
+    </script>
 </body>
 
 </html>

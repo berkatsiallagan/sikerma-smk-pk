@@ -89,10 +89,13 @@
               $color = 'green';
           } elseif ($sisaHari > 0) {
               $statusText = 'Akan Berakhir';
-              $color = 'red';
+              $color = 'yellow';
+          } elseif ($sisaHari > 0) {
+            $statusText = 'Tidak Aktif';
+            $color = 'red';
           } else {
               $statusText = 'Kadaluarsa';
-              $color = 'red';
+              $color = 'blue';
           }
       @endphp
       <td class="px-6 py-4 text-sm bo">

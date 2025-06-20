@@ -37,8 +37,16 @@ class DokumenController extends Controller
 
         abort(404, 'File dokumen tidak ditemukan.');
     }
-    
 
+    /**
+     * Update dokumen status to 'Tidak Aktif'
+     */
+    public function nonaktifkan($id)
+    {
+        $dokumen = Dokumen::findOrFail($id);
+        $dokumen->status = 'Tidak Aktif';
+        $dokumen->save();
 
-
+        return response()->json(['message' => 'Dokumen dinonaktifkan']);
+    }
 }

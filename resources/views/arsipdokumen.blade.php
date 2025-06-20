@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arsip Dokumen</title>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/alpinejs" defer></script>
@@ -39,22 +38,8 @@
             <tr class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black">
               <th class="w-[5px] text-left px-6 py-3 font-semibold text-sm">No</th>
               <th class="text-left px-6 py-3 font-semibold text-sm">Mitra</th>
-
-              @foreach ([
-                'tanggal_mulai' => 'Tanggal Mulai',
-                'sisa_hari' => 'Sisa Hari'
-              ] as $sortKey => $label)
-                <th class="text-center px-6 py-3 font-semibold text-sm">
-                  <a href="{{ route('arsip-dokumen', ['sort' => $sortKey, 'order' => request('order') === 'asc' && request('sort') === $sortKey ? 'desc' : 'asc']) }}" class="inline-flex items-center space-x-2">
-                    <span>{{ $label }}</span>
-                    <span class="flex flex-col items-center text-xs -space-y-1.5">
-                      <i class="fa-solid fa-caret-up {{ request('sort') === $sortKey && request('order') === 'asc' ? 'text-gray-500' : 'text-gray-400' }}"></i>
-                      <i class="fa-solid fa-caret-down {{ request('sort') === $sortKey && request('order') === 'desc' ? 'text-gray-500' : 'text-gray-400' }}"></i>
-                    </span>
-                  </a>
-                </th>
-              @endforeach
-
+              <th class="text-center px-6 py-3 font-semibold text-sm">Tanggal Mulai</th>
+              <th class="text-center px-6 py-3 font-semibold text-sm">Sisa Hari</th>
               <th class="text-center px-6 py-3 font-semibold text-sm">Status</th>
               <th class="text-center px-6 py-3 font-semibold text-sm">Aksi</th>
             </tr>
@@ -78,32 +63,46 @@
                   @endif
                 </td>
 
+                <!-- Kolom Sisa Hari -->
                 <td class="text-center px-6 py-4 text-sm border-b border-gray-200">
                   @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_selesai)
                     @php
-                      $tanggalSelesai = \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai);
-                      $sekarang = \Carbon\Carbon::now();
-                      $sisaHari = $sekarang->lt($tanggalSelesai) ? $sekarang->diffInDays($tanggalSelesai) : 0;
+                      $status = strtolower($kerjasama->dokumen->status ?? '-');
+                      
+                      if ($status === 'tidak aktif') {
+                          echo 'Tidak Aktif';
+                      } elseif ($status === 'kadaluarsa') {
+                          echo 'Selesai';
+                      } else {
+                          $tanggalSelesai = \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai);
+                          $sisaHari = now()->diffInDays($tanggalSelesai, false);
+                          echo $sisaHari > 0 ? (int)$sisaHari.' hari' : 'Selesai';
+                      }
                     @endphp
-                    {{ (int) $sisaHari }} hari
                   @else
                     -
                   @endif
                 </td>
 
+                <!-- Kolom Status -->
                 @php
-                  $status = strtolower($kerjasama->dokumen->status ?? '-');
-                  $tanggalSelesai = $kerjasama->dokumen->tanggal_selesai ?? null;
-                  $isSelesai = $tanggalSelesai ? now()->greaterThanOrEqualTo(\Carbon\Carbon::parse($tanggalSelesai)) : false;
-                  $finalStatus = $isSelesai ? 'tidak aktif' : $status;
-                  $warna = $finalStatus === 'aktif' ? 'green' : 'red';
+                    $status = strtolower($kerjasama->dokumen->status ?? '-');
+                    $colorClasses = match($status) {
+                        'aktif' => 'bg-green-600 text-white',
+                        'akan berakhir' => 'bg-yellow-500 text-white',
+                        'tidak aktif' => 'bg-red-600 text-white',
+                        'kadaluarsa' => 'bg-gray-500 text-white',
+                        'berakhir' => 'bg-gray-400 text-white',
+                        default => 'bg-gray-400 text-white'
+                    };
                 @endphp
+
                 <td class="px-6 py-4 text-sm border-b border-gray-200">
-                  <div class="flex justify-center">
-                    <span class="bg-{{ $warna }}-600 text-white font-semibold px-4 py-1 rounded-md transition">
-                      {{ $finalStatus }}
-                    </span>
-                  </div>
+                    <div class="flex justify-center">
+                        <span class="{{ $colorClasses }} font-semibold px-4 py-1 rounded-md whitespace-nowrap">
+                            {{ ucwords($status) }}
+                        </span>
+                    </div>
                 </td>
 
                 <td class="text-center px-6 py-4 text-sm border-b border-gray-200">
