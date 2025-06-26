@@ -59,3 +59,17 @@ Route::get('/data-kerjasama', [DataController::class, 'index'])->name('data-kerj
 
 Route::get('/pengajuan-kerjasama', [PengajuanKerjasamaController::class, 'create'])->name('pengajuan-kerjasama.create');
 Route::post('/pengajuan-kerjasama', [PengajuanKerjasamaController::class, 'store'])->name('pengajuan-kerjasama.store');
+
+use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\ForgotPasswordController;
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+use App\Http\Controllers\ResetPasswordController;
+
+// Menampilkan form reset password
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// Menangani submit form reset password
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');

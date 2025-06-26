@@ -115,7 +115,7 @@
                                 <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-yellow-500 focus:ring-yellow-400 border-gray-300 rounded">
                                 <label for="remember" class="ml-2 block text-sm text-gray-700">Ingat saya</label>
                             </div>
-                            <a href="#" class="text-sm text-yellow-600 hover:text-yellow-500 font-medium">Lupa kata sandi?</a>
+                            <a href="{{ route('password.request') }}" class="text-sm text-yellow-600 hover:text-yellow-500 font-medium">Lupa kata sandi?</a>
                         </div>
                     </div>
                     
