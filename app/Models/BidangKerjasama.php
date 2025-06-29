@@ -12,6 +12,7 @@ class BidangKerjasama extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id_bidang',
         'nama_bidang',
     ];
 

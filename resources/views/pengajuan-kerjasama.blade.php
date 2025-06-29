@@ -67,7 +67,7 @@
 
 
 
-      <main class="bg-white p-4 md:p-6 rounded-3xl w-full shadow-md">
+      <main class="bg-white p-4 md:p-6 rounded-3xl w-full max-w-6xl mx-auto shadow-md">
         <form id="kerjasamaForm" method="POST" action="{{ route('pengajuan-kerjasama.store') }}" enctype="multipart/form-data" class="space-y-6">
           @csrf
 
@@ -125,7 +125,7 @@
                 <input type="text" required name="nama_pemohon"
                        data-parsley-pattern="^[a-zA-Z\s]+$"
                        data-parsley-pattern-message="Nama pemohon hanya boleh berisi huruf dan spasi"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
               </div>
               
               <!-- No. HP -->
@@ -134,24 +134,24 @@
                 <input type="tel" required name="nomor_telp"
                        minlength="12" data-parsley-minlength="12"
                        data-parsley-minlength-message="Nomor HP minimal 10 digit"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
               </div>
               
               <!-- Jurusan Pemohon -->
               <div class="col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-2 required-field">Jurusan Pemohon</label>
-                <div class="w-full flex items-center justify-start flex-wrap mb-2">
+                <div class="w-full flex flex-wrap mb-2">
                   @foreach($jurusans as $jurusan)
                     @php $jid = 'jurusan'.$jurusan->id_jurusan; @endphp
-                    <div class="m-1 inline-block">
+                    <div class="m-3">
                       <input type="checkbox" name="jurusans[]" id="{{ $jid }}" value="{{ $jurusan->id_jurusan }}" class="hidden peer" {{ in_array($jurusan->id_jurusan, old('jurusans', [])) ? 'checked' : '' }} />
-                      <label for="{{ $jid }}" class="px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full cursor-pointer peer-checked:text-blue-600 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                      <label for="{{ $jid }}" class="px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full cursor-pointer transition-colors peer-checked:text-amber-600 peer-checked:border-amber-500 peer-checked:bg-amber-50">
                         {{ $jurusan->nama_jurusan }}
                       </label>
                     </div>
                   @endforeach
                 </div>
-                @error('jurusans'))
+                @error('jurusans')
                   <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
                 <p id="jurusan-error" class="mt-1 text-sm text-red-600 hidden">Pilih minimal satu jurusan</p>
@@ -170,7 +170,7 @@
                 <input type="text" required name="nama_mitra"
                        data-parsley-pattern="^[a-zA-Z\s.,&-]+$"
                        data-parsley-pattern-message="Nama mitra hanya boleh berisi huruf, spasi, titik (.), koma (,), ampersand (&) dan tanda hubung (-)"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
               </div>
               
               <!-- Negara -->
@@ -193,14 +193,34 @@
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Website</label>
                 <input type="url" name="website" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
               </div>
               
               <!-- Email -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Email</label>
                 <input type="email" required name="email" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
+              </div>
+              
+              <!-- Tipe Kontak -->
+              <div class="col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Tipe Kontak</label>
+                <div class="relative dropdown-container">
+                  <button type="button" id="tipeDropdownButton" class="w-full flex justify-between items-center px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                    <span id="tipeDropdownButtonText">Pilih Tipe</span>
+                    <span class="material-icons text-lg transition-transform duration-300">arrow_drop_down</span>
+                  </button>
+                  <ul id="tipeDropdownList" class="absolute hidden w-full mt-1 bg-white z-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.1)] text-sm">
+                    <li data-value="Utama" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer rounded-t-lg">Utama</li>
+                    <li data-value="HRD" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer">HRD</li>
+                    <li data-value="Rekrutmen" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer">Rekrutmen</li>
+                    <li data-value="Dukungan" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer">Dukungan</li>
+                    <li data-value="Bisnis" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer">Bisnis</li>
+                    <li data-value="Karir" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer rounded-b-lg">Karir</li>
+                  </ul>
+                </div>
+                <input type="hidden" name="tipe_kontak" id="tipeKontakInput" required>
               </div>
               
               <!-- Jenis Kerjasama -->
@@ -222,18 +242,18 @@
               <!-- Bidang Pemohon -->
               <div class="col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-2 required-field">Bidang Pemohon</label>
-                <div class="w-full flex items-center justify-start flex-wrap mb-2">
+                <div class="w-full flex flex-wrap mb-2">
                   @foreach($bidangs as $bidang)
                     @php $bid = 'bidang'.$bidang->id_bidang; @endphp
-                    <div class="m-1 inline-block">
+                    <div class="m-3">
                       <input type="checkbox" name="bidangs[]" id="{{ $bid }}" value="{{ $bidang->id_bidang }}" class="hidden peer" {{ in_array($bidang->id_bidang, old('bidangs', [])) ? 'checked' : '' }} />
-                      <label for="{{ $bid }}" class="px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full cursor-pointer transition-colors peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600">
+                      <label for="{{ $bid }}" class="px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full cursor-pointer transition-colors peer-checked:text-amber-600 peer-checked:border-amber-500 peer-checked:bg-amber-50">
                         {{ $bidang->nama_bidang }}
                       </label>
                     </div>
                   @endforeach
                 </div>
-                @error('bidangs'))
+                @error('bidangs')
                   <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
                 <p id="bidang-error" class="mt-1 text-sm text-red-600 hidden">Pilih minimal satu bidang</p>
@@ -250,14 +270,14 @@
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Tanggal Mulai</label>
                 <input type="date" required name="tanggal_mulai" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
               </div>
               
               <!-- Tanggal Selesai -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Tanggal Selesai</label>
                 <input type="date" required name="tanggal_selesai" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
               </div>
               
               <!-- Catatan -->
@@ -265,7 +285,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
                 <textarea name="catatan" rows="3" 
                        maxlength="255"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"></textarea>
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500"></textarea>
               </div>
               
               <!-- Draft PKS -->
@@ -415,13 +435,28 @@
         $('#jenisDropdownList').addClass('hidden');
       });
 
+      // Custom dropdown for Tipe Kontak
+      $('#tipeDropdownButton').on('click', function(e) {
+        e.stopPropagation();
+        $('#tipeDropdownList').toggleClass('hidden');
+      });
+
+      $('#tipeDropdownList li').on('click', function(e) {
+        const value = $(this).data('value');
+        const text = $(this).text();
+        $('#tipeDropdownButtonText').text(text);
+        $('#tipeKontakInput').val(value);
+        $('#tipeDropdownList').addClass('hidden');
+      });
+
       // Hide dropdowns when mouse leaves their list
       $('#dropdownList').on('mouseleave', function() { $(this).addClass('hidden'); });
       $('#jenisDropdownList').on('mouseleave', function() { $(this).addClass('hidden'); });
+      $('#tipeDropdownList').on('mouseleave', function() { $(this).addClass('hidden'); });
       
       // Close dropdowns when clicking outside
       $(document).on('click', function() {
-        $('#dropdownList, #jenisDropdownList').addClass('hidden');
+        $('#dropdownList, #jenisDropdownList, #tipeDropdownList').addClass('hidden');
       });
       
       // Initialize form validation

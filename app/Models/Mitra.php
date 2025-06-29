@@ -15,10 +15,16 @@ class Mitra extends Model
     protected $fillable = [
         'nama_mitra',
         'lingkup',
-        'website',
-        'email'
     ];
 
     // Jika Anda ingin menggunakan timestamps
     public $timestamps = false;
+
+    /**
+     * Relasi kontak-kontak milik mitra.
+     */
+    public function kontak()
+    {
+        return $this->hasMany(MitraKontak::class, 'id_mitra', 'id_mitra');
+    }
 }

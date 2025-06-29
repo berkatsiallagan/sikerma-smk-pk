@@ -22,7 +22,7 @@
       <a href="/data-kerjasama" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('data-kerjasama') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-check-square w-5 text-center"></i> Data Kerjasama
       </a>
-      <a href="/pengajuan-kerjasama" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('inputajuan1') ? 'bg-yellow-500' : '' }}">
+      <a href="/pengajuan-kerjasama" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('pengajuan-kerjasama') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-check-square w-5 text-center"></i> Tambah Kerjasama
       </a>
       <a href="/status" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('status') ? 'bg-yellow-500' : '' }}">
@@ -30,6 +30,9 @@
       </a>
         <a href="/kelola-jurusan" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('kelola-jurusan', 'kelola-jurusan/*') ? 'bg-yellow-500' : '' }}">
             <i class="fas fa-chart-bar w-5 text-center"></i> Kelola Jurusan
+        </a>
+        <a href="/kelola-bidang" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('kelola-bidang', 'kelola-bidang/*') ? 'bg-yellow-500' : '' }}">
+            <i class="fas fa-tags w-5 text-center"></i> Kelola Bidang
         </a>
       <a href="/arsip-dokumen" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('arsip-dokumen') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-archive w-5 text-center"></i> Arsip Dokumen

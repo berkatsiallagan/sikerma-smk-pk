@@ -30,6 +30,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/status', [StatusController::class, 'index'])->name('status');
 
 use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\BidangController;
 
 Route::get('/kelola-jurusan', [JurusanController::class, 'index']);
 Route::get('/kelola-jurusan/create', [JurusanController::class, 'create']);
@@ -37,6 +38,13 @@ Route::post('/kelola-jurusan', [JurusanController::class, 'store']);
 Route::get('/kelola-jurusan/{id_jurusan}/edit', [JurusanController::class, 'edit']);
 Route::put('/kelola-jurusan/{id_jurusan}', [JurusanController::class, 'update']);
 Route::delete('/kelola-jurusan/{id_jurusan}', [JurusanController::class, 'destroy']);
+
+Route::get('/kelola-bidang', [BidangController::class, 'index']);
+Route::get('/kelola-bidang/create', [BidangController::class, 'create']);
+Route::post('/kelola-bidang', [BidangController::class, 'store']);
+Route::get('/kelola-bidang/{id_bidang}/edit', [BidangController::class, 'edit']);
+Route::put('/kelola-bidang/{id_bidang}', [BidangController::class, 'update']);
+Route::delete('/kelola-bidang/{id_bidang}', [BidangController::class, 'destroy']);
 
 use App\Http\Controllers\KerjasamaController;
 

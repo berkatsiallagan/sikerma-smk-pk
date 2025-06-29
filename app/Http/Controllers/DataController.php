@@ -15,7 +15,7 @@ class DataController extends Controller
             'dokumen' => function($query) {
                 $query->whereIn('status', ['Aktif', 'Akan Berakhir']);
             },
-            'mitra',
+            'mitra.kontak',
             'pemohon' => function($query) {
                 $query->with(['jurusans', 'bidangs']);
             },
