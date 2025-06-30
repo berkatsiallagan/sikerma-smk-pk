@@ -34,6 +34,9 @@
         <a href="/kelola-bidang" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('kelola-bidang', 'kelola-bidang/*') ? 'bg-yellow-500' : '' }}">
             <i class="fas fa-tags w-5 text-center"></i> Kelola Bidang
         </a>
+        <a href="/kelola-mitra" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('kelola-mitra', 'kelola-mitra/*') ? 'bg-yellow-500' : '' }}">
+            <i class="fas fa-handshake w-5 text-center"></i> Kelola Mitra
+        </a>
       <a href="/arsip-dokumen" class="flex items-center gap-3 px-6 py-3 font-bold text-sm text-black hover:bg-yellow-500 transition {{ request()->is('arsip-dokumen') ? 'bg-yellow-500' : '' }}">
         <i class="fas fa-archive w-5 text-center"></i> Arsip Dokumen
       </a>

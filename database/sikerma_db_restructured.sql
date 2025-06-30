@@ -2,14 +2,14 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Waktu pembuatan: 29 Jun 2025 pada 19.08
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Jun 30, 2025 at 06:10 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+07:00";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,12 +18,12 @@ SET time_zone = "+07:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sikerma_db`
+-- Database: `sikerma_db_restructured`
 --
 
 DELIMITER $$
 --
--- Prosedur
+-- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_dokumen_status_batch` ()   BEGIN
     UPDATE dokumen 
@@ -49,7 +49,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
@@ -61,7 +61,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id_admin`, `email`, `kata_sandi`, `created_at`, `updated_at`) VALUES
@@ -70,7 +70,7 @@ INSERT INTO `admin` (`id_admin`, `email`, `kata_sandi`, `created_at`, `updated_a
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ajuan`
+-- Table structure for table `ajuan`
 --
 
 CREATE TABLE `ajuan` (
@@ -82,7 +82,7 @@ CREATE TABLE `ajuan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `ajuan`
+-- Dumping data for table `ajuan`
 --
 
 INSERT INTO `ajuan` (`id_ajuan`, `tanggal_ajuan`, `id_admin`, `created_at`, `updated_at`) VALUES
@@ -100,12 +100,15 @@ INSERT INTO `ajuan` (`id_ajuan`, `tanggal_ajuan`, `id_admin`, `created_at`, `upd
 (12, '2025-12-03', NULL, NULL, NULL),
 (13, '2026-01-17', NULL, NULL, NULL),
 (14, '2026-02-21', NULL, NULL, NULL),
-(15, '2026-03-09', NULL, NULL, NULL);
+(15, '2026-03-09', NULL, NULL, NULL),
+(17, '2025-06-29', NULL, NULL, NULL),
+(18, '2025-06-30', NULL, NULL, NULL),
+(19, '2025-06-30', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bidang_kerjasama`
+-- Table structure for table `bidang_kerjasama`
 --
 
 CREATE TABLE `bidang_kerjasama` (
@@ -114,7 +117,7 @@ CREATE TABLE `bidang_kerjasama` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `bidang_kerjasama`
+-- Dumping data for table `bidang_kerjasama`
 --
 
 INSERT INTO `bidang_kerjasama` (`id_bidang`, `nama_bidang`) VALUES
@@ -125,12 +128,13 @@ INSERT INTO `bidang_kerjasama` (`id_bidang`, `nama_bidang`) VALUES
 (5, 'Pelatihan dan Sertifikasi'),
 (6, 'Pertukaran Pelajar'),
 (7, 'Magang dan Rekrutmen'),
-(8, 'Pengembangan Kurikulum');
+(8, 'Pengembangan Kurikulum'),
+(9, 'Budak');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dokumen`
+-- Table structure for table `dokumen`
 --
 
 CREATE TABLE `dokumen` (
@@ -143,7 +147,7 @@ CREATE TABLE `dokumen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `dokumen`
+-- Dumping data for table `dokumen`
 --
 
 INSERT INTO `dokumen` (`id_dokumen`, `catatan`, `dokumen`, `status`, `tanggal_mulai`, `tanggal_selesai`) VALUES
@@ -152,7 +156,7 @@ INSERT INTO `dokumen` (`id_dokumen`, `catatan`, `dokumen`, `status`, `tanggal_mu
 (3, 'Kerjasama magang dengan PT. Astra', 'dokumen/mou_astra_2025.pdf', 'Akan Berakhir', '2025-03-15', '2025-07-14'),
 (4, 'Kerjasama sertifikasi dengan BCA', 'dokumen/moa_bca_2025.pdf', 'Aktif', '2025-04-10', '2027-04-09'),
 (5, 'Kerjasama digitalisasi dengan Google', 'dokumen/mou_google_2025.pdf', 'Aktif', '2025-05-15', '2030-05-14'),
-(6, 'Kerjasama kurikulum dengan Microsoft', 'dokumen/moa_microsoft_2025.pdf', 'Akan Berakhir', '2025-06-20', '2025-07-30'),
+(6, 'Kerjasama kurikulum dengan Microsoft', 'dokumen/moa_microsoft_2025.pdf', 'Aktif', '2025-06-20', '2025-07-30'),
 (7, 'Kerjasama pelatihan dengan Samsung', 'dokumen/mou_samsung_2025.pdf', 'Aktif', '2025-07-25', '2026-07-24'),
 (8, 'Kerjasama CSR dengan Unilever', 'dokumen/moa_unilever_2025.pdf', 'Kadaluarsa', '2025-01-05', '2025-06-04'),
 (9, 'Kerjasama energi dengan Pertamina', 'dokumen/mou_pertamina_2025.pdf', 'Aktif', '2025-09-15', '2028-09-14'),
@@ -161,10 +165,12 @@ INSERT INTO `dokumen` (`id_dokumen`, `catatan`, `dokumen`, `status`, `tanggal_mu
 (12, 'Kerjasama marketplace dengan Bukalapak', 'dokumen/moa_bukalapak_2025.pdf', 'Aktif', '2025-12-05', '2026-12-04'),
 (13, 'Kerjasama digital dengan Shopee', 'dokumen/mou_shopee_2026.pdf', 'Aktif', '2026-01-20', '2029-01-19'),
 (14, 'Kerjasama teknologi dengan Huawei', 'dokumen/moa_huawei_2026.pdf', 'Aktif', '2026-02-25', '2027-02-24'),
-(15, 'Kerjasama industri dengan Siemens', 'dokumen/mou_siemens_2026.pdf', 'Aktif', '2026-03-15', '2028-03-14');
+(15, 'Kerjasama industri dengan Siemens', 'dokumen/mou_siemens_2026.pdf', 'Aktif', '2026-03-15', '2028-03-14'),
+(17, 'YAYAYA', 'MOU_PT_Shopee_Indonesia_2025-06-18.pdf', 'Aktif', '2025-06-18', '2025-10-30'),
+(18, 'tes', 'MOA_PT_Pertamina_2025-06-30.pdf', 'Aktif', '2025-06-30', '2025-07-01');
 
 --
--- Trigger `dokumen`
+-- Triggers `dokumen`
 --
 DELIMITER $$
 CREATE TRIGGER `update_dokumen_status_on_insert` BEFORE INSERT ON `dokumen` FOR EACH ROW BEGIN
@@ -184,7 +190,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jurusan`
+-- Table structure for table `jurusan`
 --
 
 CREATE TABLE `jurusan` (
@@ -193,7 +199,7 @@ CREATE TABLE `jurusan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `jurusan`
+-- Dumping data for table `jurusan`
 --
 
 INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
@@ -211,7 +217,7 @@ INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kerjasama`
+-- Table structure for table `kerjasama`
 --
 
 CREATE TABLE `kerjasama` (
@@ -225,103 +231,53 @@ CREATE TABLE `kerjasama` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `kerjasama`
+-- Dumping data for table `kerjasama`
 --
 
 INSERT INTO `kerjasama` (`id_kerjasama`, `id_ajuan`, `id_pemohon`, `id_mitra`, `id_bidang`, `id_dokumen`, `jenis_kerjasama`) VALUES
-(1, 1, 1, 1, 1, 1, 'Memorandum of Understanding (MoU)'),
-(2, 2, 2, 2, 2, 2, 'Memorandum of Agreement (MoA)'),
-(3, 3, 3, 3, 7, 3, 'Memorandum of Understanding (MoU)'),
-(4, 4, 4, 4, 5, 4, 'Memorandum of Agreement (MoA)'),
-(5, 5, 5, 5, 4, 5, 'Memorandum of Understanding (MoU)'),
-(6, 6, 6, 6, 8, 6, 'Memorandum of Agreement (MoA)'),
-(7, 7, 7, 7, 5, 7, 'Memorandum of Understanding (MoU)'),
-(8, 8, 8, 8, 3, 8, 'Memorandum of Agreement (MoA)'),
-(9, 9, 9, 9, 6, 9, 'Memorandum of Understanding (MoU)'),
-(10, 10, 10, 10, 7, 10, 'Memorandum of Agreement (MoA)'),
-(11, 11, 11, 11, 4, 11, 'Memorandum of Understanding (MoU)'),
-(12, 12, 12, 12, 4, 12, 'Memorandum of Agreement (MoA)'),
-(13, 13, 13, 13, 4, 13, 'Memorandum of Understanding (MoU)'),
-(14, 14, 14, 14, 2, 14, 'Memorandum of Agreement (MoA)'),
-(15, 15, 15, 15, 1, 15, 'Memorandum of Understanding (MoU)');
+(2, 18, 17, 13, NULL, 17, 'Memorandum of Understanding (MoU)'),
+(3, 19, 18, 9, NULL, 18, 'Memorandum of Agreement (MoA)');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mitra`
+-- Table structure for table `mitra`
 --
 
 CREATE TABLE `mitra` (
   `id_mitra` bigint(20) UNSIGNED NOT NULL,
   `nama_mitra` varchar(255) NOT NULL,
-  `lingkup` enum('Nasional','Internasional') DEFAULT NULL
+  `lingkup` enum('Nasional','Internasional') DEFAULT NULL,
+  `website` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `mitra`
+-- Dumping data for table `mitra`
 --
 
-INSERT INTO `mitra` (`id_mitra`, `nama_mitra`, `lingkup`) VALUES
-(1, 'PT. Infineon Technologies', 'Internasional'),
-(2, 'PT. Telkom Indonesia', 'Nasional'),
-(3, 'PT. Astra International', 'Nasional'),
-(4, 'PT. Bank Central Asia', 'Nasional'),
-(5, 'PT. Google Indonesia', 'Internasional'),
-(6, 'PT. Microsoft Indonesia', 'Internasional'),
-(7, 'PT. Samsung Electronics', 'Internasional'),
-(8, 'PT. Unilever Indonesia', 'Nasional'),
-(9, 'PT. Pertamina', 'Nasional'),
-(10, 'PT. Gojek Indonesia', 'Nasional'),
-(11, 'PT. Tokopedia', 'Nasional'),
-(12, 'PT. Bukalapak', 'Nasional'),
-(13, 'PT. Shopee Indonesia', 'Internasional'),
-(14, 'PT. Huawei Technologies', 'Internasional'),
-(15, 'PT. Siemens Indonesia', 'Internasional');
+INSERT INTO `mitra` (`id_mitra`, `nama_mitra`, `lingkup`, `website`, `email`) VALUES
+(1, 'PT. Infineon Technologies', 'Internasional', 'https://www.infineon.com', 'contact@infineon.com'),
+(2, 'PT. Telkom Indonesia', 'Nasional', 'https://www.telkom.co.id', 'info@telkom.co.id'),
+(3, 'PT. Astra International', 'Nasional', 'https://www.astra.co.id', 'corporate@astra.co.id'),
+(4, 'PT. Bank Central Asia', 'Nasional', 'https://www.bca.co.id', 'customer@bca.co.id'),
+(5, 'PT. Google Indonesia', 'Internasional', 'https://about.google', 'indonesia@google.com'),
+(6, 'PT. Microsoft Indonesia', 'Internasional', 'https://www.microsoft.com/id-id', 'indonesia@microsoft.com'),
+(7, 'PT. Samsung Electronics', 'Internasional', 'https://www.samsung.com/id', 'support.id@samsung.com'),
+(8, 'PT. Unilever Indonesia', 'Nasional', 'https://www.unilever.co.id', 'info@unilever.co.id'),
+(9, 'PT. Pertamina', 'Nasional', 'https://www.pertamina.com', 'pcc@pertamina.com'),
+(10, 'PT. Gojek Indonesia', 'Nasional', 'https://www.gojek.com', 'support@gojek.com'),
+(11, 'PT. Tokopedia', 'Nasional', 'https://www.tokopedia.com', 'help@tokopedia.com'),
+(12, 'PT. Bukalapak', 'Nasional', 'https://www.bukalapak.com', 'support@bukalapak.com'),
+(13, 'PT. Shopee Indonesia', 'Internasional', 'https://shopee.co.id', 'cs@shopee.co.id'),
+(14, 'PT. Huawei Technologies', 'Internasional', 'https://www.huawei.com/id', 'indonesia@huawei.com'),
+(15, 'PT. Siemens Indonesia', 'Internasional', 'https://www.siemens.com/id/id', 'info.id@siemens.com'),
+(16, 'PT. Berkat Sentosa', 'Internasional', 'https://chat.deepseek.com', 'flowtunder@gmail.com');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mitra_kontak`
---
-
-CREATE TABLE `mitra_kontak` (
-  `id_kontak` bigint(20) UNSIGNED NOT NULL,
-  `id_mitra` bigint(20) UNSIGNED NOT NULL,
-  `website` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `tipe_kontak` varchar(50) DEFAULT 'Utama'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `mitra_kontak`
---
-
-INSERT INTO `mitra_kontak` (`id_kontak`, `id_mitra`, `website`, `email`, `tipe_kontak`) VALUES
-(1, 1, 'https://www.infineon.com', 'contact@infineon.com', 'Utama'),
-(2, 1, 'https://careers.infineon.com', 'hrd@infineon.com', 'HRD'),
-(3, 2, 'https://www.telkom.co.id', 'info@telkom.co.id', 'Utama'),
-(4, 2, 'https://karir.telkom.co.id', 'recruitment@telkom.co.id', 'Rekrutmen'),
-(5, 3, 'https://www.astra.co.id', 'corporate@astra.co.id', 'Utama'),
-(6, 4, 'https://www.bca.co.id', 'customer@bca.co.id', 'Utama'),
-(7, 5, 'https://about.google', 'indonesia@google.com', 'Utama'),
-(8, 6, 'https://www.microsoft.com/id-id', 'indonesia@microsoft.com', 'Utama'),
-(9, 7, 'https://www.samsung.com/id', 'support.id@samsung.com', 'Dukungan'),
-(10, 7, 'https://www.samsung.com/id/about-us/contact-us', 'business.id@samsung.com', 'Bisnis'),
-(11, 8, 'https://www.unilever.co.id', 'info@unilever.co.id', 'Utama'),
-(12, 9, 'https://www.pertamina.com', 'pcc@pertamina.com', 'Utama'),
-(13, 10, 'https://www.gojek.com', 'support@gojek.com', 'Dukungan'),
-(14, 10, 'https://careers.gojek.com', 'careers@gojek.com', 'Karir'),
-(15, 11, 'https://www.tokopedia.com', 'help@tokopedia.com', 'Utama'),
-(16, 12, 'https://www.bukalapak.com', 'support@bukalapak.com', 'Utama'),
-(17, 13, 'https://shopee.co.id', 'cs@shopee.co.id', 'Utama'),
-(18, 14, 'https://www.huawei.com/id', 'indonesia@huawei.com', 'Utama'),
-(19, 15, 'https://www.siemens.com/id/id', 'info.id@siemens.com', 'Utama'),
-(20, 15, 'https://new.siemens.com/global/en/company/jobs.html', 'hrd.id@siemens.com', 'HRD');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `pemohon`
+-- Table structure for table `pemohon`
 --
 
 CREATE TABLE `pemohon` (
@@ -332,7 +288,7 @@ CREATE TABLE `pemohon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `pemohon`
+-- Dumping data for table `pemohon`
 --
 
 INSERT INTO `pemohon` (`id_pemohon`, `no_permohonan`, `nama_pemohon`, `nomor_telp`) VALUES
@@ -350,12 +306,15 @@ INSERT INTO `pemohon` (`id_pemohon`, `no_permohonan`, `nama_pemohon`, `nomor_tel
 (12, 'PMH2025012', 'Luki Hermawan', '081212345678'),
 (13, 'PMH2025013', 'Maya Indah', '081312345678'),
 (14, 'PMH2025014', 'Nanda Putra', '081412345678'),
-(15, 'PMH2025015', 'Oki Setiawan', '081512345678');
+(15, 'PMH2025015', 'Oki Setiawan', '081512345678'),
+(16, 'PMH2025016', 'bagus', '081534337041'),
+(17, 'PMH2025017', 'Bagus', '123456789044'),
+(18, 'PMH2025018', 'bagus', '081534337041');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemohon_bidang`
+-- Table structure for table `pemohon_bidang`
 --
 
 CREATE TABLE `pemohon_bidang` (
@@ -364,7 +323,7 @@ CREATE TABLE `pemohon_bidang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `pemohon_bidang`
+-- Dumping data for table `pemohon_bidang`
 --
 
 INSERT INTO `pemohon_bidang` (`id_bidang`, `id_pemohon`) VALUES
@@ -381,10 +340,13 @@ INSERT INTO `pemohon_bidang` (`id_bidang`, `id_pemohon`) VALUES
 (3, 4),
 (3, 9),
 (3, 12),
+(3, 16),
+(3, 18),
 (4, 2),
 (4, 5),
 (4, 10),
 (4, 13),
+(4, 17),
 (5, 3),
 (5, 6),
 (5, 11),
@@ -398,12 +360,13 @@ INSERT INTO `pemohon_bidang` (`id_bidang`, `id_pemohon`) VALUES
 (7, 13),
 (8, 6),
 (8, 9),
-(8, 14);
+(8, 14),
+(8, 16);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemohon_jurusan`
+-- Table structure for table `pemohon_jurusan`
 --
 
 CREATE TABLE `pemohon_jurusan` (
@@ -412,7 +375,7 @@ CREATE TABLE `pemohon_jurusan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `pemohon_jurusan`
+-- Dumping data for table `pemohon_jurusan`
 --
 
 INSERT INTO `pemohon_jurusan` (`id_jurusan`, `id_pemohon`) VALUES
@@ -425,6 +388,8 @@ INSERT INTO `pemohon_jurusan` (`id_jurusan`, `id_pemohon`) VALUES
 (3, 2),
 (3, 6),
 (3, 12),
+(3, 16),
+(3, 18),
 (4, 2),
 (4, 7),
 (4, 13),
@@ -437,12 +402,14 @@ INSERT INTO `pemohon_jurusan` (`id_jurusan`, `id_pemohon`) VALUES
 (7, 4),
 (7, 8),
 (7, 14),
+(7, 16),
 (8, 4),
 (8, 9),
 (8, 15),
 (9, 5),
 (9, 10),
 (9, 14),
+(9, 17),
 (10, 5),
 (10, 11),
 (10, 15);
@@ -452,39 +419,39 @@ INSERT INTO `pemohon_jurusan` (`id_jurusan`, `id_pemohon`) VALUES
 --
 
 --
--- Indeks untuk tabel `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`),
   ADD UNIQUE KEY `admin_email_unique` (`email`);
 
 --
--- Indeks untuk tabel `ajuan`
+-- Indexes for table `ajuan`
 --
 ALTER TABLE `ajuan`
   ADD PRIMARY KEY (`id_ajuan`),
   ADD KEY `ajuan_id_admin_foreign` (`id_admin`);
 
 --
--- Indeks untuk tabel `bidang_kerjasama`
+-- Indexes for table `bidang_kerjasama`
 --
 ALTER TABLE `bidang_kerjasama`
   ADD PRIMARY KEY (`id_bidang`);
 
 --
--- Indeks untuk tabel `dokumen`
+-- Indexes for table `dokumen`
 --
 ALTER TABLE `dokumen`
   ADD PRIMARY KEY (`id_dokumen`);
 
 --
--- Indeks untuk tabel `jurusan`
+-- Indexes for table `jurusan`
 --
 ALTER TABLE `jurusan`
   ADD PRIMARY KEY (`id_jurusan`);
 
 --
--- Indeks untuk tabel `kerjasama`
+-- Indexes for table `kerjasama`
 --
 ALTER TABLE `kerjasama`
   ADD PRIMARY KEY (`id_kerjasama`),
@@ -495,109 +462,96 @@ ALTER TABLE `kerjasama`
   ADD KEY `kerjasama_id_pemohon_foreign` (`id_pemohon`);
 
 --
--- Indeks untuk tabel `mitra`
+-- Indexes for table `mitra`
 --
 ALTER TABLE `mitra`
   ADD PRIMARY KEY (`id_mitra`);
 
 --
--- Indeks untuk tabel `mitra_kontak`
---
-ALTER TABLE `mitra_kontak`
-  ADD PRIMARY KEY (`id_kontak`),
-  ADD KEY `mitra_kontak_id_mitra_foreign` (`id_mitra`);
-
---
--- Indeks untuk tabel `pemohon`
+-- Indexes for table `pemohon`
 --
 ALTER TABLE `pemohon`
   ADD PRIMARY KEY (`id_pemohon`),
   ADD UNIQUE KEY `pemohon_no_permohonan_unique` (`no_permohonan`);
 
 --
--- Indeks untuk tabel `pemohon_bidang`
+-- Indexes for table `pemohon_bidang`
 --
 ALTER TABLE `pemohon_bidang`
   ADD PRIMARY KEY (`id_bidang`,`id_pemohon`),
   ADD KEY `pemohon_bidang_id_pemohon_foreign` (`id_pemohon`);
 
 --
--- Indeks untuk tabel `pemohon_jurusan`
+-- Indexes for table `pemohon_jurusan`
 --
 ALTER TABLE `pemohon_jurusan`
   ADD PRIMARY KEY (`id_jurusan`,`id_pemohon`),
   ADD KEY `pemohon_jurusan_id_pemohon_foreign` (`id_pemohon`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id_admin` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `ajuan`
+-- AUTO_INCREMENT for table `ajuan`
 --
 ALTER TABLE `ajuan`
-  MODIFY `id_ajuan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_ajuan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT untuk tabel `bidang_kerjasama`
+-- AUTO_INCREMENT for table `bidang_kerjasama`
 --
 ALTER TABLE `bidang_kerjasama`
-  MODIFY `id_bidang` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_bidang` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `dokumen`
+-- AUTO_INCREMENT for table `dokumen`
 --
 ALTER TABLE `dokumen`
-  MODIFY `id_dokumen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_dokumen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT untuk tabel `jurusan`
+-- AUTO_INCREMENT for table `jurusan`
 --
 ALTER TABLE `jurusan`
   MODIFY `id_jurusan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `kerjasama`
+-- AUTO_INCREMENT for table `kerjasama`
 --
 ALTER TABLE `kerjasama`
   MODIFY `id_kerjasama` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT untuk tabel `mitra`
+-- AUTO_INCREMENT for table `mitra`
 --
 ALTER TABLE `mitra`
-  MODIFY `id_mitra` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_mitra` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT untuk tabel `mitra_kontak`
---
-ALTER TABLE `mitra_kontak`
-  MODIFY `id_kontak` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT untuk tabel `pemohon`
+-- AUTO_INCREMENT for table `pemohon`
 --
 ALTER TABLE `pemohon`
-  MODIFY `id_pemohon` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pemohon` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `ajuan`
+-- Constraints for table `ajuan`
 --
 ALTER TABLE `ajuan`
   ADD CONSTRAINT `ajuan_id_admin_foreign` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `kerjasama`
+-- Constraints for table `kerjasama`
 --
 ALTER TABLE `kerjasama`
   ADD CONSTRAINT `kerjasama_id_ajuan_foreign` FOREIGN KEY (`id_ajuan`) REFERENCES `ajuan` (`id_ajuan`) ON DELETE CASCADE,
@@ -607,20 +561,14 @@ ALTER TABLE `kerjasama`
   ADD CONSTRAINT `kerjasama_id_pemohon_foreign` FOREIGN KEY (`id_pemohon`) REFERENCES `pemohon` (`id_pemohon`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `mitra_kontak`
---
-ALTER TABLE `mitra_kontak`
-  ADD CONSTRAINT `mitra_kontak_id_mitra_foreign` FOREIGN KEY (`id_mitra`) REFERENCES `mitra` (`id_mitra`) ON DELETE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `pemohon_bidang`
+-- Constraints for table `pemohon_bidang`
 --
 ALTER TABLE `pemohon_bidang`
   ADD CONSTRAINT `pemohon_bidang_id_bidang_foreign` FOREIGN KEY (`id_bidang`) REFERENCES `bidang_kerjasama` (`id_bidang`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pemohon_bidang_id_pemohon_foreign` FOREIGN KEY (`id_pemohon`) REFERENCES `pemohon` (`id_pemohon`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `pemohon_jurusan`
+-- Constraints for table `pemohon_jurusan`
 --
 ALTER TABLE `pemohon_jurusan`
   ADD CONSTRAINT `pemohon_jurusan_id_jurusan_foreign` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -628,7 +576,7 @@ ALTER TABLE `pemohon_jurusan`
 
 DELIMITER $$
 --
--- Event
+-- Events
 --
 CREATE DEFINER=`root`@`localhost` EVENT `event_update_dokumen_status` ON SCHEDULE EVERY 1 DAY STARTS '2025-06-20 01:12:35' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
     CALL update_dokumen_status_batch();

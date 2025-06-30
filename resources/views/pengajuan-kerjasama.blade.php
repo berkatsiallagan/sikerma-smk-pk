@@ -167,10 +167,12 @@
               <!-- Nama Mitra -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Nama Mitra</label>
-                <input type="text" required name="nama_mitra"
-                       data-parsley-pattern="^[a-zA-Z\s.,&-]+$"
-                       data-parsley-pattern-message="Nama mitra hanya boleh berisi huruf, spasi, titik (.), koma (,), ampersand (&) dan tanda hubung (-)"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
+                <select name="nama_mitra" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
+                  <option value="" disabled selected>Pilih Mitra</option>
+                  @foreach($mitras as $mitra)
+                    <option value="{{ $mitra->nama_mitra }}" {{ old('nama_mitra') == $mitra->nama_mitra ? 'selected' : '' }}>{{ $mitra->nama_mitra }}</option>
+                  @endforeach
+                </select>
               </div>
               
               <!-- Negara -->

@@ -32,8 +32,10 @@ class PengajuanKerjasamaController extends Controller
         $newIdPemohon = (Pemohon::max('id_pemohon') ?? 0) + 1;
         $jurusans = Jurusan::all();
         $bidangs = BidangKerjasama::all();
+        // Ambil seluruh daftar mitra terdaftar untuk dropdown
+        $mitras  = Mitra::all();
 
-        return view('pengajuan-kerjasama', compact('newNumber', 'newIdPemohon', 'jurusans', 'bidangs'));
+        return view('pengajuan-kerjasama', compact('newNumber', 'newIdPemohon', 'jurusans', 'bidangs', 'mitras'));
     }
 
     /**
@@ -104,11 +106,11 @@ class PengajuanKerjasamaController extends Controller
                 'tanggal_ajuan' => $validated['tanggal_ajuan'],
             ]);
 
-            // Mitra (hanya info dasar)
-            $mitra = Mitra::create([
-                'nama_mitra' => $validated['nama_mitra'],
-                'lingkup'    => $validated['lingkup'],
-            ]);
+            // Mitra: gunakan yang sudah ada atau buat baru jika belum ada
+            $mitra = Mitra::firstOrCreate(
+                ['nama_mitra' => $validated['nama_mitra']],
+                ['lingkup'    => $validated['lingkup']]
+            );
 
             // Kontak utama mitra
             MitraKontak::create([

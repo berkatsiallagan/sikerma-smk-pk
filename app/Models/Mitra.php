@@ -15,6 +15,8 @@ class Mitra extends Model
     protected $fillable = [
         'nama_mitra',
         'lingkup',
+        'website',
+        'email',
     ];
 
     // Jika Anda ingin menggunakan timestamps
