@@ -35,16 +35,22 @@ class Pemohon extends Model
         );
     }
 
+    /**
+     * Relasi many-to-many antara Pemohon dan Jurusan
+     */
     public function jurusans()
     {
         return $this->belongsToMany(
             Jurusan::class, 
             'pemohon_jurusan', // nama tabel pivot
             'id_pemohon',      // foreign key di tabel pivot untuk model saat ini
-            'id_jurusan'        // foreign key di tabel pivot untuk model terkait
+            'id_jurusan'       // foreign key di tabel pivot untuk model terkait
         );
     }
 
+    /**
+     * Relasi many-to-many antara Pemohon dan BidangKerjasama
+     */
     public function bidangs()
     {
         return $this->belongsToMany(

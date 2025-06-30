@@ -22,11 +22,5 @@ class Mitra extends Model
     // Jika Anda ingin menggunakan timestamps
     public $timestamps = false;
 
-    /**
-     * Relasi kontak-kontak milik mitra.
-     */
-    public function kontak()
-    {
-        return $this->hasMany(MitraKontak::class, 'id_mitra', 'id_mitra');
-    }
+    // Removed kontak() relationship to mitra_kontak table as it does not exist in the database
 }

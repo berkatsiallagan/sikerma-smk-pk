@@ -191,40 +191,6 @@
                 <input type="hidden" name="lingkup" id="lingkupInput" required>
               </div>
               
-              <!-- Website -->
-              <div class="col-span-1">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Website</label>
-                <input type="url" name="website" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
-              </div>
-              
-              <!-- Email -->
-              <div class="col-span-1">
-                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Email</label>
-                <input type="email" required name="email" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-500">
-              </div>
-              
-              <!-- Tipe Kontak -->
-              <div class="col-span-1">
-                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Tipe Kontak</label>
-                <div class="relative dropdown-container">
-                  <button type="button" id="tipeDropdownButton" class="w-full flex justify-between items-center px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                    <span id="tipeDropdownButtonText">Pilih Tipe</span>
-                    <span class="material-icons text-lg transition-transform duration-300">arrow_drop_down</span>
-                  </button>
-                  <ul id="tipeDropdownList" class="absolute hidden w-full mt-1 bg-white z-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.1)] text-sm">
-                    <li data-value="Utama" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer rounded-t-lg">Utama</li>
-                    <li data-value="HRD" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer">HRD</li>
-                    <li data-value="Rekrutmen" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer">Rekrutmen</li>
-                    <li data-value="Dukungan" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer">Dukungan</li>
-                    <li data-value="Bisnis" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer">Bisnis</li>
-                    <li data-value="Karir" class="py-2 px-4 hover:bg-black hover:text-white cursor-pointer rounded-b-lg">Karir</li>
-                  </ul>
-                </div>
-                <input type="hidden" name="tipe_kontak" id="tipeKontakInput" required>
-              </div>
-              
               <!-- Jenis Kerjasama -->
               <div class="col-span-1">
                 <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Jenis Kerjasama</label>
@@ -437,24 +403,9 @@
         $('#jenisDropdownList').addClass('hidden');
       });
 
-      // Custom dropdown for Tipe Kontak
-      $('#tipeDropdownButton').on('click', function(e) {
-        e.stopPropagation();
-        $('#tipeDropdownList').toggleClass('hidden');
-      });
-
-      $('#tipeDropdownList li').on('click', function(e) {
-        const value = $(this).data('value');
-        const text = $(this).text();
-        $('#tipeDropdownButtonText').text(text);
-        $('#tipeKontakInput').val(value);
-        $('#tipeDropdownList').addClass('hidden');
-      });
-
       // Hide dropdowns when mouse leaves their list
       $('#dropdownList').on('mouseleave', function() { $(this).addClass('hidden'); });
       $('#jenisDropdownList').on('mouseleave', function() { $(this).addClass('hidden'); });
-      $('#tipeDropdownList').on('mouseleave', function() { $(this).addClass('hidden'); });
       
       // Close dropdowns when clicking outside
       $(document).on('click', function() {

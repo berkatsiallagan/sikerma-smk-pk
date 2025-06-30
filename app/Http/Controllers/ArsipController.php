@@ -10,7 +10,7 @@ class ArsipController extends Controller
     public function index(Request $request)
     {
         // Ambil query awal dengan eager loading
-        $query = Kerjasama::with(['dokumen', 'mitra', 'pemohon.jurusan', 'bidang_kerjasama']);
+$query = Kerjasama::with(['dokumen', 'mitra', 'pemohon.jurusan', 'bidangs']);
 
         // Filter berdasarkan pencarian
         if ($request->has('search') && $request->search != '') {
@@ -42,7 +42,6 @@ class ArsipController extends Controller
                 ->select('kerjasama.*');
         }
              
-
         $kerjasamas = $query->get();
 
         return view('arsipdokumen', [
@@ -50,4 +49,3 @@ class ArsipController extends Controller
         ]);
     }
 }
-

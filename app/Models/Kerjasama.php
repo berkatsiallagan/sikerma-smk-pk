@@ -19,7 +19,6 @@ class Kerjasama extends Model
         'id_ajuan',
         'id_pemohon',
         'id_mitra',
-        'id_bidang',
         'id_dokumen',
         'jenis_kerjasama',
     ];
@@ -43,18 +42,6 @@ class Kerjasama extends Model
     }
 
     /**
-     * Relasi Kerjasama ke BidangKerjasama (many-to-one)
-     */
-    public function bidang_kerjasama()
-    {
-        return $this->belongsTo(
-            BidangKerjasama::class,
-            'id_bidang',  // foreign key pada tabel kerjasama
-            'id_bidang'   // primary key pada tabel bidang_kerjasama
-        );
-    }
-
-    /**
      * Relasi Kerjasama ke Ajuan (many-to-one)
      */
     public function ajuan()
@@ -72,8 +59,8 @@ class Kerjasama extends Model
         return $this->belongsToMany(
             BidangKerjasama::class,
             'kerjasama_bidang', // pivot table
-            'id_kerjasama',     // foreign key on pivot table for this model
+            'id_kerjasama',    // foreign key on pivot table for this model
             'id_bidang'         // foreign key on pivot table for related model
-        );
+        )->withPivot([]); // Tambahkan withPivot jika ada kolom tambahan di tabel pivot
     }
 }

@@ -79,35 +79,17 @@
 
                             <div class="col-lg-3 col-6">
                                 <div class="stats-item text-center w-100 h-100">
-                                    <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="3" class="purecounter">232</span>
-                                    <p>Dudi Nasional</p>
-                                </div>
-                            </div><!-- End Stats Item -->
-
-                            <div class="col-lg-3 col-6">
-                                <div class="stats-item text-center w-100 h-100">
-                                    <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="3" class="purecounter">521</span>
-                                    <p>Dudi Internasional</p>
-                                </div>
-                            </div><!-- End Stats Item -->
-
-                            <div class="col-lg-3 col-6">
-                                <div class="stats-item text-center w-100 h-100">
-                                    <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="3" class="purecounter">1453</span>
-                                    <p>Instansi Nasional</p>
-                                </div>
-                            </div><!-- End Stats Item -->
-
-                            <div class="col-lg-3 col-6">
-                                <div class="stats-item text-center w-100 h-100">
-                                    <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="3" class="purecounter">32</span>
-                                    <p>Instansi Internasional</p>
-                                </div>
-                            </div><!-- End Stats Item -->
-
+                            <span data-purecounter-start="0" data-purecounter-end="{{ $jumlahNasional }}" data-purecounter-duration="3" class="purecounter">{{ $jumlahNasional }}</span>
+                            <p>Dudi Nasional</p>
                         </div>
+                    </div><!-- End Stats Item -->
 
-                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="stats-item text-center w-100 h-100">
+                            <span data-purecounter-start="0" data-purecounter-end="{{ $jumlahInternasional }}" data-purecounter-duration="3" class="purecounter">{{ $jumlahInternasional }}</span>
+                            <p>Dudi Internasional</p>
+                        </div>
+                    </div><!-- End Stats Item -->
 
                 </div>
             </div>

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->id('id_dokumen');
             $table->text('catatan');
             $table->string('dokumen', 255)->nullable();
-            $table->enum('status', ['aktif', 'tidak aktif', 'kadaluarsa', ''])->nullable();
+            $table->enum('status', ['Aktif', 'Tidak Aktif', 'Kadaluarsa', 'Akan Berakhir'])->nullable();
             $table->date('tanggal_mulai')->nullable();
             $table->date('tanggal_selesai')->nullable();
         });

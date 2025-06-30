@@ -6,7 +6,6 @@ use App\Models\Pemohon;
 use App\Models\Jurusan;
 use App\Models\Ajuan;
 use App\Models\Mitra;
-use App\Models\MitraKontak;
 use App\Models\Dokumen;
 use App\Models\Kerjasama;
 use App\Models\BidangKerjasama;
@@ -33,7 +32,7 @@ class PengajuanKerjasamaController extends Controller
         $jurusans = Jurusan::all();
         $bidangs = BidangKerjasama::all();
         // Ambil seluruh daftar mitra terdaftar untuk dropdown
-        $mitras  = Mitra::all();
+        $mitras = Mitra::all();
 
         return view('pengajuan-kerjasama', compact('newNumber', 'newIdPemohon', 'jurusans', 'bidangs', 'mitras'));
     }
@@ -64,8 +63,6 @@ class PengajuanKerjasamaController extends Controller
                 'regex:/^[A-Za-z\\s.,&-]+$/'
             ],
             'lingkup'        => 'required|string',
-            'website'        => 'nullable|url',
-            'email'          => 'required|email',
             'jenis_kerjasama'=> 'required|string',
 
             'dokumen'        => 'required|file|mimes:pdf,doc,docx|max:2048',
@@ -76,8 +73,6 @@ class PengajuanKerjasamaController extends Controller
 
             'tanggal_mulai'  => 'required|date',
             'tanggal_selesai'=> 'required|date|after_or_equal:tanggal_mulai',
-
-            'tipe_kontak'    => 'required|string|in:Utama,HRD,Rekrutmen,Dukungan,Bisnis,Karir',
         ]);
 
         DB::beginTransaction();
@@ -111,14 +106,6 @@ class PengajuanKerjasamaController extends Controller
                 ['nama_mitra' => $validated['nama_mitra']],
                 ['lingkup'    => $validated['lingkup']]
             );
-
-            // Kontak utama mitra
-            MitraKontak::create([
-                'id_mitra'    => $mitra->id_mitra,
-                'website'     => $validated['website'] ?? '',
-                'email'       => $validated['email'],
-                'tipe_kontak' => $validated['tipe_kontak'],
-            ]);
 
             // Upload dokumen file ke folder /public/assets/dokumen/
             $file = $request->file('dokumen');
@@ -183,4 +170,4 @@ class PengajuanKerjasamaController extends Controller
             return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-} 
+}

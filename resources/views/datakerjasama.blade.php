@@ -195,17 +195,16 @@
                                 <p class="text-sm font-medium text-gray-500">Lingkup</p>
                                 <p class="font-semibold">{{ $kerjasama->mitra->lingkup ?? '-' }}</p>
                               </div>
-                              @php $kontak = $kerjasama->mitra->kontak->first(); @endphp
                               <div>
                                 <p class="text-sm font-medium text-gray-500">Email</p>
-                                <p class="font-semibold">{{ $kontak->email ?? '-' }}</p>
+                                <p class="font-semibold">{{ $kerjasama->mitra->email ?? '-' }}</p>
                               </div>
                               <div>
                                 <p class="text-sm font-medium text-gray-500">Website</p>
                                 <p class="font-semibold">
-                                  @if(isset($kontak) && $kontak->website)
-                                    <a href="{{ $kontak->website }}" target="_blank" class="text-blue-600 hover:underline">
-                                      {{ $kontak->website }}
+                                  @if($kerjasama->mitra && $kerjasama->mitra->website)
+                                    <a href="{{ $kerjasama->mitra->website }}" target="_blank" class="text-blue-600 hover:underline">
+                                      {{ $kerjasama->mitra->website }}
                                     </a>
                                   @else
                                     -

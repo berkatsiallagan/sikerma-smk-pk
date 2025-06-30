@@ -15,12 +15,13 @@ class DataController extends Controller
             'dokumen' => function($query) {
                 $query->whereIn('status', ['Aktif', 'Akan Berakhir']);
             },
-            'mitra.kontak',
+            //'mitra.kontak',
+            'mitra',
             'pemohon' => function($query) {
                 $query->with(['jurusans', 'bidangs']);
             },
             'ajuan',
-            'bidang_kerjasama',
+            'bidangs',
         ])->whereHas('dokumen', function($query) {
             $query->whereIn('status', ['Aktif', 'Akan Berakhir']);
         });

@@ -10,27 +10,17 @@ class LandingController extends Controller
     // Halaman Beranda
     public function index()
     {
-        $jumlahDudiNasional = Kerjasama::whereHas('mitra', function($q) {
-            $q->where('kategori', 'dudi_nasional');
+        $jumlahNasional = Kerjasama::whereHas('mitra', function($q) {
+            $q->where('lingkup', 'Nasional');
         })->count();
 
-        $jumlahDudiInternasional = Kerjasama::whereHas('mitra', function($q) {
-            $q->where('kategori', 'dudi_internasional');
+        $jumlahInternasional = Kerjasama::whereHas('mitra', function($q) {
+            $q->where('lingkup', 'Internasional');
         })->count();
 
-        $jumlahInstansiNasional = Kerjasama::whereHas('mitra', function($q) {
-            $q->where('kategori', 'instansi_nasional');
-        })->count();
-
-        $jumlahInstansiInternasional = Kerjasama::whereHas('mitra', function($q) {
-            $q->where('kategori', 'instansi_internasional');
-        })->count();
-
-        return view('landing', compact(
-            'jumlahDudiNasional',
-            'jumlahDudiInternasional',
-            'jumlahInstansiNasional',
-            'jumlahInstansiInternasional'
+        return view('landing.index', compact(
+            'jumlahNasional',
+            'jumlahInternasional'
         ));
     }
 
@@ -46,5 +36,15 @@ class LandingController extends Controller
     {
         return view('kontak-kami');
     }
-}
 
+    public function kerjasama()
+    {
+        $kerjasamas = \App\Models\Kerjasama::with(['mitra', 'bidangs'])->get();
+        return view('landing.kerjasama', compact('kerjasamas'));
+    }
+
+    public function contact()
+    {
+        return view('landing.contact');
+    }
+}
