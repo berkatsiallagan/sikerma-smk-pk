@@ -182,11 +182,7 @@
                                         <tr>
                                             <td class="fw-bold" style="border-color: #dee2e6;">Bidang Kerjasama</td>
                                             <td style="border-color: #dee2e6;">
-                                                @forelse($kerjasama->bidangs ?? [] as $bidang)
-                                                    {{ $bidang->bidang_kerjasama }}@if(!$loop->last), @endif
-                                                @empty
-                                                    -
-                                                @endforelse
+                                                {{ $kerjasama->bidang->nama_bidang ?? '-' }}
                                             </td>
                                         </tr>
                                         <tr>

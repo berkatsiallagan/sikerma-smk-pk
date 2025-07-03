@@ -27,7 +27,7 @@ class LandingController extends Controller
     // Halaman Info Kerjasama
     public function infoKerjasama()
     {
-        $kerjasama = Kerjasama::with(['mitra', 'bidang', 'jurusan'])->take(10)->get();
+        $kerjasama = Kerjasama::with(['mitra', 'bidang', 'pemohon.jurusans'])->take(10)->get();
         return view('info-kerjasama', compact('kerjasama'));
     }
 
@@ -39,7 +39,7 @@ class LandingController extends Controller
 
     public function kerjasama()
     {
-        $kerjasamas = \App\Models\Kerjasama::with(['mitra', 'bidangs'])->get();
+        $kerjasamas = \App\Models\Kerjasama::with(['mitra', 'bidang', 'pemohon.bidangs', 'pemohon.jurusans'])->get();
         return view('landing.kerjasama', compact('kerjasamas'));
     }
 

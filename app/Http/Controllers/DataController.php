@@ -21,7 +21,6 @@ class DataController extends Controller
                 $query->with(['jurusans', 'bidangs']);
             },
             'ajuan',
-            'bidangs',
         ])->whereHas('dokumen', function($query) {
             $query->whereIn('status', ['Aktif', 'Akan Berakhir']);
         });

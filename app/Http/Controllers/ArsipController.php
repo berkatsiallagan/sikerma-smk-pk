@@ -10,7 +10,7 @@ class ArsipController extends Controller
     public function index(Request $request)
     {
         // Ambil query awal dengan eager loading
-$query = Kerjasama::with(['dokumen', 'mitra', 'pemohon.jurusan', 'bidangs']);
+        $query = Kerjasama::with(['dokumen', 'mitra', 'pemohon.jurusan', 'bidang']);
 
         // Filter berdasarkan pencarian
         if ($request->has('search') && $request->search != '') {
