@@ -88,7 +88,7 @@
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Kata Sandi Baru</label>
                     <div class="relative">
-                        <input type="password" id="password" name="kata_sandi" placeholder="••••••••"
+                        <input type="password" id="password" name="password" placeholder="••••••••"
                                     class="w-full px-4 py-3 border border-gray-200 rounded-lg input-field focus:outline-none focus:border-yellow-400" required />
                                 <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" onclick="togglePassword(this)">
                                     <i class="far fa-eye"></i>
