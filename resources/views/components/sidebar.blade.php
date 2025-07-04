@@ -1,4 +1,4 @@
-<div class="w-60 bg-amber-600 flex flex-col justify-between">
+<div class="w-60 bg-amber-600 flex flex-col justify-between fixed h-full">
   <div>
 <div class="bg-[#4a1a05] text-white font-bold text-sm px-6 py-4 select-none flex items-center gap-3">
   <img src="{{ asset('assets/img/logo-skaju.png') }}" alt="Logo Sikerma" class="w-8 h-10" />

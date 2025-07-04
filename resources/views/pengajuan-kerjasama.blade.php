@@ -47,7 +47,7 @@
 
     <x-sidebar />
 
-    <div class="flex flex-col flex-grow p-4 md:p-8 items-start text-left bg-gray-100">
+    <div class="ml-60 flex-grow p-4 md:p-8 bg-gray-100 min-h-screen">
       <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 mb-6">
         Pengajuan Kerjasama
       </h1>

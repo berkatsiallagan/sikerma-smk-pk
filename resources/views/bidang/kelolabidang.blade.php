@@ -18,7 +18,7 @@
     </main>
   </div>
 
-  <div class="flex flex-col flex-grow p-8 items-start text-left bg-gray-100">
+  <div class="flex flex-col flex-grow pl-60 min-h-screen pr-10 items-start text-left bg-gray-100">
     <h1 class="text-5xl font-extrabold text-gray-800 mb-6">
       DAFTAR BIDANG
     </h1>

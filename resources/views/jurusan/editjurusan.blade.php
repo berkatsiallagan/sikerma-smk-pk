@@ -18,7 +18,7 @@
 </main>
 </div>
 
-  <div class="flex flex-col flex-grow p-8 items-start text-left bg-gray-100">
+  <div class="flex flex-col flex-grow pl-60 min-h-screen pr-10 items-start text-left bg-gray-100">
   <h3 class="text-4xl font-semibold text-gray-800 mb-6">Edit Jurusan</h3>
 
   <main class="bg-white p-6 rounded-3xl w-full">

@@ -17,7 +17,7 @@
 
     <x-sidebar />
 
-    <main class="flex-1 p-6 bg-gray-100">
+    <main class="flex-1 pl-60 min-h-screen bg-gray-100">
       @if(session('success'))
       <div id="success-message" data-message="{{ session('success') }}" style="display:none;"></div>
       <script>

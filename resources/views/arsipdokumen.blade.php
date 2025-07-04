@@ -12,7 +12,7 @@
   <div class="flex min-h-screen">
     <x-sidebar />
 
-    <div class="flex flex-col flex-grow p-8 bg-gray-100 items-start text-left">
+    <div class="flex flex-col flex-grow pl-80 min-h-screen pr-10 bg-gray-100 items-start text-left">
       <h1 class="text-5xl font-extrabold text-gray-800 mb-6">ARSIP DOKUMEN</h1>
 
       <main class="bg-white p-6 rounded-3xl w-full">

@@ -14,7 +14,7 @@
 
     <x-sidebar />
 
-    <main class="flex-1 p-6 bg-gray-100">
+    <main class="flex-1 pl-40 min-h-screen pr-20 bg-gray-100">
         @yield('content')
     </main>
   </div>
