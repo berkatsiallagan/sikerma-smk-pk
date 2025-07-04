@@ -181,29 +181,58 @@
                                         </tr>
                                         <tr>
                                             <td class="fw-bold" style="border-color: #dee2e6;">Bidang Kerjasama</td>
-                                            <td style="border-color: #dee2e6;">
-                                                {{ $kerjasama->bidang->nama_bidang ?? '-' }}
-                                            </td>
+                                    <td style="border-color: #dee2e6;">
+                                 <div class="text-left">{{ $kerjasama->pemohon && $kerjasama->pemohon->bidangs
+              ? $kerjasama->pemohon->bidangs->pluck('nama_bidang')->join(', ')
+              : '' ?? '-' }}</div>
+                                        </td>
+              
+                                               
+                                        
+                                             
                                         </tr>
                                         <tr>
                                             <td class="fw-bold" style="border-color: #dee2e6;">Nomor Kerjasama</td>
-                                            <td style="border-color: #dee2e6;">{{ $kerjasama->dokumen->no_dokumen ?? '-' }}</td>
+                                            <td class="font">{{ $kerjasama->pemohon->no_permohonan ?? '-' }}</td>
                                         </tr>
                                         <tr>
                                             <td class="fw-bold" style="border-color: #dee2e6;">Masa Berlaku</td>
                                             <td style="border-color: #dee2e6;">
-                                                {{ ($kerjasama->dokumen->tgl_mulai ?? '-') }} s.d {{ ($kerjasama->dokumen->tgl_berakhir ?? '-') }}
+                                                {{ ($kerjasama->dokumen->tanggal_mulai ?? '-')->format('d-M-Y') }} s.d {{ ($kerjasama->dokumen->tanggal_selesai ?? '-')->format('d-M-Y') }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="fw-bold" style="border-color: #dee2e6;">Status Kerjasama</td>
                                             <td style="border-color: #dee2e6;">
-                                                @if($kerjasama->dokumen && $kerjasama->dokumen->status == 'aktif')
-                                                    <span class="badge bg-success">Aktif</span>
-                                                @else
-                                                    <span class="badge bg-secondary">Tidak Aktif</span>
-                                                @endif
-                                            </td>
+                                                 @php
+          $tanggalSelesai = $kerjasama->dokumen->tanggal_selesai ?? null;
+          $sisaHari = $tanggalSelesai ? now()->diffInDays(\Carbon\Carbon::parse($tanggalSelesai), false) : null;
+          
+          if ($sisaHari === null) {
+              $statusText = '-';
+              $color = 'gray';
+          } elseif ($sisaHari > 30) {
+              $statusText = 'Aktif';
+              $color = 'green';
+          } elseif ($sisaHari > 0) {
+              $statusText = 'Akan Berakhir';
+              $color = 'yellow';
+          } elseif ($sisaHari > 0) {
+            $statusText = 'Tidak Aktif';
+            $color = 'red';
+          } else {
+              $statusText = 'Kadaluarsa';
+              $color = 'blue';
+          }
+      @endphp
+     <div="px-6 py-4 text-sm bo">
+    <div class="flex justify-left">
+        <button class="bg-{{ $color }}-600 hover:bg-{{ $color }}-500 text-white font-semibold px-4 py-1 rounded-md transition">
+            {{ $statusText }}
+        </button>
+    </div>
+</td>
+
                                         </tr>
                                     </tbody>
                                 </table>
