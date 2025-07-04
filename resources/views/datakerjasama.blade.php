@@ -47,7 +47,7 @@
             <th class="w-[150px] text-left px-4 py-3 font-semibold text-sm">Jurusan</th>
             <th class="w-[150px] text-left px-4 py-3 font-semibold text-sm">Bidang Kerjasama</th>
             <th class="w-[40px] text-left px-4 py-3 font-semibold text-sm">Pemohon</th>
-            <th class="w-[70px] text-center px-4 py-3 font-semibold text-sm">Aksi</th>
+            <th class="w-[100px] text-center px-4 py-3 font-semibold text-sm">Aksi</th>
           </tr>
         </thead>
           <tbody>
@@ -72,10 +72,10 @@
               <td class="px-4 py-4 text-sm border-b border-gray-200">{{ $kerjasama->pemohon->nama_pemohon ?? '-' }}</td>
               <td class="px-4 py-4 text-sm border-b border-gray-200">
                 <div x-data="{ openDetail: false }" class="flex justify-center">
-                  <div class="flex flex-wrap gap-2">
+                  <div class="flex gap-2">
                     <button 
                       @click="confirmStopDocument('{{ $kerjasama->dokumen->id_dokumen }}')" 
-                      class="rounded-md p-2 transition-colors text-white"
+                      class="rounded-md p-1.5 transition-colors text-white"
                       :class="{
                         'bg-red-600 hover:bg-red-400': '{{ $kerjasama->dokumen->status }}' !== 'Tidak Aktif',
                         'bg-gray-400 cursor-not-allowed': '{{ $kerjasama->dokumen->status }}' === 'Tidak Aktif'
