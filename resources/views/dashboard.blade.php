@@ -116,15 +116,34 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $agreement->jenis_kerjasama }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ date('d M Y', strtotime($agreement->dokumen->tanggal_mulai)) }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ date('d M Y', strtotime($agreement->dokumen->tanggal_selesai)) }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                @if($agreement->dokumen->status == 'aktif')
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                @elseif($agreement->dokumen->status == 'kadaluarsa')
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Kadaluarsa</span>
-                @elseif($agreement->dokumen->status == 'tidak aktif')
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Tidak Aktif</span>
-                @endif
-              </td>
+              @php
+                  $tanggalSelesai = $agreement->dokumen->tanggal_selesai ?? null;
+                  $sisaHari = $tanggalSelesai ? now()->diffInDays(\Carbon\Carbon::parse($tanggalSelesai), false) : null;
+          
+                  if ($sisaHari === null) {
+                    $statusText = '-';
+                    $color = 'gray';
+                  } elseif ($sisaHari > 30) {
+                    $statusText = 'Aktif';
+                    $color = 'green';
+                  } elseif ($sisaHari > 0) {
+                    $statusText = 'Akan Berakhir';
+                    $color = 'yellow';
+                  } elseif ($sisaHari > 0) {
+                    $statusText = 'Tidak Aktif';
+                    $color = 'red';
+                  } else {
+                    $statusText = 'Kadaluarsa';
+                    $color = 'blue';
+                  }
+                @endphp
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <div class="flex justify-center">
+                    <button class="bg-{{ $color }}-600 hover:bg-{{ $color }}-500 text-white font-semibold px-4 py-1 rounded-md transition">
+                      {{ $statusText }}
+                    </button>
+                  </div>
+                </td>
             </tr>
             @endforeach
           </tbody>

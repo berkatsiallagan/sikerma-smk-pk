@@ -177,10 +177,10 @@
               
               <!-- Negara -->
               <div class="col-span-1">
-                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Negara</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Lingkup</label>
                 <div class="relative dropdown-container">
                   <button type="button" id="dropdownButton" class="w-full flex justify-between items-center px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                    <span id="dropdownButtonText">Pilih Negara</span>
+                    <span id="dropdownButtonText">Pilih Lingkup</span>
                     <span class="material-icons text-lg transition-transform duration-300">arrow_drop_down</span>
                   </button>
                   <ul id="dropdownList" class="absolute hidden w-full mt-1 bg-white z-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.1)] text-sm">

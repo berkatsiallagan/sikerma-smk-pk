@@ -60,9 +60,9 @@
       <td class="text-center mr-2 text-sm border-b border-gray-200">
         {{ $kerjasama->pemohon->no_permohonan ?? '-' }}
       </td>
-      <td class="px-6 py-4 text-sm">{{ $kerjasama->mitra->nama_mitra ?? '-' }}</td>
-      <td class="px-6 py-4 text-sm">{{ $kerjasama->dokumen->catatan ?? '-' }}</td>
-      <td class="px-6 py-4 text-sm">
+      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->mitra->nama_mitra ?? '-' }}</td>
+      <td class="px-6 py-4 text-sm border-b border-gray-200">{{ $kerjasama->dokumen->catatan ?? '-' }}</td>
+      <td class="px-6 py-4 text-sm border-b border-gray-200">
        @if($kerjasama->dokumen && $kerjasama->dokumen->tanggal_selesai)
         @php
           $tanggalSelesai = \Carbon\Carbon::parse($kerjasama->dokumen->tanggal_selesai);
@@ -98,7 +98,7 @@
               $color = 'blue';
           }
       @endphp
-      <td class="px-6 py-4 text-sm bo">
+      <td class="px-6 py-4 text-sm border-b border-gray-200">
           <div class="flex justify-center">
               <button class="bg-{{ $color }}-600 hover:bg-{{ $color }}-500 text-white font-semibold px-4 py-1 rounded-md transition">
                   {{ $statusText }}

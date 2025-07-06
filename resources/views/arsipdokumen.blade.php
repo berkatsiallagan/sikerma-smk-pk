@@ -86,23 +86,32 @@
 
                 <!-- Kolom Status -->
                 @php
-                    $status = strtolower($kerjasama->dokumen->status ?? '-');
-                    $colorClasses = match($status) {
-                        'aktif' => 'bg-green-600 text-white',
-                        'akan berakhir' => 'bg-yellow-500 text-white',
-                        'tidak aktif' => 'bg-red-600 text-white',
-                        'kadaluarsa' => 'bg-gray-500 text-white',
-                        'berakhir' => 'bg-gray-400 text-white',
-                        default => 'bg-gray-400 text-white'
-                    };
+                  $tanggalSelesai = $kerjasama->dokumen->tanggal_selesai ?? null;
+                  $sisaHari = $tanggalSelesai ? now()->diffInDays(\Carbon\Carbon::parse($tanggalSelesai), false) : null;
+          
+                  if ($sisaHari === null) {
+                    $statusText = '-';
+                    $color = 'gray';
+                  } elseif ($sisaHari > 30) {
+                    $statusText = 'Aktif';
+                    $color = 'green';
+                  } elseif ($sisaHari > 0) {
+                    $statusText = 'Akan Berakhir';
+                    $color = 'yellow';
+                  } elseif ($sisaHari > 0) {
+                    $statusText = 'Tidak Aktif';
+                    $color = 'red';
+                  } else {
+                    $statusText = 'Kadaluarsa';
+                    $color = 'blue';
+                  }
                 @endphp
-
                 <td class="px-6 py-4 text-sm border-b border-gray-200">
-                    <div class="flex justify-center">
-                        <span class="{{ $colorClasses }} font-semibold px-4 py-1 rounded-md whitespace-nowrap">
-                            {{ ucwords($status) }}
-                        </span>
-                    </div>
+                  <div class="flex justify-center">
+                    <button class="bg-{{ $color }}-600 hover:bg-{{ $color }}-500 text-white font-semibold px-4 py-1 rounded-md transition">
+                      {{ $statusText }}
+                    </button>
+                  </div>
                 </td>
 
                 <td class="text-center px-6 py-4 text-sm border-b border-gray-200">
