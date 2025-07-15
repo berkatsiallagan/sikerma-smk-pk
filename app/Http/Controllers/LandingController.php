@@ -39,7 +39,12 @@ class LandingController extends Controller
 
     public function kerjasama()
     {
-        $kerjasamas = \App\Models\Kerjasama::with(['mitra', 'bidang', 'pemohon.bidangs', 'pemohon.jurusans'])->get();
+        $kerjasamas = \App\Models\Kerjasama::with(['mitra', 'bidang', 'pemohon.bidangs', 'pemohon.jurusans', 'dokumen'])
+            ->whereHas('dokumen', function($query) {
+                $query->where('status', 'aktif')
+                      ->whereDate('tanggal_selesai', '>=', now());
+            })
+            ->get();
         return view('landing.kerjasama', compact('kerjasamas'));
     }
 
